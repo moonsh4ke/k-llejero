@@ -1,0 +1,8 @@
+env/
+venv/
+.env
+todo.txt
+todo
+temp
+temp.txt
+node_modules/
