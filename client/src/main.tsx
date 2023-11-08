@@ -6,8 +6,10 @@ import theme from "./theme";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Root from "./routes/root"
-import Login from "./routes/login"
+import Root from "./routes/root";
+import Login from "./routes/login";
+import Licitaciones from "./routes/licitaciones";
+import LicitacionesView from "./routes/licitaciones/LicitacionesView";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />
+      },
+      {
+        path: "/licitaciones",
+        element: <Licitaciones />
+      },
+      {
+        path: "/licitaciones/:code",
+        element: <LicitacionesView />
       }
     ],
   },
