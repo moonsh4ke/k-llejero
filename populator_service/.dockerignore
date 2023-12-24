@@ -1,0 +1,15 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.config
+*.env
+.vscode/
+.idea/
+*.git/
+todo.txt
+temp.txt
+venv/

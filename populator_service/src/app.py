@@ -6,7 +6,6 @@ import os
 import schedule
 
 from typing import Optional, Dict
-from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
 
@@ -14,9 +13,13 @@ from beanie import Document, Indexed, init_beanie
 from datetime import datetime
 from typing import Optional
 
-load_dotenv()
+import nats
+from nats.errors import ConnectionClosedError, TimeoutError, NoServersError
+from nats.aio.client import Client as NATS
+
 MP_TOKEN = os.environ.get("MP_TOKEN")
-MONGO_URI = os.environ.get("MONGO_URI")
+MONGO_URI = os.environ.get("TENDER_MONGODB_URI")
+NATS_URI = os.environ.get("NATS_URI")
 
 
 class Tender(Document):
@@ -50,13 +53,14 @@ def get_tender_list(url) -> list:
             return []
         return data["Listado"]
     except Exception as e:
-        print(e, file=sys.stderr)
+        print(str(e), file=sys.stderr)
         print("error: request went wrong", file=sys.stderr)
         raise Exception
 
 
 async def update_tenders():
-    client = AsyncIOMotorClient()
+    print("[info]: updating tenders")
+    client = AsyncIOMotorClient(MONGO_URI)
 
     await init_beanie(database=client.populator_db, document_models=[Tender])
 
@@ -102,6 +106,7 @@ async def update_tenders():
 
 
 async def insert_new_tenders():
+    print("[info]: inserting new tenders")
     tenders = get_tender_list(
         f"publico/licitaciones.json?estado=activas&ticket={MP_TOKEN}"
     )
@@ -136,13 +141,30 @@ async def insert_new_tenders():
         f"overview: {inserts} records where inserted, operation took {elapsed_time}s."
     )
 
+async def fakeUpdate():
+    nc = NATS()
+    await nc.connect(
+       servers=[str(NATS_URI)],
+       )
+    print("Trying to update tenders")
+    time.sleep(5)
+    print("Updated tenders")
+    await nc.publish("tender:update", b'updated tenders')
+    await nc.close()
+
+
 def cron_job():
-    asyncio.run(insert_new_tenders())
-    asyncio.run(update_tenders())
+    asyncio.run(fakeUpdate())
+    # asyncio.run(insert_new_tenders())
+    # asyncio.run(update_tenders())
+
 
 if __name__ == "__main__":
-    schedule.every(10).minutes.do(cron_job)
+    print("Populator service connected")
+
+    schedule.every(20).seconds.do(cron_job)
 
     while(True):
+        pass
         schedule.run_pending()
         time.sleep(1)

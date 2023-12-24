@@ -7,10 +7,10 @@ dnspython==2.4.2
 idna==3.4
 lazy-model==0.2.0
 motor==3.3.1
+nats-py==2.6.0
 pydantic==2.4.2
 pydantic_core==2.10.1
 pymongo==4.5.0
-python-dotenv==1.0.0
 requests==2.31.0
 schedule==1.2.1
 toml==0.10.2

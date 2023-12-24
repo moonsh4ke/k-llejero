@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tender-mongodb-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tender-mongodb
+  template:
+    metadata:
+      labels:
+        app: tender-mongodb
+    spec:
+      containers:
+        - name: tender-mongodb
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tender-mongodb-srv
+spec:
+  selector:
+    app: tender-mongodb
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

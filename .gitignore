@@ -6,3 +6,5 @@ todo
 temp
 temp.txt
 node_modules/
+.create_cluster_secrets.sh
+backups/
