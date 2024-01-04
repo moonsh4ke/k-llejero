@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tracking-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tracking
+  template:
+    metadata:
+      labels:
+        app: tracking
+    spec:
+      containers:
+        - name: tracking
+          image: hoffens/kllejero-tracking
+          ports:
+            - containerPort: 6969
+          env:
+            - name: ASPNETCORE_URLS
+              value: "http://*:6969"
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tracking-srv
+spec:
+  selector:
+    app: tracking
+  ports:
+    - name: tracking
+      protocol: TCP
+      port: 6969
+      targetPort: 6969

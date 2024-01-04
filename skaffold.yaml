@@ -4,6 +4,16 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
+profiles:
+- name: dev
+  build:
+    artifacts:
+    - image: hoffens/kllejero-tracking
+      context: tracking_service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        infer: []
 build:
   local:
     push: false
@@ -32,9 +42,17 @@ build:
         manual:
           - src: 'src/**/*.py'
             dest: .
+    - image: hoffens/kllejero-tracking
+      context: tracking_service
+      docker:
+        dockerfile: Dockerfile
 
 portForward:
   - resourceType: deployment
     resourceName: auth-depl
     port: 3000
     localPort: 3000
+  - resourceType: deployment
+    resourceName: tracking-depl
+    port: 6969
+    localPort: 6969
