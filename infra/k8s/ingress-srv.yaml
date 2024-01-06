@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-    - host: ticketing.dev
+    - host: kllejero.dev
       http:
         paths:
           - path: /api/users/?(.*)
