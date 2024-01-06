@@ -26,12 +26,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: populator-srv
 spec:
   selector:
-    app: auth
+    app: populator
   ports:
-    - name: auth
+    - name: populator
       protocol: TCP
       port: 3001
       targetPort: 3001
