@@ -146,6 +146,7 @@ async def fakeUpdate():
     await nc.connect(
        servers=[str(NATS_URI)],
        )
+    print(NATS_URI);
     print("Trying to update tenders")
     time.sleep(5)
     print("Updated tenders")

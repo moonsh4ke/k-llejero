@@ -1,4 +1,6 @@
-﻿namespace TrackingServiceAPI
+﻿using TrackingService.Services;
+
+namespace TrackingServiceAPI
 {
     public class Startup
     {
@@ -13,6 +15,8 @@
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
+
+            services.AddTrackingServiceServices(Configuration);
 
             services.AddSwaggerGen();
 

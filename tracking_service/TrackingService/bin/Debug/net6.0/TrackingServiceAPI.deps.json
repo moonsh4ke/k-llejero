@@ -10,18 +10,62 @@
         "dependencies": {
           "Microsoft.Extensions.Options": "8.0.0",
           "Microsoft.Extensions.Primitives": "8.0.0",
-          "Swashbuckle.AspNetCore": "6.5.0"
+          "Swashbuckle.AspNetCore": "6.5.0",
+          "TrackingService.Domain": "1.0.0",
+          "TrackingService.Services": "1.0.0"
         },
         "runtime": {
           "TrackingServiceAPI.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
+          "System.Text.Encodings.Web": "4.5.0"
+        }
+      },
+      "Microsoft.AspNetCore.Http.Features/2.2.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        }
+      },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
+      "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
       "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
         "runtime": {
           "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
+      "Microsoft.Extensions.FileProviders.Abstractions/6.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        }
+      },
+      "Microsoft.Extensions.Hosting.Abstractions/6.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.FileProviders.Abstractions": "6.0.0"
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/6.0.1": {
+        "runtime": {
+          "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.322.12309"
           }
         }
       },
@@ -53,6 +97,91 @@
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
             "assemblyVersion": "1.2.3.0",
             "fileVersion": "1.2.3.0"
+          }
+        }
+      },
+      "NATS.Client.Core/2.0.2": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "6.0.1",
+          "Microsoft.Extensions.Primitives": "8.0.0",
+          "System.IO.Hashing": "6.0.1"
+        },
+        "runtime": {
+          "lib/net6.0/NATS.Client.Core.dll": {
+            "assemblyVersion": "2.0.2.0",
+            "fileVersion": "2.0.2.0"
+          }
+        }
+      },
+      "NATS.Client.Hosting/2.0.2": {
+        "dependencies": {
+          "Microsoft.Extensions.Hosting.Abstractions": "6.0.0",
+          "NATS.Client.Core": "2.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/NATS.Client.Hosting.dll": {
+            "assemblyVersion": "2.0.2.0",
+            "fileVersion": "2.0.2.0"
+          }
+        }
+      },
+      "NATS.Client.JetStream/2.0.2": {
+        "dependencies": {
+          "NATS.Client.Core": "2.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/NATS.Client.JetStream.dll": {
+            "assemblyVersion": "2.0.2.0",
+            "fileVersion": "2.0.2.0"
+          }
+        }
+      },
+      "NATS.Client.KeyValueStore/2.0.2": {
+        "dependencies": {
+          "NATS.Client.JetStream": "2.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/NATS.Client.KeyValueStore.dll": {
+            "assemblyVersion": "2.0.2.0",
+            "fileVersion": "2.0.2.0"
+          }
+        }
+      },
+      "NATS.Client.ObjectStore/2.0.2": {
+        "dependencies": {
+          "NATS.Client.JetStream": "2.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/NATS.Client.ObjectStore.dll": {
+            "assemblyVersion": "2.0.2.0",
+            "fileVersion": "2.0.2.0"
+          }
+        }
+      },
+      "NATS.Client.Services/2.0.2": {
+        "dependencies": {
+          "NATS.Client.Core": "2.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/NATS.Client.Services.dll": {
+            "assemblyVersion": "2.0.2.0",
+            "fileVersion": "2.0.2.0"
+          }
+        }
+      },
+      "NATS.Net/2.0.2": {
+        "dependencies": {
+          "NATS.Client.Core": "2.0.2",
+          "NATS.Client.Hosting": "2.0.2",
+          "NATS.Client.JetStream": "2.0.2",
+          "NATS.Client.KeyValueStore": "2.0.2",
+          "NATS.Client.ObjectStore": "2.0.2",
+          "NATS.Client.Services": "2.0.2"
+        },
+        "runtime": {
+          "lib/net6.0/NATS.Net.dll": {
+            "assemblyVersion": "2.0.2.0",
+            "fileVersion": "2.0.2.0"
           }
         }
       },
@@ -94,7 +223,42 @@
           }
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/6.0.0": {}
+      "System.IO.Hashing/6.0.1": {
+        "runtime": {
+          "lib/net6.0/System.IO.Hashing.dll": {
+            "assemblyVersion": "6.0.0.1",
+            "fileVersion": "6.0.222.6406"
+          }
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
+      "System.Text.Encodings.Web/4.5.0": {},
+      "TrackingService.Domain/1.0.0": {
+        "runtime": {
+          "TrackingService.Domain.dll": {}
+        }
+      },
+      "TrackingService.Repositories/1.0.0": {
+        "dependencies": {
+          "TrackingService.Domain": "1.0.0"
+        },
+        "runtime": {
+          "TrackingService.Repositories.dll": {}
+        }
+      },
+      "TrackingService.Services/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "NATS.Net": "2.0.2",
+          "TrackingService.Domain": "1.0.0",
+          "TrackingService.Repositories": "1.0.0"
+        },
+        "runtime": {
+          "TrackingService.Services.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -103,6 +267,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Nxs7Z1q3f1STfLYKJSVXCs1iBl+Ya6E8o4Oy1bCxJ/rNI44E/0f6tbsrVqAWfB7jlnJfyaAtIalBVxPKUPQb4Q==",
+      "path": "microsoft.aspnetcore.http.abstractions/2.2.0",
+      "hashPath": "microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Http.Features/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ziFz5zH8f33En4dX81LW84I6XrYXKf9jg6aM39cM+LffN9KJahViKZ61dGMSO2gd3e+qe5yBRwsesvyqlZaSMg==",
+      "path": "microsoft.aspnetcore.http.features/2.2.0",
+      "hashPath": "microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
       "type": "package",
       "serviceable": true,
@@ -110,12 +288,40 @@
       "path": "microsoft.extensions.apidescription.server/6.0.5",
       "hashPath": "microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512"
     },
+    "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3lE/iLSutpgX1CC0NOW70FJoGARRHbyKmG7dc0klnUZ9Dd9hS6N/POPWhKhMLCEuNN5nXEY5agmlFtH562vqhQ==",
+      "path": "microsoft.extensions.configuration.abstractions/8.0.0",
+      "hashPath": "microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-cjWrLkJXK0rs4zofsK4bSdg+jhDLTaxrkXu4gS6Y7MAlCvRyNNgwY/lJi5RDlQOnSZweHqoyvgvbdvQsRIW+hg==",
       "path": "microsoft.extensions.dependencyinjection.abstractions/8.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.FileProviders.Abstractions/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0pd4/fho0gC12rQswaGQxbU34jOS1TPS8lZPpkFCH68ppQjHNHYle9iRuHeev1LhrJ94YPvzcRd8UmIuFk23Qw==",
+      "path": "microsoft.extensions.fileproviders.abstractions/6.0.0",
+      "hashPath": "microsoft.extensions.fileproviders.abstractions.6.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Hosting.Abstractions/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GcT5l2CYXL6Sa27KCSh0TixsRfADUgth+ojQSD5EkzisZxmGFh7CwzkcYuGwvmXLjr27uWRNrJ2vuuEjMhU05Q==",
+      "path": "microsoft.extensions.hosting.abstractions/6.0.0",
+      "hashPath": "microsoft.extensions.hosting.abstractions.6.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Logging.Abstractions/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dzB2Cgg+JmrouhjkcQGzSFjjvpwlq353i8oBQO2GWNjCXSzhbtBRUf28HSauWe7eib3wYOdb3tItdjRwAdwCSg==",
+      "path": "microsoft.extensions.logging.abstractions/6.0.1",
+      "hashPath": "microsoft.extensions.logging.abstractions.6.0.1.nupkg.sha512"
     },
     "Microsoft.Extensions.Options/8.0.0": {
       "type": "package",
@@ -137,6 +343,55 @@
       "sha512": "sha512-Nug3rO+7Kl5/SBAadzSMAVgqDlfGjJZ0GenQrLywJ84XGKO0uRqkunz5Wyl0SDwcR71bAATXvSdbdzPrYRYKGw==",
       "path": "microsoft.openapi/1.2.3",
       "hashPath": "microsoft.openapi.1.2.3.nupkg.sha512"
+    },
+    "NATS.Client.Core/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PSqD1Kkp3v6hfaYbRgS3zl+Pc4+/tra5fVy9oR7yH8qIZbgoRkXxOsy+wldnguRs0ISmxEQFTNHl0pnW7Rq+gw==",
+      "path": "nats.client.core/2.0.2",
+      "hashPath": "nats.client.core.2.0.2.nupkg.sha512"
+    },
+    "NATS.Client.Hosting/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Una02L4PiCwk11D54PAjgevtJf+F/Phse7ITVbTaaDQaEFWa/Ebk67h/I27d6sFWGNRqrGYyOS+mk4iTFOT16g==",
+      "path": "nats.client.hosting/2.0.2",
+      "hashPath": "nats.client.hosting.2.0.2.nupkg.sha512"
+    },
+    "NATS.Client.JetStream/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lRgclr1RWyAgNre9jAOvHn/APTQ/ehw7jdu5OLaK9NDLH+ZF6m65EFho9b484abRWAK6ZNoQwBple80ogSkN4w==",
+      "path": "nats.client.jetstream/2.0.2",
+      "hashPath": "nats.client.jetstream.2.0.2.nupkg.sha512"
+    },
+    "NATS.Client.KeyValueStore/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-17is6OXFbeU2atTUvjGcjHssXSJfBxYCHMfZvQBvhnQ6ey5JATZAXMwJmCZ3y2gjEF8en8/caqGT+ue39j6MaQ==",
+      "path": "nats.client.keyvaluestore/2.0.2",
+      "hashPath": "nats.client.keyvaluestore.2.0.2.nupkg.sha512"
+    },
+    "NATS.Client.ObjectStore/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-n5jS/Uk6ZtPa5IOHTEc52kO7AzUjfW3CW5Dqn3U1956moOEpwAKky0r96nVSo+UeLAr7/4yeMLiG5ak5s0Epug==",
+      "path": "nats.client.objectstore/2.0.2",
+      "hashPath": "nats.client.objectstore.2.0.2.nupkg.sha512"
+    },
+    "NATS.Client.Services/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-n0zP5wom0nFl40/pSmIu8W0mIyKhLnvbuyNs/YFfEELT3TOzo2HgnPOSubQIB/8JRsY0ZVh9NgLVn7f5/Y2tOA==",
+      "path": "nats.client.services/2.0.2",
+      "hashPath": "nats.client.services.2.0.2.nupkg.sha512"
+    },
+    "NATS.Net/2.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Eks2Y7IRBewx6zNjFmJrDAjlhNKinMQh0dcx7D7GzlWi2aoBUGcUy/eRZO1IhL8crvMCpaHwP4OyvZo5+fWvsw==",
+      "path": "nats.net/2.0.2",
+      "hashPath": "nats.net.2.0.2.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.5.0": {
       "type": "package",
@@ -166,12 +421,41 @@
       "path": "swashbuckle.aspnetcore.swaggerui/6.5.0",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
     },
+    "System.IO.Hashing/6.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pVe5VujLdulan4S33ODi1MBp+/sGFV9kSTLUxpJZhG32Z3WmTrn2uf1fq1wG9maxYyF/DZzJuxPQrUJErnUyDA==",
+      "path": "system.io.hashing/6.0.1",
+      "hashPath": "system.io.hashing.6.0.1.nupkg.sha512"
+    },
     "System.Runtime.CompilerServices.Unsafe/6.0.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
       "path": "system.runtime.compilerservices.unsafe/6.0.0",
       "hashPath": "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    },
+    "System.Text.Encodings.Web/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Xg4G4Indi4dqP1iuAiMSwpiWS54ZghzR644OtsRCm/m/lBMG8dUBhLVN7hLm8NNrNTR+iGbshCPTwrvxZPlm4g==",
+      "path": "system.text.encodings.web/4.5.0",
+      "hashPath": "system.text.encodings.web.4.5.0.nupkg.sha512"
+    },
+    "TrackingService.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TrackingService.Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TrackingService.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

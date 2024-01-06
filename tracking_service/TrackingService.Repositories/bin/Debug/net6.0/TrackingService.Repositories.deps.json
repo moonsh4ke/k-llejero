@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "TrackingService.Repositories/1.0.0": {
+        "dependencies": {
+          "TrackingService.Domain": "1.0.0"
+        },
+        "runtime": {
+          "TrackingService.Repositories.dll": {}
+        }
+      },
+      "TrackingService.Domain/1.0.0": {
+        "runtime": {
+          "TrackingService.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TrackingService.Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TrackingService.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -8,6 +8,9 @@ async function natsMain() {
     const sub = nc.subscribe("tender:update", {callback: (err, msg) => {
         console.log(`received message [${sub.getProcessed()}]: ${sc.decode(msg.data)}`)
     }})
+    const sub2 = nc.subscribe("tracking:created", {callback: (err, msg) => {
+      console.log(`received message [${sub.getProcessed()}]: ${sc.decode(msg.data)}`)
+  }})
   } catch(err) {
     console.log(`error connecting to nats server`);
   }
