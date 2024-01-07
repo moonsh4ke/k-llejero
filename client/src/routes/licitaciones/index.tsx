@@ -34,6 +34,12 @@ const rows = [
     "Publicada",
     "2023-10-30T18:30:00.000+00:00"
   ),
+  createData(
+    "1509-5-L114",
+    "Insumos Medicos y Medicamentos",
+    "Adjudicada",
+    "2023-10-30T18:30:00.000+00:00"
+  ),
 ];
 
 export default function LicitacionesIndex() {
