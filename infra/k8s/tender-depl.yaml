@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tender-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tender
+  template:
+    metadata:
+      labels:
+        app: tender
+    spec:
+      containers:
+        - name: tender
+          image: moonsh4ke/kllejero-tender
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://tender-mongodb-srv:27017/tender'
+            - name: NATS_URI
+              value: 'nats://nats:4222'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tender-srv
+spec:
+  selector:
+    app: tender
+  ports:
+    - name: tender
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

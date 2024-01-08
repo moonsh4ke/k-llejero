@@ -18,6 +18,22 @@ build:
   local:
     push: false
   artifacts:
+    - image: moonsh4ke/kllejero-tender
+      context: tender_service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: moonsh4ke/kllejero-client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts?(x)'
+            dest: .
     - image: moonsh4ke/kllejero-auth
       context: auth_service
       docker:
@@ -46,3 +62,13 @@ build:
       context: tracking_service
       docker:
         dockerfile: Dockerfile
+
+portForward:
+  - resourceType: deployment
+    resourceName: auth-depl
+    port: 3000
+    localPort: 3000
+  - resourceType: deployment
+    resourceName: tracking-depl
+    port: 6969
+    localPort: 6969
