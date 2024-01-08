@@ -1,0 +1,1026 @@
+[
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ece"
+    },
+    "code": "1000-20-LP23",
+    "name": "Sum. mat. pétreo Ruta Q-677 Comuna Sta. Bárbara.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T18:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ecf"
+    },
+    "code": "1000-25-LE23",
+    "name": "Sum. material pétreo Ruta Q-485Comuna de Antuco.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T18:30:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed0"
+    },
+    "code": "1000-26-LE23",
+    "name": "Suministro de piezas de madera de roble.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T18:30:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed1"
+    },
+    "code": "1000-27-LE23",
+    "name": "Adquisición cajones de hormigón prefabricados H40.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T18:30:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed2"
+    },
+    "code": "1000813-43-LE23",
+    "name": "MANT. Y REPARACIÓN CASINO DE OFICIALES BRIACO",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-31T09:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed3"
+    },
+    "code": "1000813-46-LE23",
+    "name": "Adquisición de cámara de congelación FORA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-06T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed4"
+    },
+    "code": "1001-42-L123",
+    "name": "AHOYADOR CON BARRENO DE 200 MM",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T12:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed5"
+    },
+    "code": "1002588-124-LP23",
+    "name": "Reubicación y habilitación generadores eléctricos",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed6"
+    },
+    "code": "1002588-127-LQ23",
+    "name": "Equipamiento para Liceos Técnico Profesionales.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-31T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed7"
+    },
+    "code": "1002588-130-LQ23",
+    "name": "Mejoramiento eléctrico Colegio Pablo Neruda",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed8"
+    },
+    "code": "1002588-131-LE23",
+    "name": "Servicios para actividades Escuela Manuel de Salas",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ed9"
+    },
+    "code": "1002588-132-LE23",
+    "name": "Servicio para actividades extraescolares",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6eda"
+    },
+    "code": "1002772-126-LR23",
+    "name": "SUMINISTRO DE INSUMOS DE ALIMENTACION ENTERAL",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6edb"
+    },
+    "code": "1002772-127-LR23",
+    "name": "BAJADAS Y SONDAS DE ALIMENT. ENTERAL CON COMODATO",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6edc"
+    },
+    "code": "1002772-130-LR23",
+    "name": "CONVENIO DE SUMINISTRO DE INSUMOS DE ENDOUROLOGIA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6edd"
+    },
+    "code": "1002772-131-LR23",
+    "name": "SUMINISTRO DE INSUMOS PARA PROC. INTERVENCIONISTAS",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-06T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ede"
+    },
+    "code": "1002772-132-LR23",
+    "name": "INSUMOS PARA CIRUGÍAS DE COLOPROCTOLOGÍA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-06T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6edf"
+    },
+    "code": "1002772-135-LE23",
+    "name": "ADQUISICION DE POSICIONADORES ERGONÓMICOS",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee0"
+    },
+    "code": "1002772-136-LP23",
+    "name": "KIT DE INSTALACIÓN PERCUTÁNEA TRAQUEOSTOMÍA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee1"
+    },
+    "code": "1002772-137-LE23",
+    "name": "ADQUISICIÓN DE COLCHONES DE FLOTACIÓN PEDIATRÍA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee2"
+    },
+    "code": "1002772-138-LE23",
+    "name": "SUMINISTRO DE INSUMOS PARA EVALUACION RESPIRATORIA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee3"
+    },
+    "code": "1002772-139-LQ23",
+    "name": "INSUMOS DE ACCESOS VASCULARES ADULTO",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-03T15:59:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee4"
+    },
+    "code": "1002772-140-LP23",
+    "name": "REACTIVOS ANTICUERPOS Y INSUMOS",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-03T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee5"
+    },
+    "code": "1002-80-LE23",
+    "name": "CONVENIO MANTENCION Y CERT. ESTANQUES DE COMBUSTIBLES",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-31T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee6"
+    },
+    "code": "1002-81-LQ23",
+    "name": "RETIRO DE RESIDUOS PELIGROSOS",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-31T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee7"
+    },
+    "code": "1002-82-LE23",
+    "name": "SUMINISTRO MESCLA ASFALTICA OSORNO-ENTRE LAGOS-PASO CARDENAL",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T18:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee8"
+    },
+    "code": "1002-83-LE23",
+    "name": "ADQUISICION DE TAMBORES REFELCTANTES",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T17:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ee9"
+    },
+    "code": "1002-84-LP23",
+    "name": "TUBOS CORRUGADOS HDPE",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-31T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6eea"
+    },
+    "code": "1002-85-LQ23",
+    "name": "SUMINISTRO MESCLA ASFALTICA OSORNO-ENTRE LAGOS-PASO CARDENAL",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6eeb"
+    },
+    "code": "1003473-51-LR23",
+    "name": "CONTRATO DE SUMINISTRO DE BAJADAS DE INFUSION Y OTROS INSUMOS CON EQUIPOS ASOCIADOS",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T15:30:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6eec"
+    },
+    "code": "1003473-74-LE23",
+    "name": "SUMINISTRO DE ANTISÉPTICOS Y DISPENSADOR ASOCIADO",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6eed"
+    },
+    "code": "1003473-76-LQ23",
+    "name": "CONTRATO DE SUMNISTRO DE CATETERES TUNELIZADOS PARA HEMODIALISIS HOSPITAL DE CURICO",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T15:31:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6eee"
+    },
+    "code": "1003473-83-LE23",
+    "name": "CONTRATO DE SUMNISTRO FILTRO DE VENA CAVA PARA EL HOSPITAL SAN JUAN DE DIOS DE CURICO",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T15:30:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6eef"
+    },
+    "code": "1005-22-LQ23",
+    "name": "Contrato Servicio de Mantención y Reparación de Talleres y Boxes de la Dirección de Vialidad - Provincia de Aysén",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T19:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef0"
+    },
+    "code": "1005-24-LE23",
+    "name": "ADQUISICION MADERA COIHUE ",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef1"
+    },
+    "code": "1005498-28-LP23",
+    "name": "Contratar servicios suscripción y soporte software",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef2"
+    },
+    "code": "1007793-18-L123",
+    "name": "Materiales y equipamiento para las asignaturas de mecánica de suelos e Instalaciones domiciliarias  del CFT",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef3"
+    },
+    "code": "1007793-19-L123",
+    "name": "Materiales para asignatura de Taller Electromecánico II del CFT Estatal de la Región de Los Lagos",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T10:33:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef4"
+    },
+    "code": "1013353-59-LR23",
+    "name": "Conservación Estrella de Chile",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T17:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef5"
+    },
+    "code": "1013353-60-LE23",
+    "name": "Adq. Estanterias metalicas EE.EE",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T17:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef6"
+    },
+    "code": "1013353-64-LE23",
+    "name": "CASETA SEGURIDAD LEONARDO DA VINCI Y ALBERTO GALLE",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef7"
+    },
+    "code": "1013353-65-LE23",
+    "name": "ADQUISICIÓN DE CAJAS ESCOLARES PARA ALUMNOS SLEPB",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T20:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef8"
+    },
+    "code": "1013353-67-LE23",
+    "name": "DISEÑO DE PROYECTO DE NORMALIZACION ELECTRICA JI",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T17:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6ef9"
+    },
+    "code": "1013353-68-LE23",
+    "name": "Mejoramiento techumbre e Infra Elvira Santa Cruz",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T15:30:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6efa"
+    },
+    "code": "1013353-69-LE23",
+    "name": "ADQUISICIÓN DE TABLETS ALUMNOS PRO-RETENCIÓN SLEPB",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T18:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6efb"
+    },
+    "code": "1013353-70-LE23",
+    "name": "ADQUISICIÓN MOCHILAS ESCOLARES ALUMNOS PRO-RETENCI",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T17:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6efc"
+    },
+    "code": "1013353-71-LP23",
+    "name": "HABILITACIÓN DE INFRA. DE SALAS JI FRIDA KAHLO",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-09T20:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6efd"
+    },
+    "code": "1016414-25-LE23",
+    "name": "Instalación normalización de cableado estructurado",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-31T15:30:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6efe"
+    },
+    "code": "1017312-39-LQ23",
+    "name": "SERVICIO DE TRASLADO AEROMÉDICO CAMA A CAMA DE PACIENTES PARA EL SISTEMA DE SALUD NAVAL.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-09T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6eff"
+    },
+    "code": "1017312-41-LE23",
+    "name": "SERVICIO PRESTACIONES MEDICAS DE LA ESPECIALIDAD DE OFTALMOLIA VIÑA DEL MAR",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f00"
+    },
+    "code": "1017312-42-LQ23",
+    "name": "SERVICIO ATENCIÓN MÉDICA DE URGENCIA PARA SISAN EN LA REGIÓN DE LA ARAUCANÍA.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-09T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f01"
+    },
+    "code": "1017312-43-LQ23",
+    "name": "SERVICIO ESTUDIOS HISTOPATOLOGICOS E INFORMES DE BIOPSIAS REGIÓN METROPOLITANA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-10T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f02"
+    },
+    "code": "1017312-44-LQ23",
+    "name": "SERVICIO ATENCIÓN MÉDICA DE URGENCIA Y EXÁMENES AMBULATORIOS REGIÓN DE ARICA Y PARINACOTA ",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-13T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f03"
+    },
+    "code": "1017312-45-LE23",
+    "name": "SERVICIO DE ATENCIÓN MÉDICA AMBULATORIA CIUDAD DE ANTOFAGASTA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f04"
+    },
+    "code": "1017312-46-LP23",
+    "name": "SERVICIO ATENCIÓN MÉDICA DE URGENCIA Y EXÁMENES AMBULATORIAS PARA SISAN EN LA REGIÓN DE ÑUBLE.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-17T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f05"
+    },
+    "code": "1017312-47-LE23",
+    "name": "SERVICIO ATENCIÓN MÉDICA AMBULATORIA PARA EL SISTEMA DE SALUD NAVAL EN LA REGIÓN DE AYSÉN.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f06"
+    },
+    "code": "1017312-48-LE23",
+    "name": "SERVICIO DE PROCEDIMIENTOS DIAGNÓSTICOS Y TERAPÉUTICOS REGIÓN DE ARICA Y PARINACOTA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-09T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f07"
+    },
+    "code": "1017312-49-LP23",
+    "name": "SERVICIO DE IMAGENOLOGIA CIUDAD DE COQUIMBO O LA SERENA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-17T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f08"
+    },
+    "code": "1017-6-L123",
+    "name": "Adquisición candados de seguridad para laptop",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f09"
+    },
+    "code": "1019183-1-L123",
+    "name": "Adquisición de Modelos Anatómicos de la Facultad de Medicina de la Universidad de Atacama.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T15:12:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f0a"
+    },
+    "code": "1019-77-LR23",
+    "name": "ADQUISICIÓN DE EQUIPOS PARA LA RED HIDROMÉTRICA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T17:41:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f0b"
+    },
+    "code": "1019-81-LE23",
+    "name": "ADQUISICIÓN DE EQUIPO MÓVIL PARA CONTEO",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f0c"
+    },
+    "code": "1019-83-LE23",
+    "name": "ADQUISICIÓN DE REPUESTOS AQUACALC MOLINETES Y TOR",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T17:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f0d"
+    },
+    "code": "1019-84-L123",
+    "name": "ADQUISICIÓN DE SONDA MULTIPARAMÉTRICA PARA LA DIVISIÓN DE ESTUDIOS Y PLANIFICACIÓN",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f0e"
+    },
+    "code": "1019-85-LP23",
+    "name": "HORAS DE VUELO EN HELICÓPTERO PARA LA CONSERVACION",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-08T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f0f"
+    },
+    "code": "1019-86-LE23",
+    "name": "ADQUISICIÓN DE AQUACALC 5000 PARA LA DIVISIÓN DE H",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T16:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f10"
+    },
+    "code": "1019-87-LE23",
+    "name": "ADQ DE MOLINETES GURLEY 622 Y 625 O EQUIVAlENTE",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T16:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f11"
+    },
+    "code": "1019-88-LE23",
+    "name": "ADQUISICION DE TELEFONOS SATELITALES",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f12"
+    },
+    "code": "1019-89-L123",
+    "name": "ADQUISICIÓN DE HERRAMIENTAS Y ACCESORIOS PARA LA MANTENCIÓN DE EQUIPOS SATELITALES",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f13"
+    },
+    "code": "1019-91-LE23",
+    "name": "ADQUISICIÓN DE ESTRUCTURAS  METÁLICAS",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T16:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f14"
+    },
+    "code": "1020-100-LE23",
+    "name": "Adq. Equipos Videoconferencia Dependencias SOP",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f15"
+    },
+    "code": "1020-101-L123",
+    "name": "Contratación de Seguros todo riesgo sin deducible para vehículos Fiscales de la SOP",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f16"
+    },
+    "code": "1020-103-LE23",
+    "name": "REGULARIZACION SISTEMA ELECTRICO Y GAS EL TABO",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f17"
+    },
+    "code": "1020-104-LE23",
+    "name": "Adquisición de nuevas licencias Microstrategy para el MOP. ",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-15T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f18"
+    },
+    "code": "1020-105-LE23",
+    "name": "SOFTWARE DE ANÁLISIS Y RECUPERACION DE ARCHIVOS",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f19"
+    },
+    "code": "1020-106-LE23",
+    "name": "Sillas Ergonómicas para la SOP Nivel Central",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-03T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f1a"
+    },
+    "code": "1020-107-L123",
+    "name": "adquisición de Protector Acrilico de Pisos",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-03T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f1b"
+    },
+    "code": "1020-108-LE23",
+    "name": "Consultoría Diálogos Participativos",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-31T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f1c"
+    },
+    "code": "1020-59-LR23",
+    "name": "SERVICIO ASEO DIRECCIÓN VIALIDAD MOP 2023 - 2026",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-31T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f1d"
+    },
+    "code": "1020-75-LR23",
+    "name": "PUENTES MECANOS EMERGENCIA NUEVOS SIN USO DV MOP",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-06T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f1e"
+    },
+    "code": "1020-87-LR23",
+    "name": "Adq. 12 Puentes Mecano Definitivos Vialidad MOP.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-12-06T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f1f"
+    },
+    "code": "1020-89-LR23",
+    "name": "Adquisición Pasarelas Mecano de Emergencia",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-22T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f20"
+    },
+    "code": "1020-95-LR23",
+    "name": "Adquisición de Maquinarias y Vehículos Productivos nuevos sin uso para Dirección Vialidad",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-03T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f21"
+    },
+    "code": "1020-98-LE23",
+    "name": "Servicio de Desinstalación y retiro de torniquetes existentes la Provisión e Instalación de nuevos torniquetes y el Mantenimiento del Sistema de Control de Accesos al Edificio Central Ministerio de Obras Públicas”.",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-31T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f22"
+    },
+    "code": "1020-99-LE23",
+    "name": "Serv. de Ingeniería de Infraestructura para el MOP",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-02T15:01:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f23"
+    },
+    "code": "1021609-19-LQ23",
+    "name": "CONVENIO DE SUMINISTRO VICIOS DE REFRACCION GES",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-26T10:02:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f24"
+    },
+    "code": "1021609-20-LQ23",
+    "name": "CONVENIO DE SUMINISTRO DE SUTURAS QUIRURGICAS",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-11-15T18:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f25"
+    },
+    "code": "1021609-21-LP23",
+    "name": "SERVICIO EXTERNO DE LABORATORIO DE REHABILITACION ORAL PROTESIS REMOVIBLES DENTALES ",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T18:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f26"
+    },
+    "code": "1024-22-LQ23",
+    "name": "SUMINISTRO BASE ESTABILIZADA DV REGION TARAPACA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T17:30:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f27"
+    },
+    "code": "1024-26-LE23",
+    "name": "ADQUISICION DE NEUMATICOS DRV REGION DE TARAPACA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f28"
+    },
+    "code": "1024-36-LE23",
+    "name": "CONTRATO EPP ESPECIFICOS",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-25T15:00:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f29"
+    },
+    "code": "1024-37-LE23",
+    "name": "CONTRATO LUMINARIAS PLAZA DE PESAJE HUARA",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T17:31:00.000Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "65385fbd846ab9e71ede6f2a"
+    },
+    "code": "1026-22-LP23",
+    "name": "Servicio  de Rodillo Cilindrico",
+    "stateCode": 5,
+    "endDate": {
+      "$date": "2023-10-30T15:10:00.000Z"
+    }
+  }
+]
+

@@ -18,6 +18,14 @@ build:
   local:
     push: false
   artifacts:
+    - image: moonsh4ke/kllejero-tender
+      context: tender_service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: moonsh4ke/kllejero-client
       context: client
       docker:
