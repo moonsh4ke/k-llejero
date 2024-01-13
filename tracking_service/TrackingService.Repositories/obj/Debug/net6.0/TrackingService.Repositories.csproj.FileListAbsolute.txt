@@ -1,4 +1,5 @@
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\bin\Debug\net6.0\TrackingService.Repositories.deps.json
+D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\bin\Debug\net6.0\TrackingService.Repositories.runtimeconfig.json
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\bin\Debug\net6.0\TrackingService.Repositories.dll
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\bin\Debug\net6.0\TrackingService.Repositories.pdb
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\bin\Debug\net6.0\TrackingService.Domain.dll
@@ -12,4 +13,5 @@ D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingS
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.dll
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\refint\TrackingService.Repositories.dll
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.pdb
+D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.genruntimeconfig.cache
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\ref\TrackingService.Repositories.dll

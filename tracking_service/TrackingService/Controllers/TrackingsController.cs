@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI.Common;
+using TrackingService.Domain.DTOs;
 using TrackingService.Services.Tracking;
 
 namespace TrackingServiceAPI.Controllers;
@@ -13,9 +15,11 @@ public class TrackingsController : ControllerBase
         _trackingService = trackingService;
     }
 
-    public IActionResult Index()
+    [HttpGet]
+    public async Task<IActionResult> Get()
     {
-        return StatusCode(200, "Hello world!!!");
+        var result = await _trackingService.GetTrackingsByUser("nicolas.fernandez.r@usach.cl");
+        return StatusCode(result.StatusCode, result);
     }
 
     /*
@@ -28,7 +32,7 @@ public class TrackingsController : ControllerBase
     [HttpPost("{tenderId}")]
     public async Task<IActionResult> Create(string tenderId)
     {
-        await _trackingService.CreateTracking(tenderId, "nicolas.fernandez.r@usach.cl");
-        return StatusCode(200, $"Created tracking for {tenderId}");
+        var result = await _trackingService.CreateTracking(tenderId, "nicolas.fernandez.r@usach.cl");
+        return StatusCode(result.StatusCode, result);
     }
 }

@@ -20,6 +20,8 @@ spec:
           env:
             - name: ASPNETCORE_URLS
               value: "http://*:6969"
+            - name: DB_CONNECTION_STRING
+              value: "server=tracking-mysql-db;port=3306;database=tracking-db;user=root;password=MU53F3fUAq"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

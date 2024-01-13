@@ -14,6 +14,12 @@ profiles:
         dockerfile: Dockerfile
       sync:
         infer: []
+    - image: hoffens/kllejero-notification
+      context: notification_service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        infer: []
 build:
   local:
     push: false
@@ -62,6 +68,10 @@ build:
       context: tracking_service
       docker:
         dockerfile: Dockerfile
+    - image: hoffens/kllejero-notification
+      context: notification_service
+      docker:
+        dockerfile: Dockerfile
 
 portForward:
   - resourceType: deployment
@@ -72,3 +82,7 @@ portForward:
     resourceName: tracking-depl
     port: 6969
     localPort: 6969
+  - resourceType: deployment
+    resourceName: notification-depl
+    port: 7070
+    localPort: 7070

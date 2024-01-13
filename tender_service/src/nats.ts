@@ -7,7 +7,7 @@ async function natsMain() {
     console.log(`connected to ${nc.getServer()}`);
     const sub = nc.subscribe("tender:update", {callback: (err, msg) => {
         console.log(`received message [${sub.getProcessed()}]: ${sc.decode(msg.data)}`)
-        nc.publish("tracking:tender_update", msg.data)
+        nc.publish("tracking:tender_update", /*msg.data*/"1000-20-LP23")
     }})
   } catch(err) {
     console.log(`error connecting to nats server`);

@@ -2,8 +2,8 @@
 {
     public class CategoryTracking
     {
-        public Guid Id { get; set; }
-        public Guid TrackingId { get; set; }
+        public string Id { get; set; }
+        public string TrackingId { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedDate { get; set; }
     }

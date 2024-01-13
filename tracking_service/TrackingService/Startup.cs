@@ -1,4 +1,6 @@
-﻿using TrackingService.Services;
+﻿using Microsoft.Extensions.Configuration;
+using TrackingService.Repositories;
+using TrackingService.Services;
 
 namespace TrackingServiceAPI
 {
@@ -17,10 +19,11 @@ namespace TrackingServiceAPI
             services.AddEndpointsApiExplorer();
 
             services.AddTrackingServiceServices(Configuration);
-
-            services.AddSwaggerGen();
+            services.AddTrackingServiceRepository(Configuration);
 
             // add more services here
+
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

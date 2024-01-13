@@ -2,7 +2,7 @@
 {
     public class Tracking
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Id { get; set; }
         public string TenderId { get; set; }
         public string UserId { get; set; }
         public int TrackingStatusId { get; set; }

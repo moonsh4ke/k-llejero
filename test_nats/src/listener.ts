@@ -11,6 +11,12 @@ async function natsMain() {
     const sub2 = nc.subscribe("tracking:created", {callback: (err, msg) => {
       console.log(`received message [${sub.getProcessed()}]: ${sc.decode(msg.data)}`)
   }})
+  const sub3 = nc.subscribe("notification:tracking_update", {callback: (err, msg) => {
+    console.log(`received message [${sub3.getProcessed()}]: ${sc.decode(msg.data)}`)
+  }})
+  const sub4 = nc.subscribe("notification:tracking_notify", {callback: (err, msg) => {
+    console.log(`received message [${sub4.getProcessed()}]: ${sc.decode(msg.data)}`)
+  }})
   } catch(err) {
     console.log(`error connecting to nats server`);
   }
