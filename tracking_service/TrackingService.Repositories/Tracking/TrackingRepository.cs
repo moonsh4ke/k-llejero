@@ -23,6 +23,7 @@ public class TrackingRepository : ITrackingRepository
 
     public async Task<ICollection<TrackingByTendersDto>> GetTrackingsByTenders(string[] tendersIds)
     {
+        Console.WriteLine("ENTRO");
         var query = await (from tracking in _dbContext.Trackings
                      where tendersIds.Contains(tracking.TenderId)
                      && tracking.TrackingStatusId != (int)TrackingStatusOptions.Deleted

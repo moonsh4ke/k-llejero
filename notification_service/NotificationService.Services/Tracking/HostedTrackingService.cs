@@ -28,7 +28,7 @@ public class HostedTrackingService : IHostedTrackingService
                 {
                     var dataResult = JsonSerializer.Deserialize<List<TestDto>>(msg.Data);
 
-                    List<Task> tasks = new ();
+                    List<Task> tasks = new();
 
                     foreach (var data in dataResult)
                     {

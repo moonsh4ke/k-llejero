@@ -38,23 +38,37 @@ public class HostedTenderService : IHostedTenderService
                 {
                     // todo: change it
                     var updatedTenders = JsonSerializer.Deserialize<List<TendersDto>>(msg.Data);
+                    var serialize = JsonSerializer.Serialize(updatedTenders);
 
-                    if (updatedTenders is null)
+                    Console.WriteLine($"DATA => {serialize}");
+
+                    if (updatedTenders is null || !updatedTenders.Any())
                     {
+                        Console.WriteLine("NO HAY DATA: updatedTenders");
                         continue;
                     }
 
-                    var tenderIds = updatedTenders?.Select(data => data.Id).ToArray();
+                    var tenderIds = updatedTenders?.Select(data => data.id).ToArray();
 
-                    if (tenderIds is null)
+                    if (tenderIds is null || !tenderIds.Any())
                     {
+                        Console.WriteLine("NO HAY DATA: tenderIds");
                         continue;
                     }
+
+                    var stringxd = "";
+                    foreach (var id in tenderIds)
+                    {
+                        stringxd += $"{id} ";
+                    }
+
+                    Console.WriteLine($"tenderIds: {tenderIds}");
 
                     var trackings = await _trackingService.GetTrackingsByTenders(tenderIds);
 
                     if (trackings is null || !trackings.Data.Any())
                     {
+                        Console.WriteLine("NO HAY DATA: trackings");
                         continue;
                     }
 
