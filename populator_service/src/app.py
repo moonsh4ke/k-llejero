@@ -17,6 +17,8 @@ import nats
 from nats.errors import ConnectionClosedError, TimeoutError, NoServersError
 from nats.aio.client import Client as NATS
 
+import json
+
 MP_TOKEN = os.environ.get("MP_TOKEN")
 MONGO_URI = os.environ.get("TENDER_MONGODB_URI")
 NATS_URI = os.environ.get("NATS_URI")
@@ -141,31 +143,69 @@ async def insert_new_tenders():
         f"overview: {inserts} records where inserted, operation took {elapsed_time}s."
     )
 
+
 async def fakeUpdate():
     nc = NATS()
     await nc.connect(
-       servers=[str(NATS_URI)],
-       )
-    print(NATS_URI);
+        servers=[str(NATS_URI)],
+    )
+
+    tenders1 = [
+        {"id": "1021609-21-LP23", "updatedState": 8},
+        {"id": "1024-22-LQ23", "updatedState": 8},
+        {"id": "1024-37-LE23", "updatedState": 8},
+    ]
+
+    tenders2 = [
+        {"id": "1024-26-LE23", "updatedState": 8},
+        {"id": "1024-36-LE23", "updatedState": 8},
+    ]
+
+    tenders3 = [
+        {"id": "1026-22-LP23", "updatedState": 8},
+        {"id": "1000-25-LE23", "updatedState": 8},
+        {"id": "1000813-43-LE23", "updatedState": 8},
+    ]
+
+    print(NATS_URI)
+
     print("Trying to update tenders")
     time.sleep(5)
-    print("Updated tenders")
-    await nc.publish("tender:update", b'updated tenders')
+    print(f"Updated tenders {tenders1}")
+    await nc.publish("tender:update", json.dumps(tenders1).encode("utf-8"))
+    await nc.flush()
+    time.sleep(10)
+
+    print("Trying to update tenders")
+    time.sleep(5)
+    print(f"Updated tenders {tenders1}")
+    await nc.publish("tender:update", json.dumps(tenders2).encode("utf-8"))
+    await nc.flush()
+    time.sleep(10)
+
+    print("Trying to update tenders")
+    time.sleep(5)
+    print(f"Updated tenders {tenders3}")
+    await nc.publish("tender:update", json.dumps(tenders3).encode("utf-8"))
+    await nc.flush()
+    time.sleep(10)
+
+
     await nc.close()
 
 
 def cron_job():
-    asyncio.run(fakeUpdate())
-    # asyncio.run(insert_new_tenders())
-    # asyncio.run(update_tenders())
+    asyncio.run(insert_new_tenders())
+    asyncio.run(update_tenders())
 
 
 if __name__ == "__main__":
     print("Populator service connected")
 
-    schedule.every(20).seconds.do(cron_job)
+    time.sleep(60)
+    asyncio.run(fakeUpdate())
+    # schedule.every(20).seconds.do(cron_job)
 
-    while(True):
-        pass
-        schedule.run_pending()
-        time.sleep(1)
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)
