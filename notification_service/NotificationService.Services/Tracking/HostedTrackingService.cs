@@ -26,8 +26,17 @@ public class HostedTrackingService : IHostedTrackingService
 
                 await foreach (var msg in result.Msgs.ReadAllAsync())
                 {
-                    var data = JsonSerializer.Deserialize<TestDto>(msg.Data);
-                    await _connection.PublishAsync("notification:tracking_notify", $"La licitación {data?.TenderId ?? "NULL"} cambió de estado!");
+                    var dataResult = JsonSerializer.Deserialize<List<TestDto>>(msg.Data);
+
+                    List<Task> tasks = new ();
+
+                    foreach (var data in dataResult)
+                    {
+                        var publishTask = Task.Run(() => _connection.PublishAsync("notification:tracking_notify", $"Atención usuario {data?.UserId}!!! La licitación {data?.TenderId ?? "NULL"} cambió de estado a {data?.TenderNewState ?? "NULL"}"));
+                        tasks.Add(publishTask);
+                    }
+
+                    await Task.WhenAll(tasks);
                 }
             }
         }

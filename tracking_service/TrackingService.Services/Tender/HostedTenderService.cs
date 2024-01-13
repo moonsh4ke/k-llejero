@@ -37,21 +37,39 @@ public class HostedTenderService : IHostedTenderService
                 await foreach (var msg in result.Msgs.ReadAllAsync())
                 {
                     // todo: change it
-                    string[] tendersIds = new string[] { msg.Data ?? "" };
+                    var updatedTenders = JsonSerializer.Deserialize<List<TendersDto>>(msg.Data);
 
-                    var trackings = await _trackingService.GetTrackingsByTenders(tendersIds);
+                    if (updatedTenders is null)
+                    {
+                        continue;
+                    }
+
+                    var tenderIds = updatedTenders?.Select(data => data.Id).ToArray();
+
+                    if (tenderIds is null)
+                    {
+                        continue;
+                    }
+
+                    var trackings = await _trackingService.GetTrackingsByTenders(tenderIds);
 
                     if (trackings is null || !trackings.Data.Any())
                     {
                         continue;
                     }
 
-                    TestDto payload = new()
+                    var payload = new List<TestDto>();
+
+                    foreach (var tracking in trackings.Data)
                     {
-                        TrackingId = trackings.Data.ToList()[0].TrackingId.ToString(),
-                        TenderId = trackings.Data.ToList()[0].TenderId.ToString(),
-                        UserId = trackings.Data.ToList()[0].UserEmail.ToString(),
-                    };
+                        payload.Add(new()
+                        {
+                            TrackingId = tracking.TrackingId,
+                            TenderId = tracking.TenderId,
+                            UserId = tracking.UserEmail,
+                            TenderNewState = "Adjudicada",
+                        });
+                    }
 
                     // Notify notification service
                     await _connection.PublishAsync("notification:tracking_update", JsonSerializer.Serialize(payload));
