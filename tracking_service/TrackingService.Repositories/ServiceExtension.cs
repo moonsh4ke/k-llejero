@@ -16,6 +16,12 @@ public static class ServiceExtension
             options.UseMySQL(connectionString);
         });
 
+
+        // TODO: FIX IT
+        var test = services.BuildServiceProvider().GetRequiredService<ApplicationDbContext>();
+
+        test.Database.Migrate();
+
         services.AddScoped<ITrackingRepository, TrackingRepository>();
     }
 }

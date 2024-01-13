@@ -19,7 +19,7 @@ RUN dotnet restore ./TrackingService.sln
 RUN dotnet publish ./TrackingService.sln -c Release -o out
 
 # Ejecutar migraciones de Entity Framework
-RUN /root/.dotnet/tools/dotnet-ef database update --project ../TrackingService.Repositories/TrackingService.Repositories.csproj
+#RUN /root/.dotnet/tools/dotnet-ef database update --project ../TrackingService.Repositories/TrackingService.Repositories.csproj
 
 # Imagen de base para ejecutar la aplicación
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
