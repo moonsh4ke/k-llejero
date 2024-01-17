@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 import {
   Container,
@@ -11,6 +11,9 @@ import {
   Paper,
   Link,
 } from "@mui/material";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext } from "react";
+import AuthMiddleware from "../../components/AuthMiddleware";
 
 function createData(
   code: string,
@@ -44,7 +47,9 @@ const rows = [
 
 export default function LicitacionesIndex() {
   const navigate = useNavigate();
+  const tenders = useLoaderData();
   return (
+  <AuthMiddleware>
     <Container>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -57,7 +62,7 @@ export default function LicitacionesIndex() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {tenders.map((row) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -70,13 +75,14 @@ export default function LicitacionesIndex() {
                 </Link>
                 </TableCell>
                 <TableCell align="right">{row.name}</TableCell>
-                <TableCell align="right">{row.state_code}</TableCell>
-                <TableCell align="right">{row.end_date}</TableCell>
+                <TableCell align="right">{row.stateCode}</TableCell>
+                <TableCell align="right">{row.endDate}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
     </Container>
+  </AuthMiddleware>
   );
 }

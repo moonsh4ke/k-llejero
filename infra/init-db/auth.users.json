@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "65a6fb529733983c4840efa0"
+  },
+  "email": "odi@mail.com",
+  "password": "75e6baaafc1374d4a6d3c603ee2dd5295614f49c850b4607e5b10e56a9e09ff5ef40675a7ae0bc4a0b5bdb0e5840bc01456540dbee496d63dce4d4e732739be6.ec76cc38ff177eda",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a6fbdf9733983c4840efa3"
+  },
+  "email": "nicolas.fernandez.r@usach.cl",
+  "password": "d4947ac4f912dd3e56b82cbf3fa705304a2f7f7cd4f1a06216f99365dd3c7751de03f8527c462f8745f8b419ac8c1e03c4765a3122c36ec2f3b12396a665a169.5b18aec2f8aa1935",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a6fc089733983c4840efa6"
+  },
+  "email": "martin.cespedes@usach.cl",
+  "password": "6fa43b6d275d20db902c9ad048e65ecbddffd7fe148e69f30acbfd4298b0aa52fee24eef73da1095b89e239e525bf518798766c2b36dc36da534166fcdf51966.e32f0b0ce1b79f85",
+  "__v": 0
+}]
