@@ -1,25 +1,32 @@
 import { Alert, AlertTitle, TextField, Button, Link, InputAdornment } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import KeyIcon from "@mui/icons-material/Key";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axiosClient from "../../utils/axiosClient";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([])
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext)!;
 
   const handleSubmit = async () => {
     const data = { email, password };
-    axiosClient
-      .post("/signin", data)
-      .then((res) => {
-        setErrors([]);
-      })
-      .catch((err) => {
+
+    try {
+      await axiosClient.post("https://kllejero.dev/api/auth/signin", data)
+      const res = await axiosClient.get("https://kllejero.dev/api/auth/currentUser");
+      const currentUser = res.data;
+      setErrors([]);
+      login(currentUser);
+      navigate("/licitaciones");
+    } catch(err: any) {
         console.log(err.response);
         setErrors(err.response.data);
-      });
+    }
   };
 
   return (
@@ -57,7 +64,7 @@ export default function LoginForm() {
         <Alert sx={{mb: 2}} severity="error">
           <AlertTitle>Authetication error</AlertTitle>
           <ul>
-            {errors.map(err => <li>{err.message}</li>)}
+            {errors.map((err: any) => <li key={err.message}>{err.message}</li>)}
           </ul>
         </Alert>
       }
