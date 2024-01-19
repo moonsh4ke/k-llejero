@@ -15,10 +15,11 @@ export default function LoginForm() {
 
   const handleSubmit = async () => {
     const data = { email, password };
+    const apiUrl = 'http://localhost:3000';
 
     try {
-      await axiosClient.post("https://kllejero.dev/api/auth/signin", data)
-      const res = await axiosClient.get("https://kllejero.dev/api/auth/currentUser");
+      await axiosClient.post("https://kllejero.dev/api/auth/signin"/*`${apiUrl}/signin`*/ , data)
+      const res = await axiosClient.get(`https://kllejero.dev/api/auth/currentUser`);
       const currentUser = res.data;
       setErrors([]);
       login(currentUser);

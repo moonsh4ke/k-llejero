@@ -43,7 +43,7 @@ export default function Sidebar({
         </DrawerHeader>
         <Divider />
         <List>
-          {['Licitaciones', 'Seguimientos', 'Usuarios', 'Reportes'].map((text, index) => (
+          {['Licitaciones', 'trackings', 'Usuarios', 'Reportes'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>

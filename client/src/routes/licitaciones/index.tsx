@@ -10,10 +10,13 @@ import {
   TableRow,
   Paper,
   Link,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import AuthMiddleware from "../../components/AuthMiddleware";
+import axios from "axios";
 
 function createData(
   code: string,
@@ -48,13 +51,42 @@ const rows = [
 export default function LicitacionesIndex() {
   const navigate = useNavigate();
   const tenders = useLoaderData();
+  const [showSnackbar, setShowSnackbar] = useState(false);
+
+  const createTracking = async (tenderId: string) => {
+    try {
+      const endpoint = `https://kllejero.dev/api/tracking/api/trackings/${tenderId}`;
+      const resp = await axios.post(endpoint);
+      console.log(resp.data);
+    } catch (error) {
+      console.error(`createTracking error => ${error}`);
+    }
+  }
+
+  const handleSnackbarClose = () => {
+    setShowSnackbar(!showSnackbar);
+  }
+
   return (
   <AuthMiddleware>
+    {showSnackbar &&
+      <Snackbar open={showSnackbar} autoHideDuration={3000} onClose={handleSnackbarClose}>
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          Seguimiento creado correctamente!
+        </Alert>
+      </Snackbar>
+    }
     <Container>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell>Acciones</TableCell>
               <TableCell>Código</TableCell>
               <TableCell align="right">Nombre</TableCell>
               <TableCell align="right">Estado</TableCell>
@@ -67,6 +99,13 @@ export default function LicitacionesIndex() {
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
+                <TableCell component="th" scope="row">
+                  <Link
+                    onClick={() => createTracking(row.code)}
+                  >
+                    Seguir
+                  </Link>
+                </TableCell>
                 <TableCell component="th" scope="row">
                 <Link
                   onClick={()=>navigate(`/licitaciones/${row.code}`)}

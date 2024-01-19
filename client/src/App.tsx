@@ -9,6 +9,7 @@ import Root from "./routes/root";
 import { CurrentUser } from './utils/types/types';
 import axiosClient from './utils/axiosClient';
 import ErrorHandler from './shared/error/ErrorHandler';
+import TrackingsView from './routes/trackings/TrackingsView';
 
 const router = createBrowserRouter([
   {
@@ -20,13 +21,17 @@ const router = createBrowserRouter([
         path: "/licitaciones",
         element: <Licitaciones />,
         loader: async () => {
-          const tenderRes = await axiosClient.get("https://kllejero.dev/api/tender");
+          const tenderRes = await axiosClient.get("https://kllejero.dev/api/tender" /*'http://localhost:3000/tender'*/);
           return tenderRes.data;
         },
       },
       {
         path: "/licitaciones/:code",
         element: <LicitacionesView />
+      },
+      {
+        path: "/trackings",
+        element: <TrackingsView />
       }
     ],
   },
@@ -44,13 +49,13 @@ export default function App() {
   }
 
   const logout = async () => {
-    await axiosClient.post("https://kllejero.dev/api/auth/signout");
+    await axiosClient.post("https://kllejero.dev/api/auth/signout" /*'http://localhost:3000/signout'*/);
     setCurrentUser(undefined);
   }
 
   useEffect(() => {
     const getCurrentUser = async () => {
-      setCurrentUser(await axiosClient.get("https://kllejero.dev/api/auth/currentUser"));
+      setCurrentUser(await axiosClient.get("https://kllejero.dev/api/auth/currentUser"/*'http://localhost:3000/currentUser'*/));
     }
     getCurrentUser();
   }, [])

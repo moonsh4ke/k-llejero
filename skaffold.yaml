@@ -72,17 +72,3 @@ build:
       context: notification_service
       docker:
         dockerfile: Dockerfile
-
-portForward:
-  - resourceType: deployment
-    resourceName: auth-depl
-    port: 3000
-    localPort: 3000
-  - resourceType: deployment
-    resourceName: tracking-depl
-    port: 6969
-    localPort: 6969
-  - resourceType: deployment
-    resourceName: notification-depl
-    port: 7070
-    localPort: 7070

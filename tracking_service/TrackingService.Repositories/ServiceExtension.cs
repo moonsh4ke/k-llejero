@@ -24,14 +24,14 @@ public static class ServiceExtension
 
         test.Database.Migrate();
 
-        var fakeTrackings = CreateFakeTrackings();
+        //var fakeTrackings = CreateFakeTrackings();
 
-        foreach (var fakeTracking in fakeTrackings)
-        {
-            test.Add(fakeTracking);
-        }
+        //foreach (var fakeTracking in fakeTrackings)
+        //{
+        //    test.Add(fakeTracking);
+        //}
 
-        test.SaveChanges();
+        //test.SaveChanges();
 
         services.AddScoped<ITrackingRepository, TrackingRepository>();
     }

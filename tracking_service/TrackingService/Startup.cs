@@ -34,7 +34,7 @@ namespace TrackingServiceAPI
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
