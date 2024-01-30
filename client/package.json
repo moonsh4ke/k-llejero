@@ -16,7 +16,8 @@
     "axios": "^1.6.0",
     "react": "latest",
     "react-dom": "latest",
-    "react-router-dom": "^6.18.0"
+    "react-router-dom": "^6.18.0",
+    "react-signalr": "^0.2.18"
   },
   "devDependencies": {
     "@types/react": "latest",

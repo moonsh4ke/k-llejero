@@ -3,7 +3,6 @@ using Microsoft.Extensions.Hosting;
 using NATS.Client.Core;
 using System.Text.Json;
 using TrackingService.Domain.DTOs;
-using TrackingService.Domain.DTOs.Tracking;
 using TrackingService.Repositories;
 using TrackingService.Services.Tracking;
 
@@ -33,6 +32,8 @@ public class HostedTenderService : IHostedTenderService
                 // TODO: Add logs
 
                 var result = await _connection.SubscribeCoreAsync<string>("tracking:tender_update");
+
+                Console.WriteLine("Mensaje recibido!!");
 
                 await foreach (var msg in result.Msgs.ReadAllAsync())
                 {
@@ -71,6 +72,8 @@ public class HostedTenderService : IHostedTenderService
                             TenderNewState = "Adjudicada",
                         });
                     }
+
+                    Console.WriteLine("Enviando notificación...!");
 
                     // Notify notification service
                     await _connection.PublishAsync("notification:tracking_update", JsonSerializer.Serialize(payload));

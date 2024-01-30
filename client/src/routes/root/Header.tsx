@@ -18,6 +18,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 
 export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
   const { currentUser, logout } = useContext(AuthContext)!;
+  const [messages, setMessage] = useState([]);
   const navigate = useNavigate();
 
   return (

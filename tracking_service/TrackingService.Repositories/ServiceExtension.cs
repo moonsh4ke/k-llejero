@@ -31,7 +31,55 @@ public static class ServiceExtension
         //    test.Add(fakeTracking);
         //}
 
-        //test.SaveChanges();
+        List<TenderStatus> tenderStatuses = new()
+        {
+            new TenderStatus
+            {
+                Id = 5,
+                Name = "Publicada",
+                CreatedDate = DateTime.Now,
+                IsActive = true,
+            },
+            new TenderStatus
+            {
+                Id = 6,
+                Name = "Cerrada",
+                CreatedDate = DateTime.Now,
+                IsActive = true,
+            },
+            new TenderStatus
+            {
+                Id = 7,
+                Name = "Desierta",
+                CreatedDate = DateTime.Now,
+                IsActive = true,
+            },
+            new TenderStatus
+            {
+                Id = 8,
+                Name = "Adjudicada",
+                CreatedDate = DateTime.Now,
+                IsActive = true,
+            },
+            new TenderStatus
+            {
+                Id = 18,
+                Name = "Revocada",
+                CreatedDate = DateTime.Now,
+                IsActive = true,
+            },
+            new TenderStatus
+            {
+                Id = 19,
+                Name = "Suspendida",
+                CreatedDate = DateTime.Now,
+                IsActive = true,
+            }
+        };
+
+        test.Add(tenderStatuses);
+
+        test.SaveChanges();
 
         services.AddScoped<ITrackingRepository, TrackingRepository>();
     }

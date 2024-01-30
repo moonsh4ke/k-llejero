@@ -8,12 +8,10 @@ namespace TrackingService.Services.Tracking;
 
 public class TrackingService : ITrackingService
 {
-    private readonly INatsConnection _connection;
     private readonly ITrackingRepository _trackingRepository;
 
-    public TrackingService(INatsConnection connection, ITrackingRepository trackingRepository)
+    public TrackingService(ITrackingRepository trackingRepository)
     {
-        _connection = connection;
         _trackingRepository = trackingRepository;
     }
 
@@ -39,6 +37,7 @@ public class TrackingService : ITrackingService
             }
 
             response.Data = data;
+
             return response;
         }
         catch (Exception ex)
@@ -69,7 +68,7 @@ public class TrackingService : ITrackingService
             var trackings = await _trackingRepository.GetTrackingsByUser(userId);
             response.Data = trackings;
 
-            if (!trackings.Any())
+            if (trackings is null || !trackings.Any())
             {
                 response.IsSuccessful = false;
                 response.StatusCode = 404;
@@ -125,20 +124,6 @@ public class TrackingService : ITrackingService
         
             await _trackingRepository.CreateTracking(tracking: newTracking);
 
-            /*
-            var xd = await _connection.SubscribeCoreAsync<string>("tender:update");
-
-            await foreach (var msg in xd.Msgs.ReadAllAsync())
-            {
-                Console.WriteLine($"Received {msg.Subject}: {msg.Data}\n");
-            }
-            */
-
-            // TODO: notify NotificationsAPI
-            //await _connection.PublishAsync("tracking:created", $"{tenderId}");
-
-            // wait for notification to be created
-
             response.Data = new List<Domain.Entities.Tracking>()
             {
                 newTracking
@@ -157,6 +142,11 @@ public class TrackingService : ITrackingService
 
             return response;
         }
+    }
+
+    public async Task<ResponseDto<Domain.Entities.Tracking>> UpdateTrackingStatus(string tenderId, string userId, int statusId)
+    {
+        throw new NotImplementedException();
     }
 
     private static bool ExistsTrackingForTender(ICollection<Domain.Entities.Tracking> trackings, string tenderId)

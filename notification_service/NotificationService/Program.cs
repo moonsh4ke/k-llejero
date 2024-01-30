@@ -1,21 +1,20 @@
-using Microsoft.AspNetCore.Hosting;
+namespace NotificationService;
 
-namespace NotificationService
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
-            var startup = new Startup(builder.Configuration);
+        var builder = WebApplication.CreateBuilder(args);
+        var startup = new Startup(builder.Configuration);
 
-            startup.ConfigureServices(builder.Services);
+        startup.ConfigureServices(builder.Services);
 
-            var app = builder.Build();
+        builder.Services.AddSignalR();
 
-            startup.Configure(app, app.Environment);
+        var app = builder.Build();
 
-            app.Run();
-        }
+        startup.Configure(app, app.Environment);
+
+        app.Run();
     }
 }

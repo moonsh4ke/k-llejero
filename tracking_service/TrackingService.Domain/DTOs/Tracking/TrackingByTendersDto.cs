@@ -4,6 +4,7 @@
     {
         public string TrackingId { get; set; }
         public string TenderId { get; set; }
+        public string TenderStatus { get; set; }
         public string UserEmail {  get; set; }
     }
 }

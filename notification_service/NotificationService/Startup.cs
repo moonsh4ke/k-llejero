@@ -1,4 +1,5 @@
 ﻿using NotificationService.Services;
+using NotificationService.Services.Notification;
 
 namespace NotificationService;
 
@@ -39,6 +40,7 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+            endpoints.MapHub<NotificationHub>("/notificationHub");
         });
     }
 }

@@ -21,3 +21,11 @@ export interface SidebarProps {
   open: boolean,
   handleDrawerClose: MouseEventHandler;
 }
+
+export interface Notification {
+  
+}
+
+export interface NotificationData {
+
+}

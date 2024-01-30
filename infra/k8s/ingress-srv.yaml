@@ -34,6 +34,13 @@ spec:
                 name: tracking-srv
                 port:
                   number: 6969
+          - path: /api/notification/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: notification-srv
+                port:
+                  number: 7070
           - path: /?(.*)
             pathType: Prefix
             backend:

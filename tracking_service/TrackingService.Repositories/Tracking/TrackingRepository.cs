@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using System.Linq;
 using TrackingService.Domain.DTOs.Tracking;
 using TrackingService.Domain.Enums;
@@ -23,14 +24,15 @@ public class TrackingRepository : ITrackingRepository
 
     public async Task<ICollection<TrackingByTendersDto>> GetTrackingsByTenders(string[] tendersIds)
     {
-        Console.WriteLine("ENTRO");
         var query = await (from tracking in _dbContext.Trackings
+                     join tenderStatus in _dbContext.TenderStatus on tracking.TenderStatusId equals tenderStatus.Id
                      where tendersIds.Contains(tracking.TenderId)
                      && tracking.TrackingStatusId != (int)TrackingStatusOptions.Deleted
                      select new TrackingByTendersDto
                      {
                          TrackingId = tracking.Id,
                          TenderId = tracking.TenderId,
+                         TenderStatus = tenderStatus.Name,
                          UserEmail = tracking.UserId
                      })
                      .ToListAsync();
