@@ -8,6 +8,7 @@ import {
   CircularProgress,
   Box,
   Paper,
+  Snackbar,
 } from "@mui/material";
 
 import Seller from "./Seller";
@@ -43,25 +44,27 @@ export default function LicitacionesView() {
         </Box>
       )}
       {tender && (
-        <Container>
-          <Paper
-            elevation={3}
-            sx={{
-              p: 6,
-              "& > *": {
-                mb: 3,
-              },
-            }}
-          >
-            <Typography variant="h5">{tender["Nombre"]}</Typography>
-            <Typography variant="body1">{tender["CodigoExterno"]}</Typography>
-            <Typography variant="body1">{tender["Descripcion"]}</Typography>
-            <Chip label={tender["Estado"]} color="success" />
-            <Seller tender={tender}/>
-            <Items items={tender["Items"]["Listado"]}/>
-            <Typography variant="body1">Tipo: {tender["Tipo"]}</Typography>
-          </Paper>
-        </Container>
+        <>
+          <Container>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 6,
+                "& > *": {
+                  mb: 3,
+                },
+              }}
+            >
+              <Typography variant="h5">{tender["Nombre"]}</Typography>
+              <Typography variant="body1">{tender["CodigoExterno"]}</Typography>
+              <Typography variant="body1">{tender["Descripcion"]}</Typography>
+              <Chip label={tender["Estado"]} color="success" />
+              <Seller tender={tender}/>
+              <Items items={tender["Items"]["Listado"]}/>
+              <Typography variant="body1">Tipo: {tender["Tipo"]}</Typography>
+            </Paper>
+          </Container>
+        </>
       )}
     </>
   );

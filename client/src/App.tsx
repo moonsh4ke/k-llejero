@@ -7,7 +7,7 @@ import Licitaciones from "./routes/licitaciones";
 import LicitacionesView from "./routes/licitaciones/LicitacionesView";
 import Login from "./routes/login";
 import Root from "./routes/root";
-import { CurrentUser } from './utils/types/types';
+import { CurrentUser, AuthDataResponse } from './utils/types/types';
 import axiosClient from './utils/axiosClient';
 import ErrorHandler from './shared/error/ErrorHandler';
 import TrackingsView from './routes/trackings/TrackingsView';
@@ -47,15 +47,7 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  const [ currentUser, setCurrentUser ] = useState<CurrentUser>();
-
-  SignalRContext.useSignalREffect(
-    "notificationSendToUser",
-    (message) => {
-      console.log(`HUB: ${message}`)
-    },
-    []
-  );
+  const [ currentUser, setCurrentUser ] = useState<AuthDataResponse>();
 
   const login =  (user: any) => {
     setCurrentUser(user);
@@ -81,7 +73,13 @@ export default function App() {
         dependencies={['https://kllejero.dev/api/notification/notificationHub']} //remove previous connection and create a new connection if changed
         url={'https://kllejero.dev/api/notification/notificationHub'}
       >
-        <RouterProvider key={currentUser? currentUser.email : null} router={router} />
+        <RouterProvider key={currentUser &&
+                             currentUser.data &&
+                             currentUser.data.currentUser ? 
+                             currentUser.data.currentUser.email 
+                             : null} 
+                             router={router} 
+        />
       </SignalRContext.Provider>
     </AuthContext.Provider>
   );
