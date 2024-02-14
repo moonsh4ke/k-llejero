@@ -11,5 +11,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<CategoryTracking> TrackingCategories { get; set; }
     public DbSet<Notes> Notes { get; set; }
     public DbSet<TrackingStatus> TrackingStatus { get; set; }
-    public DbSet<TenderStatus> TenderStatus { get; set; }
+    //public DbSet<TenderStatus> TenderStatus { get; set; }
 }

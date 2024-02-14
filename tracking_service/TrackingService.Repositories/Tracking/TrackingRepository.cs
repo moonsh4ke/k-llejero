@@ -25,14 +25,14 @@ public class TrackingRepository : ITrackingRepository
     public async Task<ICollection<TrackingByTendersDto>> GetTrackingsByTenders(string[] tendersIds)
     {
         var query = await (from tracking in _dbContext.Trackings
-                     join tenderStatus in _dbContext.TenderStatus on tracking.TenderStatusId equals tenderStatus.Id
-                     where tendersIds.Contains(tracking.TenderId)
+                           /*join tenderStatus in _dbContext.TenderStatus join tracking.TenderStatusId equals tenderStatus.Id*/
+                           where tendersIds.Contains(tracking.TenderId)
                      && tracking.TrackingStatusId != (int)TrackingStatusOptions.Deleted
                      select new TrackingByTendersDto
                      {
                          TrackingId = tracking.Id,
                          TenderId = tracking.TenderId,
-                         TenderStatus = tenderStatus.Name,
+                         TenderStatus = /*tenderStatus.Name*/ "ESTADO",
                          UserEmail = tracking.UserId
                      })
                      .ToListAsync();

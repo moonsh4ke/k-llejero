@@ -154,20 +154,20 @@ async def fakeUpdate():
     tenderStates = [5, 6, 7, 8, 18, 19]
 
     tenders1 = [
-        {"id": "1021609-21-LP23", "updatedState": tenderStates[random.randint(1, 6)]},
-        {"id": "1024-22-LQ23", "updatedState": tenderStates[random.randint(1, 6)]},
-        {"id": "1024-37-LE23", "updatedState": tenderStates[random.randint(1, 6)]},
+        {"id": "1021609-21-LP23", "updatedState": tenderStates[random.randint(1, 5)]},
+        {"id": "1024-22-LQ23", "updatedState": tenderStates[random.randint(1, 5)]},
+        {"id": "1024-37-LE23", "updatedState": tenderStates[random.randint(1, 5)]},
     ]
 
     tenders2 = [
-        {"id": "1024-26-LE23", "updatedState": tenderStates[random.randint(1, 6)]},
-        {"id": "1024-36-LE23", "updatedState": tenderStates[random.randint(1, 6)]},
+        {"id": "1024-26-LE23", "updatedState": tenderStates[random.randint(1, 5)]},
+        {"id": "1024-36-LE23", "updatedState": tenderStates[random.randint(1, 5)]},
     ]
 
     tenders3 = [
-        {"id": "1026-22-LP23", "updatedState": tenderStates[random.randint(1, 6)]},
-        {"id": "1000-25-LE23", "updatedState": tenderStates[random.randint(1, 6)]},
-        {"id": "1000813-43-LE23", "updatedState": tenderStates[random.randint(1, 6)]},
+        {"id": "1026-22-LP23", "updatedState": tenderStates[random.randint(1, 5)]},
+        {"id": "1000-25-LE23", "updatedState": tenderStates[random.randint(1, 5)]},
+        {"id": "1000813-43-LE23", "updatedState": tenderStates[random.randint(1, 5)]},
     ]
 
     print(NATS_URI)

@@ -39,9 +39,23 @@ public class HostedTrackingService : IHostedTrackingService
                     Console.WriteLine("Enviando notificaciones...!");
 
                     foreach (var data in dataResult)
-                    {   
-                        //var publishTask = Task.Run(() => _connection.PublishAsync("notification:tracking_notify", $"Atención usuario {data?.UserId}!!! La licitación {data?.TenderId ?? "NULL"} cambió de estado a {data?.TenderNewState ?? "NULL"}"));
-                        var publishTask = Task.Run(() => _notificationHubContext.Clients.All.SendAsync("notificationSendToUser", $"Atención usuario {data?.UserId}!!! La licitación {data?.TenderId ?? "NULL"} cambió de estado a {data?.TenderNewState ?? "NULL"}"));
+                    {
+                        string userId = data?.UserId ?? "";
+                        string tenderId = data?.TenderId ?? "";
+                        string tenderNewState = data?.TenderNewState ?? "";
+
+                        Domain.Entities.Notification notification = new()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            TenderId = tenderId,
+                            UserId = userId,
+                            Content = $"La licitación {tenderId} cambió de estado a {tenderNewState}",
+                            CreatedDate = DateTime.UtcNow,
+                            Readed = false,
+                        };
+
+                        string notificationClient = $"notificationSendToUser-{userId}";
+                        var publishTask = Task.Run(() => _notificationHubContext.Clients.All.SendAsync(notificationClient, notification));
                         tasks.Add(publishTask);
                     }
 

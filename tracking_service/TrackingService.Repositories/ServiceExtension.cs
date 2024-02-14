@@ -77,9 +77,9 @@ public static class ServiceExtension
             }
         };
 
-        test.Add(tenderStatuses);
+        //test.Add(tenderStatuses);
 
-        test.SaveChanges();
+        //test.SaveChanges();
 
         services.AddScoped<ITrackingRepository, TrackingRepository>();
     }

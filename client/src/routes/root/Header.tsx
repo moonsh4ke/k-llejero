@@ -7,19 +7,49 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { HeaderProps } from "../../utils/types/types";
+import { BadgeProps, HeaderProps, Notification } from '../../utils/types/types';
 
 import { AppBar } from "./customStyles";
 import logoBanner from "/images/logo_banner.png";
-import { Badge, Stack } from "@mui/material";
+import { Badge, Container, Paper, Stack } from "@mui/material";
 import Mail from "@mui/icons-material/Mail";
 import { Notifications } from "@mui/icons-material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import { SignalRContext } from "../../contexts/SignalRContext";
 
 export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
   const { currentUser, logout } = useContext(AuthContext)!;
-  const [messages, setMessage] = useState([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [badgeData, setBadgeData] = useState<BadgeProps>({
+    badgeContent: 0,
+    color: 'error'
+  });
+
+  if (currentUser && currentUser.data && currentUser.data.currentUser) {
+    SignalRContext.useSignalREffect(
+      `notificationSendToUser-${currentUser.data.currentUser.email}`,
+      (message) => {
+        setBadgeData({
+          ...badgeData,
+          badgeContent: badgeData.badgeContent += 1
+        })
+        console.log(`HUB: ${JSON.stringify(message)}`)
+        setNotifications([...notifications, message]);
+      },
+      []
+    );
+  }
+
   const navigate = useNavigate();
+
+  const onBadgeClick = () => {
+    setBadgeData({
+      badgeContent: 0,
+      color: 'error'
+    });
+    setShowNotifications(!showNotifications);
+  }
 
   return (
     <Box sx={{ flexGrow: 1, mb: 2 }}>
@@ -58,7 +88,7 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={badgeData.badgeContent} color="error" onClick={onBadgeClick}>
                 <Notifications />
               </Badge>
             </IconButton>
@@ -84,6 +114,31 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
           </Stack>
         </Toolbar>
       </AppBar>
+      {showNotifications &&
+        <Container maxWidth="md" sx={{
+          position: 'absolute',
+          right: 0,
+          top: 100,
+          //backgroundColor: 'black'
+        }}>
+          {notifications?.map((notification) => 
+            <Container key={notification.id}>
+              <Paper 
+                elevation={3}
+                sx={{
+                  p: 2,
+                  "& > *": {
+                    mb: 0,
+                  },
+                }}
+              >
+                <Typography variant="body1">{notification.content}</Typography>
+                <Typography variant="body2">{notification.createdDate.toString()}</Typography>
+              </Paper>
+            </Container>
+          )}
+        </Container>
+      }
     </Box>
   );
 }
