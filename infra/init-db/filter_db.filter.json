@@ -1,0 +1,42 @@
+[
+  {
+    "_id": {
+      "$oid": "65c6b2e5370f1b8a10f90062"
+    },
+    "name": "moviliario urbano",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro, accusantium temporibus perspiciatis ipsa",
+    "keywords": [
+      {
+        "id": "fdsfasd124r",
+        "value": "embellecimiento de plazas"
+      },
+      {
+        "id": "dsfads23fasd124r",
+        "value": "sombreadero"
+      },
+      {
+        "id": "9dsf723ojsla",
+        "value": "colchoneta de caucho"
+      }
+    ],
+    "active": true
+  },
+  {
+    "_id": {
+      "$oid": "4ac99bee370f1b8a10f90063"
+    },
+    "name": "obras civiles",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro, accusantium temporibus perspiciatis ipsa",
+    "keywords": [
+      {
+        "id": "fosdiu893l000",
+        "value": "obras municipio"
+      },
+      {
+        "id": "fosd03lkjfs91",
+        "value": "construcción civil"
+      }
+    ],
+    "active": true
+  }
+]

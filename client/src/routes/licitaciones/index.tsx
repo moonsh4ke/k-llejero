@@ -1,22 +1,27 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 import {
+  Alert,
+  Box,
   Container,
+  InputAdornment,
+  Link,
+  Paper,
+  Snackbar,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  Link,
-  Snackbar,
-  Alert,
+  TextField
 } from "@mui/material";
-import { AuthContext } from "../../contexts/AuthContext";
-import { useContext, useState } from "react";
-import AuthMiddleware from "../../components/AuthMiddleware";
 import axios from "axios";
+import { useState } from "react";
+import AuthMiddleware from "../../components/AuthMiddleware";
+import FilterArrayInput from "../../shared/components/FilterArrayInput";
+import { Search } from "@mui/icons-material";
 
 function createData(
   code: string,
@@ -82,6 +87,20 @@ export default function LicitacionesIndex() {
       </Snackbar>
     }
     <Container>
+      <Stack direction="row" sx={{mb: 2}} spacing={2}>
+        <FilterArrayInput  />
+        <TextField
+          size="small"
+          sx={{width: 400}}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

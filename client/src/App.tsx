@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, useParams } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
 import { SignalRContext } from './contexts/SignalRContext';
 
@@ -11,6 +11,8 @@ import { CurrentUser } from './utils/types/types';
 import axiosClient from './utils/axiosClient';
 import ErrorHandler from './shared/error/ErrorHandler';
 import TrackingsView from './routes/trackings/TrackingsView';
+
+import filterRoutes from './routes/filters/Routes'
 
 
 const router = createBrowserRouter([
@@ -31,6 +33,7 @@ const router = createBrowserRouter([
         path: "/licitaciones/:code",
         element: <LicitacionesView />
       },
+      ...filterRoutes,
       {
         path: "/trackings",
         element: <TrackingsView />

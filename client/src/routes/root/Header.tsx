@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -15,6 +14,8 @@ import { Badge, Stack } from "@mui/material";
 import Mail from "@mui/icons-material/Mail";
 import { Notifications } from "@mui/icons-material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+
+import Box from "@mui/material/Box";
 
 export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
   const { currentUser, logout } = useContext(AuthContext)!;

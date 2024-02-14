@@ -27,6 +27,13 @@ spec:
                 name: tender-srv
                 port:
                   number: 3000
+          - path: /api/filter/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: filter-srv
+                port:
+                  number: 3000
           - path: /api/tracking/?(.*)
             pathType: Prefix
             backend:

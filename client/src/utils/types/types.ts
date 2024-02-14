@@ -1,4 +1,13 @@
-import { MouseEventHandler } from "react"
+import { Dispatch, MouseEventHandler, SetStateAction } from "react"
+
+export interface SnackbarData {
+  message?: string;
+  type?: SnackbarType;
+  openSnackbar: boolean;
+  setOpenSnackbar: Dispatch<SetStateAction<boolean>>;
+}
+
+export type SnackbarType = "success" | "info" | "warning" | "error";
 
 export interface AuthContextData {
   currentUser?: CurrentUser;

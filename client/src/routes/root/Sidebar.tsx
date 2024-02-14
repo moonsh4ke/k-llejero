@@ -43,34 +43,21 @@ export default function Sidebar({
         </DrawerHeader>
         <Divider />
         <List>
-          {['Licitaciones', 'trackings', 'Usuarios', 'Reportes'].map((text, index) => (
+          {['Licitaciones', 'trackings', 'Usuarios', 'Reportes', 'filters'].map((text, index) => (
+            <Link style={{textDecoration: "none", color: "inherit"}} to={text}>
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText>
-              <Link style={{textDecoration: "none", color: "inherit"}} to={text}>
-              {text}
-              </Link>
+                  {text}
                 </ListItemText>
               </ListItemButton>
             </ListItem>
+            </Link>
           ))}
         </List>
-        {/* <Divider /> */}
-        {/* <List> */}
-        {/*   {['All mail', 'Trash', 'Spam'].map((text, index) => ( */}
-        {/*     <ListItem key={text} disablePadding> */}
-        {/*       <ListItemButton> */}
-        {/*         <ListItemIcon> */}
-        {/*           {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-        {/*         </ListItemIcon> */}
-        {/*         <ListItemText primary={text} /> */}
-        {/*       </ListItemButton> */}
-        {/*     </ListItem> */}
-        {/*   ))} */}
-        {/* </List> */}
       </Drawer>
   );
 }

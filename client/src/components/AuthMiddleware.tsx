@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axiosClient from "../utils/axiosClient";
 import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import CustomLoading from "../shared/CustomLoading";
+import CustomLoading from "../shared/components/CustomLoading";
 
 export default function AuthMiddleware({ children }) {
   const [unauthorized, setUnauthorized] = useState<boolean>(true);
