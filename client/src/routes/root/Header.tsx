@@ -123,7 +123,9 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
           //backgroundColor: 'black'
         }}>
           {notifications?.map((notification) => 
-            <Container key={notification.id}>
+            <Container key={notification.id} onClick={() => navigate(`/licitaciones/${notification.tenderId}`)} sx={{
+              zIndex: 99999
+            }}>
               <Paper 
                 elevation={3}
                 sx={{
