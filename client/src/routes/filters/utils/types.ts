@@ -3,6 +3,7 @@ export interface Filter {
   name: string;
   description: string;
   keywords: Keyword[];
+  active: boolean;
 }
 
 export interface Keyword {

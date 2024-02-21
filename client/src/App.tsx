@@ -13,12 +13,18 @@ import ErrorHandler from './shared/error/ErrorHandler';
 import TrackingsView from './routes/trackings/TrackingsView';
 
 import filterRoutes from './routes/filters/Routes'
-
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './shared/error/ErrorFallback';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+    >
+      <Root />
+    </ErrorBoundary>
+      ,
     errorElement: <ErrorHandler />,
     children: [
       {

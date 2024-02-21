@@ -1,25 +1,36 @@
+import { AxiosResponse } from "axios";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import axiosClient from "../../utils/axiosClient";
+import useRequest from "../../shared/hooks/requests/useRequest";
+import useNotify from "../../shared/hooks/useNotify";
 import FilterForm from "./components/FilterForm";
 import { Filter } from "./utils/types";
-import useNotify from "../../shared/hooks/useNotify";
+import { useEffect } from "react";
 
 export default function Edit() {
   const filter = useLoaderData() as Filter;
   const notify = useNotify();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (data: any) => {
-    try {
-      const filterRes = await axiosClient.put(`https://kllejero.dev/api/filter/${filter.id}`, data);
+  const { doRequest, loading, response, errors } = useRequest(
+    "put",
+    `https://kllejero.dev/api/filter/${filter.id}`,
+  )
+
+  useEffect(() => {
+    if (response?.status == 200) {
+      const newFilter = response.data;
+      navigate(`/filters/${newFilter.id}`)
       notify("Filtro editado satisfactoriamente", "success");
-      return filterRes;
-
-    } catch(err) {
-      throw(err);
     }
-  }
+  }, [response]);
 
   return(
-    <FilterForm filter={filter} submit={handleSubmit}/>
+    <FilterForm
+      filter={filter}
+      submitCallback={doRequest}
+      loading={loading}
+      errors={errors}
+      response={response}
+    />
   );
 }

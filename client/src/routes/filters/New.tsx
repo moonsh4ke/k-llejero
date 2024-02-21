@@ -1,21 +1,33 @@
+import { AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
+import useRequest from "../../shared/hooks/requests/useRequest";
 import useNotify from "../../shared/hooks/useNotify";
-import axiosClient from "../../utils/axiosClient";
 import FilterForm from "./components/FilterForm";
+import { useEffect } from "react";
 
 export default function New() {
   const notify = useNotify();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (data: any) => {
-    try {
-      const filterRes = await axiosClient.post("https://kllejero.dev/api/filter", data);
+  const { doRequest, loading, response, errors } = useRequest(
+    "post",
+    "https://kllejero.dev/api/filter",
+  )
+
+  useEffect(() => {
+    if (response?.status == 200) {
+      const newFilter = response.data;
+      navigate(`/filters/${newFilter.id}`)
       notify("Filtro creado satisfactoriamente", "success");
-      return filterRes;
-    } catch(err) {
-      throw(err);
     }
-  }
+  }, [response]);
 
   return (
-    <FilterForm submit={handleSubmit} />
+    <FilterForm
+      submitCallback={doRequest}
+      loading={loading}
+      errors={errors}
+      response={response}
+    />
   );
 }

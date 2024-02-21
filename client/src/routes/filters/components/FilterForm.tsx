@@ -1,11 +1,16 @@
 import { Add, Cancel, Close, Save } from "@mui/icons-material";
 import {
+  Alert,
   Box,
   Button,
+  CircularProgress,
   Container,
   Divider,
+  FormControlLabel,
+  FormGroup,
   IconButton,
   Stack,
+  Switch,
   TextField,
   Typography,
 } from "@mui/material";
@@ -15,22 +20,35 @@ import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { Filter, Keyword } from "../utils/types";
 import Keywords from "./Keywords";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
+import { SerializedError } from "@sn1006/common";
+import { useErrorBoundary } from "react-error-boundary";
 
 interface FilterFormProps {
   filter?: Filter;
-  submit: (data: any) => Promise<AxiosResponse>;
+  submitCallback: (data: any) => Promise<any>;
+  errors?: SerializedError[];
+  loading?: boolean;
+  response?: AxiosResponse;
 }
 
-export default function FilterForm({ filter, submit }: FilterFormProps) {
-  const { control, handleSubmit } = useForm();
-  const navigate = useNavigate();
+export default function FilterForm({
+  filter,
+  submitCallback,
+  loading,
+  errors,
+  response,
+}: FilterFormProps) {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors: formErrors },
+  } = useForm();
   const [keywords, setKeywords] = useState<Keyword[]>(
     filter ? filter.keywords : []
   );
   const [keyword, setKeyword] = useState<string>("");
-  const [keywordAdd, setKeywordAdd] = useState(false);
-
+  const [keywordAdd, setKeywordAdd] = useState<boolean>(false);
 
   return (
     <Container>
@@ -38,10 +56,8 @@ export default function FilterForm({ filter, submit }: FilterFormProps) {
         {filter ? `Editar ${filter.name}` : "Crear filtro"}
       </Typography>
       <form
-        onSubmit={handleSubmit(async (formData) => {
-          const reqData = { ...formData, keywords };
-          const filterRes = await submit(reqData);
-          navigate(`/filters/${filterRes.data.id}`)
+        onSubmit={handleSubmit((data) => {
+          submitCallback(data);
         })}
       >
         <Stack
@@ -54,14 +70,49 @@ export default function FilterForm({ filter, submit }: FilterFormProps) {
             name="name"
             control={control}
             defaultValue={filter ? filter.name : ""}
-            render={({ field }) => <TextField {...field} label="Nombre" />}
+            rules={{ required: "campo requerido" }}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                onInvalid={() => {}}
+                label="Nombre *"
+                error={!!formErrors.name}
+                helperText={
+                  formErrors.name ? (formErrors.name.message as string) : ""
+                }
+              />
+            )}
           />
           <Controller
             name="description"
             control={control}
             defaultValue={filter ? filter.description : ""}
+            rules={{ required: "campo requerido" }}
             render={({ field }) => (
-              <TextField {...field} label="Descripción" multiline />
+              <TextField
+                {...field}
+                error={!!formErrors.description}
+                label="Descripción *"
+                multiline
+                helperText={
+                  formErrors.description
+                    ? (formErrors.description.message as string)
+                    : ""
+                }
+              />
+            )}
+          />
+          <Controller
+            name="active"
+            control={control}
+            defaultValue={filter ? filter.active : true}
+            render={({ field }) => (
+              <FormGroup>
+                <FormControlLabel
+                  control={<Switch {...field} defaultChecked />}
+                  label="Activo"
+                />
+              </FormGroup>
             )}
           />
           {!keywordAdd && (
@@ -113,25 +164,39 @@ export default function FilterForm({ filter, submit }: FilterFormProps) {
             <Keywords keywords={keywords} setKeywords={setKeywords} />
           )}
         </Stack>
+        {errors && (
+          <Alert severity="error">
+            <Typography>Validation Error</Typography>
+            <ul>
+              {errors.map((err) => (
+                <li>{err.message}</li>
+              ))}
+            </ul>
+          </Alert>
+        )}
         <Divider sx={{ my: 3 }} />
-        <Stack direction="row" spacing={1}>
-          <Button
-            variant="contained"
-            size="small"
-            type="submit"
-            startIcon={<Save />}
-          >
-            Guardar
-          </Button>
-          <Button variant="text" size="small" startIcon={<Cancel />}>
-            <Link
-              to={filter ? `/filters/${filter.id}` : "/filters"}
-              style={{ textDecoration: "none", color: "inherit" }}
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <Stack direction="row" spacing={1}>
+            <Button
+              variant="contained"
+              size="small"
+              type="submit"
+              startIcon={<Save />}
             >
-              Cancelar
-            </Link>
-          </Button>
-        </Stack>
+              Guardar
+            </Button>
+            <Button variant="text" size="small" startIcon={<Cancel />}>
+              <Link
+                to={filter ? `/filters/${filter.id}` : "/filters"}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                Cancelar
+              </Link>
+            </Button>
+          </Stack>
+        )}
       </form>
     </Container>
   );
