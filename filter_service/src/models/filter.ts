@@ -4,6 +4,7 @@ const filterSchema = new mongoose.Schema(
   {
     name: String,
     description: String,
+    active: Boolean,
     keywords: [{
       id: String,
       value: String
