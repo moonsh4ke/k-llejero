@@ -11,7 +11,7 @@ export default function New() {
 
   const { doRequest, loading, response, errors } = useRequest(
     "post",
-    "https://kllejero.dev/api/filter",
+    "/api/filter",
   )
 
   useEffect(() => {

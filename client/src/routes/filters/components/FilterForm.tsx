@@ -14,15 +14,16 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { SerializedError } from "@sn1006/common";
+import { AxiosResponse } from "axios";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import CustomTextField from "../../../shared/components/inputs/CustomTextField";
 import { Filter, Keyword } from "../utils/types";
 import Keywords from "./Keywords";
-import { AxiosError, AxiosResponse } from "axios";
-import { SerializedError } from "@sn1006/common";
-import { useErrorBoundary } from "react-error-boundary";
+import CustomSwitch from "../../../shared/components/inputs/CustomSwitch";
 
 interface FilterFormProps {
   filter?: Filter;
@@ -66,54 +67,27 @@ export default function FilterForm({
             width: { sm: "100%", md: "75%", lg: "50%" },
           }}
         >
-          <Controller
+          <CustomTextField
+            control={control}
+            errors={formErrors}
             name="name"
-            control={control}
-            defaultValue={filter ? filter.name : ""}
-            rules={{ required: "campo requerido" }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                onInvalid={() => {}}
-                label="Nombre *"
-                error={!!formErrors.name}
-                helperText={
-                  formErrors.name ? (formErrors.name.message as string) : ""
-                }
-              />
-            )}
+            label="Nombre *"
+            defaultValue={filter? filter.name : ""}
+            rules={{required: "campo requerido"}}
           />
-          <Controller
+          <CustomTextField
+            control={control}
+            errors={formErrors}
             name="description"
-            control={control}
-            defaultValue={filter ? filter.description : ""}
-            rules={{ required: "campo requerido" }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                error={!!formErrors.description}
-                label="Descripción *"
-                multiline
-                helperText={
-                  formErrors.description
-                    ? (formErrors.description.message as string)
-                    : ""
-                }
-              />
-            )}
+            label="Descripción *"
+            defaultValue={filter? filter.description : ""}
+            rules={{required: "campo requerido"}}
           />
-          <Controller
+          <CustomSwitch
             name="active"
+            label="Activo"
+            defaultValue={filter? filter.active : true}
             control={control}
-            defaultValue={filter ? filter.active : true}
-            render={({ field }) => (
-              <FormGroup>
-                <FormControlLabel
-                  control={<Switch {...field} defaultChecked />}
-                  label="Activo"
-                />
-              </FormGroup>
-            )}
           />
           {!keywordAdd && (
             <Box>

@@ -13,7 +13,7 @@ export default function Edit() {
 
   const { doRequest, loading, response, errors } = useRequest(
     "put",
-    `https://kllejero.dev/api/filter/${filter.id}`,
+    `/api/filter/${filter.id}`,
   )
 
   useEffect(() => {
