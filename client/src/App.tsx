@@ -75,9 +75,9 @@ export default function App() {
     <AuthContext.Provider value={{currentUser, login, logout}}>
       <SignalRContext.Provider
         connectEnabled={true}
-        accessTokenFactory={() => '/api/notification/notificationHub'}
-        dependencies={['/api/notification/notificationHub']} //remove previous connection and create a new connection if changed
-        url={'/api/notification/notificationHub'}
+        accessTokenFactory={() => 'https://kllejero.dev/api/notification/notificationHub'}
+        dependencies={['https://kllejero.dev/api/notification/notificationHub']} //remove previous connection and create a new connection if changed
+        url={'https://kllejero.dev/api/notification/notificationHub'}
       >
         <RouterProvider key={currentUser &&
                              currentUser.data &&

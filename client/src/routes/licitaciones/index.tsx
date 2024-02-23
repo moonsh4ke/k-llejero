@@ -23,6 +23,7 @@ import AuthMiddleware from "../../components/AuthMiddleware";
 import FilterArrayInput from "../../shared/components/FilterArrayInput";
 import { Search } from "@mui/icons-material";
 import { SnackbarData } from "../../utils/types/types";
+import axiosClient from "../../utils/axiosClient";
 
 function createData(
   code: string,
@@ -66,7 +67,7 @@ export default function LicitacionesIndex() {
   const createTracking = async (tenderId: string) => {
     try {
       const endpoint = `/api/tracking/api/trackings/${tenderId}`;
-      const resp = await axios.post(endpoint);
+      const resp = await axiosClient.post(endpoint);
 
       console.log(resp);
 

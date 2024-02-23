@@ -9,6 +9,7 @@ import {
     Paper,
   } from "@mui/material";
 import axios from "axios";
+import axiosClient from "../../utils/axiosClient";
 
 export default function TrackingsView() {
     const [trackings, setTrackings] = useState<Array<ITracking>>();
@@ -20,7 +21,7 @@ export default function TrackingsView() {
         const fetchTrackings = async() => {
             try {
                 const endpoint = '/api/tracking/api/trackings';
-                const res = await axios.get(endpoint);
+                const res = await axiosClient.get(endpoint);
     
                 setTrackings(res.data.data);
                 setIsLoading(false);
