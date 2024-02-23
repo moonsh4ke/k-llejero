@@ -20,7 +20,7 @@ export default function useRequest(
     try {
       setLoading(true);
       setErrors(undefined);
-      const res = await axios[method](url,  data);
+      const res = await axiosClient[method](url,  data);
       setLoading(false);
       setResponse(res);
       callback && callback(res);

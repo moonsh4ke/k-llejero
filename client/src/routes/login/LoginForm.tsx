@@ -18,8 +18,8 @@ export default function LoginForm() {
     const apiUrl = 'http://localhost:3000';
 
     try {
-      await axiosClient.post("https://kllejero.dev/api/auth/signin"/*`${apiUrl}/signin`*/ , data)
-      const res = await axiosClient.get(`https://kllejero.dev/api/auth/currentUser`);
+      await axiosClient.post("/api/auth/signin", data)
+      const res = await axiosClient.get(`/api/auth/currentUser`);
       const currentUser = res.data;
       setErrors([]);
       login(currentUser);

@@ -19,7 +19,7 @@ export default function TrackingsView() {
         // TODO: CATCH 404
         const fetchTrackings = async() => {
             try {
-                const endpoint = 'https://kllejero.dev/api/tracking/api/trackings';
+                const endpoint = '/api/tracking/api/trackings';
                 const res = await axios.get(endpoint);
     
                 setTrackings(res.data.data);

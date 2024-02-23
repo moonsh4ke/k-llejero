@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         path: "/licitaciones",
         element: <Licitaciones />,
         loader: async () => {
-          const tenderRes = await axiosClient.get("https://kllejero.dev/api/tender" /*'http://localhost:3000/tender'*/);
+          const tenderRes = await axiosClient.get("/api/tender" /*'http://localhost:3000/tender'*/);
           return tenderRes.data;
         },
       },
@@ -60,13 +60,13 @@ export default function App() {
   }
 
   const logout = async () => {
-    await axiosClient.post("https://kllejero.dev/api/auth/signout" /*'http://localhost:3000/signout'*/);
+    await axiosClient.post("/api/auth/signout" /*'http://localhost:3000/signout'*/);
     setCurrentUser(undefined);
   }
 
   useEffect(() => {
     const getCurrentUser = async () => {
-      setCurrentUser(await axiosClient.get("https://kllejero.dev/api/auth/currentUser"/*'http://localhost:3000/currentUser'*/));
+      setCurrentUser(await axiosClient.get("/api/auth/currentUser"/*'http://localhost:3000/currentUser'*/));
     }
     getCurrentUser();
   }, [])
@@ -75,9 +75,9 @@ export default function App() {
     <AuthContext.Provider value={{currentUser, login, logout}}>
       <SignalRContext.Provider
         connectEnabled={true}
-        accessTokenFactory={() => 'https://kllejero.dev/api/notification/notificationHub'}
-        dependencies={['https://kllejero.dev/api/notification/notificationHub']} //remove previous connection and create a new connection if changed
-        url={'https://kllejero.dev/api/notification/notificationHub'}
+        accessTokenFactory={() => '/api/notification/notificationHub'}
+        dependencies={['/api/notification/notificationHub']} //remove previous connection and create a new connection if changed
+        url={'/api/notification/notificationHub'}
       >
         <RouterProvider key={currentUser &&
                              currentUser.data &&

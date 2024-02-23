@@ -12,7 +12,7 @@ export default function AuthMiddleware({ children }) {
   const { logout } = useContext(AuthContext)!;
   useEffect(() => {
     axiosClient
-      .get("https://kllejero.dev/api/auth/currentUser")
+      .get("/api/auth/currentUser")
       .then((res) => {
         const { currentUser } = res.data;
         if (currentUser === null) {

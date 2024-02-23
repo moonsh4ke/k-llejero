@@ -11,7 +11,7 @@ export default [
     loader: async ({ params }: any) => {
       const { id } = params;
       const filterRes = await axiosClient.get(
-        `https://kllejero.dev/api/filter/${id}`
+        `/api/filter/${id}`
       );
       return filterRes.data;
     },
@@ -22,7 +22,7 @@ export default [
     loader: async ({ params }: any) => {
       const { id } = params;
       const filterRes = await axiosClient.get(
-        `https://kllejero.dev/api/filter/${id}`
+        `/api/filter/${id}`
       );
       return filterRes.data;
     },
@@ -36,7 +36,7 @@ export default [
     element: <List />,
     loader: async () => {
       const filterRes = await axiosClient.get(
-        "https://kllejero.dev/api/filter"
+        "/api/filter"
       );
       return filterRes.data;
     },

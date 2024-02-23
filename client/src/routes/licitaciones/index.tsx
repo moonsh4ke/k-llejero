@@ -65,7 +65,7 @@ export default function LicitacionesIndex() {
 
   const createTracking = async (tenderId: string) => {
     try {
-      const endpoint = `https://kllejero.dev/api/tracking/api/trackings/${tenderId}`;
+      const endpoint = `/api/tracking/api/trackings/${tenderId}`;
       const resp = await axios.post(endpoint);
 
       console.log(resp);
