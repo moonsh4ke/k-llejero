@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
-import AuthMiddleware from "../../components/AuthMiddleware";
+import RequireAuth from "../../components/RequireAuth";
 import FilterArrayInput from "../../shared/components/FilterArrayInput";
 import { Search } from "@mui/icons-material";
 import { SnackbarData } from "../../utils/types/types";
@@ -95,7 +95,6 @@ export default function LicitacionesIndex() {
   }
 
   return (
-  <AuthMiddleware>
     <>
       <Snackbar open={snackbarData.show} autoHideDuration={3000} onClose={handleSnackbarClose}>
           <Alert
@@ -163,6 +162,5 @@ export default function LicitacionesIndex() {
         </TableContainer>
       </Container>
     </>
-  </AuthMiddleware>
   );
 }

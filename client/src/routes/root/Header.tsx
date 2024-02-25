@@ -115,6 +115,7 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
           </Stack>
         </Toolbar>
       </AppBar>
+      {/* TODO */}
       {showNotifications &&
         <Container maxWidth="md" sx={{
           position: 'absolute',

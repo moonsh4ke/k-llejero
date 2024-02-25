@@ -9,7 +9,7 @@ export default function useGetResource<Resource>(resource: string, id: string) {
   useEffect(() => {
     const doRequest = async () => {
       try {
-        const recordRes = await axiosClient.get(`https://kllejero.dev/api/${resource}/${id}`);
+        const recordRes = await axiosClient.get(`/api/${resource}/${id}`);
         setData(recordRes.data);
         setLoading(false);
       } catch (err) {

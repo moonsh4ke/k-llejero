@@ -15,6 +15,7 @@ import TrackingsView from './routes/trackings/TrackingsView';
 import filterRoutes from './routes/filters/Routes'
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './shared/error/ErrorFallback';
+import RequireAuth from './components/RequireAuth';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,9 @@ const router = createBrowserRouter([
     element: <ErrorBoundary
       FallbackComponent={ErrorFallback}
     >
-      <Root />
+      <RequireAuth>
+        <Root />
+      </RequireAuth>
     </ErrorBoundary>
       ,
     errorElement: <ErrorHandler />,

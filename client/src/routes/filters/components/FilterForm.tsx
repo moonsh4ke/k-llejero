@@ -6,11 +6,8 @@ import {
   CircularProgress,
   Container,
   Divider,
-  FormControlLabel,
-  FormGroup,
   IconButton,
   Stack,
-  Switch,
   TextField,
   Typography,
 } from "@mui/material";
@@ -24,6 +21,11 @@ import CustomTextField from "../../../shared/components/inputs/CustomTextField";
 import { Filter, Keyword } from "../utils/types";
 import Keywords from "./Keywords";
 import CustomSwitch from "../../../shared/components/inputs/CustomSwitch";
+
+import { zodResolver } from "@hookform/resolvers/zod"
+import { filterSchema } from "@sn1006/schemas";
+
+import { zodI18nMap } from "zod-i18n-map";
 
 interface FilterFormProps {
   filter?: Filter;
@@ -44,7 +46,9 @@ export default function FilterForm({
     control,
     handleSubmit,
     formState: { errors: formErrors },
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(filterSchema, {errorMap: zodI18nMap})
+  });
   const [keywords, setKeywords] = useState<Keyword[]>(
     filter ? filter.keywords : []
   );
@@ -57,9 +61,7 @@ export default function FilterForm({
         {filter ? `Editar ${filter.name}` : "Crear filtro"}
       </Typography>
       <form
-        onSubmit={handleSubmit((data) => {
-          submitCallback(data);
-        })}
+        onSubmit={handleSubmit((data) => submitCallback({ ...data, keywords }))}
       >
         <Stack
           spacing={3}
@@ -72,21 +74,43 @@ export default function FilterForm({
             errors={formErrors}
             name="name"
             label="Nombre *"
-            defaultValue={filter? filter.name : ""}
-            rules={{required: "campo requerido"}}
+            defaultValue={filter ? filter.name : ""}
+            // rules={{
+            //   required: "campo requerido",
+            //   minLength: {
+            //     value: 3,
+            //     message: "debe contener al menos 3 caracteres"
+            //   },
+            //   maxLength: {
+            //     value: 30,
+            //     message: "debe contener como máximo 30 caracteres"
+            //   }
+            // }}
           />
           <CustomTextField
             control={control}
             errors={formErrors}
             name="description"
             label="Descripción *"
-            defaultValue={filter? filter.description : ""}
-            rules={{required: "campo requerido"}}
+            multiline
+            rows={5}
+            defaultValue={filter ? filter.description : ""}
+            // rules={{
+            //   required: "campo requerido",
+            //   minLength: {
+            //     value: 10,
+            //     message: "debe contener al menos 10 caracteres"
+            //   },
+            //   maxLength: {
+            //     value: 320,
+            //     message: "debe contener como máximo  320 caracteres"
+            //   }
+            // }}
           />
           <CustomSwitch
             name="active"
             label="Activo"
-            defaultValue={filter? filter.active : true}
+            defaultValue={filter ? filter.active : true}
             control={control}
           />
           {!keywordAdd && (

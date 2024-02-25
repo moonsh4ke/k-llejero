@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import CustomLoading from "../shared/components/CustomLoading";
 
-export default function AuthMiddleware({ children }) {
+export default function RequireAuth({ children }) {
   const [unauthorized, setUnauthorized] = useState<boolean>(true);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -30,5 +30,5 @@ export default function AuthMiddleware({ children }) {
       });
   }, []);
 
-  return !unauthorized && <div>{children}</div>
+  return !unauthorized && children
 }
