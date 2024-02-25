@@ -1,11 +1,9 @@
-import express, {  NextFunction, Request, Response } from 'express';
+import { errorHandler, zodValidateRequest } from '@sn1006/common';
+import { filterSchema } from '@sn1006/schemas';
 import { json } from 'body-parser';
-import { Filter } from './models/filter';
-import { errorHandler, validateRequest, joiValidateRequest} from '@sn1006/common';
-import { checkSchema } from 'express-validator';
-import { filterSchema } from './validation/filterSchema';
-import { filterJoiSchema } from './validation/schemas';
+import express, { Request, Response } from 'express';
 import morgan from 'morgan';
+import { Filter } from './models/filter';
 
 const app = express();
 app.use(json());
@@ -19,7 +17,7 @@ app.get('/:id', async (req, res) => {
 })
 
 app.put('/:id',
-  joiValidateRequest(filterJoiSchema, {allowUnknown: true}),
+  zodValidateRequest(filterSchema),
   async (req: Request, res: Response) => {
     const { id } = req.params;
     const reqFilter = req.body;
@@ -34,7 +32,7 @@ app.get('/', async (req, res) => {
 })
 
 app.post('/',
-  joiValidateRequest(filterJoiSchema, {allowUnknown: true}),
+  zodValidateRequest(filterSchema),
   async (req: Request, res: Response) => {
     const reqFilter = req.body;
     const newFilter = new Filter(reqFilter);
@@ -43,6 +41,12 @@ app.post('/',
   }
 )
 
+app.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  const delFilter = await Filter.findByIdAndDelete(id);
+  return res.status(200).send(delFilter);
+});
+
 app.use(errorHandler);
 
-export { app }
+export { app };
