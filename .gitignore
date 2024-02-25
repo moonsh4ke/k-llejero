@@ -407,3 +407,5 @@ temp.txt
 node_modules/
 .create_cluster_secrets.sh
 backups/
+notes.txt
+.bootstrap_cluster_resources.sh
