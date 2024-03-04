@@ -1,21 +1,14 @@
-import express, { Request, Response, NextFunction } from "express";
-import { body } from "express-validator";
-import { User } from "../models/user";
-import { BadRequestError, validateRequest } from "@sn1006/common";
+import { BadRequestError, zodValidateRequest } from "@sn1006/common";
+import { authSchema } from "@sn1006/schemas";
+import express, { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { User } from "../models/user";
 
 const router = express.Router();
 
 router.post(
     "/signup",
-    [
-        body("email").isEmail().withMessage("Email must be valid"),
-        body("password")
-            .trim()
-            .isLength({ min: 4, max: 20 })
-            .withMessage("Password must be between 4 and 20 characters"),
-    ],
-    validateRequest,
+    zodValidateRequest(authSchema),
     async (req: Request, res: Response, next: NextFunction) => {
         const { email, password } = req.body;
 

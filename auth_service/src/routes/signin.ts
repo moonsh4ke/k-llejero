@@ -1,24 +1,16 @@
-import express from "express";
-import { body } from "express-validator";
-import { Request, Response, NextFunction } from "express";
-import { validateRequest } from "@sn1006/common";
-import { User } from "../models/user"
-import { BadRequestError } from "@sn1006/common"
-import { Password } from "../services/password"
-import jwt from "jsonwebtoken"
+import { BadRequestError, zodValidateRequest } from "@sn1006/common";
+import express, { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import { User } from "../models/user";
+import { Password } from "../services/password";
+
+import { authSchema } from "@sn1006/schemas";
 
 const router = express.Router();
 
 router.post(
     "/signin",
-    [
-        body("email").isEmail().withMessage("Email must be valid"),
-        body("password")
-            .trim()
-            .notEmpty()
-            .withMessage("You must supply a password"),
-    ],
-    validateRequest,
+    zodValidateRequest(authSchema),
     async (req: Request, res: Response, next: NextFunction) => {
         const { email, password } = req.body;
 
