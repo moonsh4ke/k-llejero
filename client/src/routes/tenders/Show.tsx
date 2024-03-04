@@ -11,8 +11,8 @@ import {
   Snackbar,
 } from "@mui/material";
 
-import Seller from "./Seller";
-import Items from "./Items";
+import Seller from "./components/Seller";
+import Items from "./components/Items";
 import tenderExample from "./utils/tenderExample"
 
 const tender = tenderExample["Listado"][0];
@@ -20,7 +20,6 @@ const tender = tenderExample["Listado"][0];
 export default function LicitacionesView() {
   // const [tender, setTender] = useState();
   const [waiting, setWaiting] = useState(true);
-  console.log(tender);
 
   let { code } = useParams();
 

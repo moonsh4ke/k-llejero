@@ -15,7 +15,7 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@sn1006/common": "^1.0.23",
-    "@sn1006/schemas": "^1.0.0",
+    "@sn1006/schemas": "^1.0.1",
     "@types/uuid": "^9.0.8",
     "axios": "^1.6.0",
     "i18next": "^23.10.0",

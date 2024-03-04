@@ -1,34 +1,23 @@
-import { useContext, useEffect, useState } from "react";
-import axiosClient from "../utils/axiosClient";
+import { useContext } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
-import CustomLoading from "../shared/components/CustomLoading";
 
-export default function RequireAuth({ children }) {
-  const [unauthorized, setUnauthorized] = useState<boolean>(true);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+interface RequireAuthProps {
+  children: React.ReactNode;
+}
+export default function RequireAuth({ children }: RequireAuthProps) {
+  const location = useLocation();
 
-  const { logout } = useContext(AuthContext)!;
-  useEffect(() => {
-    axiosClient
-      .get("/api/auth/currentUser")
-      .then((res) => {
-        const { currentUser } = res.data;
-        if (currentUser === null) {
-          setUnauthorized(true);
-          navigate("/login")
-          return
-        }
-        setUnauthorized(false);
-      })
-      // if iat is expired, then a 401 res status should be expected
-      .catch((err) => {
-        setUnauthorized(true);
-        logout();
-        navigate("/login")
-      });
-  }, []);
+  const { currentUser } = useContext(AuthContext)!;
 
-  return !unauthorized && children
+  // When the app mounts, there's an effect waiting to provide a currentUser either and object {} or null
+  // if undefined, then this is the first render
+  // aparently we have to render something, so we have a problem redirecting
+  if (currentUser === undefined) return null;
+
+  return currentUser ? (
+    children
+  ) : (
+    <Navigate to="/auth/login" state={{ returnTo: location.pathname }} />
+  );
 }

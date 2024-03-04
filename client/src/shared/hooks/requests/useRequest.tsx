@@ -1,8 +1,7 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { SerializedError } from "@sn1006/common";
+import { AxiosError, AxiosResponse } from "axios";
 import { useState } from "react";
 import axiosClient from "../../../utils/axiosClient";
-import { SerializedError } from "@sn1006/common";
-import { useErrorBoundary } from "react-error-boundary";
 
 type method = "put" | "post" | "get";
 
@@ -14,13 +13,12 @@ export default function useRequest(
   const [loading, setLoading] = useState<boolean>();
   const [errors, setErrors] = useState<SerializedError[] | undefined>();
   const [response, setResponse] = useState<AxiosResponse>();
-  const { showBoundary } = useErrorBoundary();
 
-  const doRequest = async (data: any) => {
+  const doRequest = async (data?: any) => {
     try {
       setLoading(true);
       setErrors(undefined);
-      const res = await axiosClient[method](url,  data);
+      const res = await axiosClient[method](url, data);
       setLoading(false);
       setResponse(res);
       callback && callback(res);
@@ -28,13 +26,8 @@ export default function useRequest(
       if (err instanceof AxiosError && Array.isArray(err.response?.data)) {
         setLoading(false);
         setErrors(err.response?.data);
-      }
-      else
-        showBoundary(err);
-  }
-    // } finally {
-    //   setLoading(false);
-    // }
+      } else throw err;
+    }
   };
 
   return { doRequest, loading, errors, response };

@@ -22,10 +22,11 @@ import { Filter, Keyword } from "../utils/types";
 import Keywords from "./Keywords";
 import CustomSwitch from "../../../shared/components/inputs/CustomSwitch";
 
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
 import { filterSchema } from "@sn1006/schemas";
 
 import { zodI18nMap } from "zod-i18n-map";
+import { useErrorBoundary } from "react-error-boundary";
 
 interface FilterFormProps {
   filter?: Filter;
@@ -47,13 +48,14 @@ export default function FilterForm({
     handleSubmit,
     formState: { errors: formErrors },
   } = useForm({
-    resolver: zodResolver(filterSchema, {errorMap: zodI18nMap})
+    resolver: zodResolver(filterSchema, { errorMap: zodI18nMap }),
   });
   const [keywords, setKeywords] = useState<Keyword[]>(
     filter ? filter.keywords : []
   );
   const [keyword, setKeyword] = useState<string>("");
   const [keywordAdd, setKeywordAdd] = useState<boolean>(false);
+  const { showBoundary } = useErrorBoundary();
 
   return (
     <Container>
@@ -61,7 +63,13 @@ export default function FilterForm({
         {filter ? `Editar ${filter.name}` : "Crear filtro"}
       </Typography>
       <form
-        onSubmit={handleSubmit((data) => submitCallback({ ...data, keywords }))}
+        onSubmit={handleSubmit((data) => {
+          try {
+            submitCallback({ ...data, keywords });
+          } catch (err) {
+            showBoundary(err);
+          }
+        })}
       >
         <Stack
           spacing={3}
@@ -75,17 +83,6 @@ export default function FilterForm({
             name="name"
             label="Nombre *"
             defaultValue={filter ? filter.name : ""}
-            // rules={{
-            //   required: "campo requerido",
-            //   minLength: {
-            //     value: 3,
-            //     message: "debe contener al menos 3 caracteres"
-            //   },
-            //   maxLength: {
-            //     value: 30,
-            //     message: "debe contener como máximo 30 caracteres"
-            //   }
-            // }}
           />
           <CustomTextField
             control={control}
@@ -95,17 +92,6 @@ export default function FilterForm({
             multiline
             rows={5}
             defaultValue={filter ? filter.description : ""}
-            // rules={{
-            //   required: "campo requerido",
-            //   minLength: {
-            //     value: 10,
-            //     message: "debe contener al menos 10 caracteres"
-            //   },
-            //   maxLength: {
-            //     value: 320,
-            //     message: "debe contener como máximo  320 caracteres"
-            //   }
-            // }}
           />
           <CustomSwitch
             name="active"

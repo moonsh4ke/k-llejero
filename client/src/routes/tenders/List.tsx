@@ -55,7 +55,7 @@ const rows = [
   ),
 ];
 
-export default function LicitacionesIndex() {
+export default function List() {
   const navigate = useNavigate();
   const tenders = useLoaderData();
   const [snackbarData, setSnackbarData] = useState<SnackbarData>({
@@ -68,8 +68,6 @@ export default function LicitacionesIndex() {
     try {
       const endpoint = `/api/tracking/api/trackings/${tenderId}`;
       const resp = await axiosClient.post(endpoint);
-
-      console.log(resp);
 
       setSnackbarData({
         show: true,

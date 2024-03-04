@@ -10,8 +10,8 @@ export interface SnackbarData {
 export type SnackbarType = "success" | "info" | "warning" | "error";
 
 export interface AuthContextData {
-  currentUser?: AuthDataResponse;
-  login: (user: any) => any;
+  currentUser?: CurrentUser | null;
+  login: (user: CurrentUser) => any;
   logout: () => any;
 }
 

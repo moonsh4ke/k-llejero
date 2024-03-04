@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { BadgeProps, HeaderProps, Notification } from '../../utils/types/types';
+import { BadgeProps, HeaderProps, Notification } from "../../utils/types/types";
 
 import { AppBar } from "./customStyles";
 import logoBanner from "/images/logo_banner.png";
@@ -24,18 +24,18 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [badgeData, setBadgeData] = useState<BadgeProps>({
     badgeContent: 0,
-    color: 'error'
+    color: "error",
   });
 
-  if (currentUser && currentUser.data && currentUser.data.currentUser) {
+  if (currentUser) {
     SignalRContext.useSignalREffect(
-      `notificationSendToUser-${currentUser.data.currentUser.email}`,
+      `notificationSendToUser-${currentUser.email}`,
       (message) => {
         setBadgeData({
           ...badgeData,
-          badgeContent: badgeData.badgeContent += 1
-        })
-        console.log(`HUB: ${JSON.stringify(message)}`)
+          badgeContent: (badgeData.badgeContent += 1),
+        });
+        console.log(`HUB: ${JSON.stringify(message)}`);
         setNotifications([...notifications, message]);
       },
       []
@@ -47,15 +47,15 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
   const onBadgeClick = () => {
     setBadgeData({
       badgeContent: 0,
-      color: 'error'
+      color: "error",
     });
     setShowNotifications(!showNotifications);
-  }
+  };
 
   return (
     <Box sx={{ flexGrow: 1, mb: 2 }}>
       <AppBar position="fixed" open={openSidebar}>
-        <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Stack direction="row" spacing={1}>
             <IconButton
               color="inherit"
@@ -79,7 +79,11 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
           </Stack>
           <img style={{ height: "45px" }} src={logoBanner} alt="logo banner" />
           <Stack direction="row" spacing={1}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+            >
               <Badge badgeContent={4} color="error">
                 <Mail />
               </Badge>
@@ -89,7 +93,11 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={badgeData.badgeContent} color="error" onClick={onBadgeClick}>
+              <Badge
+                badgeContent={badgeData.badgeContent}
+                color="error"
+                onClick={onBadgeClick}
+              >
                 <Notifications />
               </Badge>
             </IconButton>
@@ -103,12 +111,17 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
               <AccountCircle />
             </IconButton>
             {!currentUser && (
-              <Button color="inherit" onClick={(e) => navigate("/login")}>
+              <Button color="inherit" onClick={(e) => navigate("/auth/login")}>
                 Login
               </Button>
             )}
             {currentUser && (
-              <Button color="inherit" onClick={logout}>
+              <Button
+                color="inherit"
+                onClick={async () => {
+                  await logout();
+                }}
+              >
                 Logout
               </Button>
             )}
@@ -116,18 +129,25 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
         </Toolbar>
       </AppBar>
       {/* TODO */}
-      {showNotifications &&
-        <Container maxWidth="md" sx={{
-          position: 'absolute',
-          right: 0,
-          top: 100,
-          //backgroundColor: 'black'
-        }}>
-          {notifications?.map((notification) => 
-            <Container key={notification.id} onClick={() => navigate(`/licitaciones/${notification.tenderId}`)} sx={{
-              zIndex: 99999
-            }}>
-              <Paper 
+      {showNotifications && (
+        <Container
+          maxWidth="md"
+          sx={{
+            position: "absolute",
+            right: 0,
+            top: 100,
+            //backgroundColor: 'black'
+          }}
+        >
+          {notifications?.map((notification) => (
+            <Container
+              key={notification.id}
+              onClick={() => navigate(`/licitaciones/${notification.tenderId}`)}
+              sx={{
+                zIndex: 99999,
+              }}
+            >
+              <Paper
                 elevation={3}
                 sx={{
                   p: 2,
@@ -137,12 +157,14 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
                 }}
               >
                 <Typography variant="body1">{notification.content}</Typography>
-                <Typography variant="body2">{notification.createdDate.toString()}</Typography>
+                <Typography variant="body2">
+                  {notification.createdDate.toString()}
+                </Typography>
               </Paper>
             </Container>
-          )}
+          ))}
         </Container>
-      }
+      )}
     </Box>
   );
 }
