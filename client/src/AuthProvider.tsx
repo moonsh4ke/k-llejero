@@ -9,9 +9,6 @@ interface AuthProviderProps {
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>();
 
-  const count = useRef(0);
-  count.current+=1;
-
   const login = (user: CurrentUser) => {
     setCurrentUser(user);
   };
