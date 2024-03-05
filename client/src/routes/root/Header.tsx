@@ -17,30 +17,49 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { SignalRContext } from "../../contexts/SignalRContext";
 
 import Box from "@mui/material/Box";
+import TenderNotificationIcon from "./TenderNotificationIcon";
+
+const notifications = [
+  {
+    id: "dfas124",
+    content: "content 1 dfasdsf",
+    tenderId: "dfasfsa",
+  },
+  {
+    id: "dfas1245j",
+    content: "content 3 dfaskjsla",
+    tenderId: "dfasfsa",
+  },
+  {
+    id: "dfasdfasj",
+    content: "content 2 dfaskljfdgsl",
+    tenderId: "dfasfsa",
+  }
+]
 
 export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
   const { currentUser, logout } = useContext(AuthContext)!;
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+  // const [notifications, setNotifications] = useState<Notification[]>([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [badgeData, setBadgeData] = useState<BadgeProps>({
-    badgeContent: 0,
+    badgeContent: 3,
     color: "error",
   });
 
-  if (currentUser) {
-    SignalRContext.useSignalREffect(
-      `notificationSendToUser-${currentUser.email}`,
-      (message) => {
-        setBadgeData({
-          ...badgeData,
-          badgeContent: (badgeData.badgeContent += 1),
-        });
-        console.log(`HUB: ${JSON.stringify(message)}`);
-        setNotifications([...notifications, message]);
-      },
-      []
-    );
-  }
+  // if (currentUser) {
+  //   SignalRContext.useSignalREffect(
+  //     `notificationSendToUser-${currentUser.email}`,
+  //     (message) => {
+  //       setBadgeData({
+  //         ...badgeData,
+  //         badgeContent: (badgeData.badgeContent += 1),
+  //       });
+  //       console.log(`HUB: ${JSON.stringify(message)}`);
+  //       setNotifications([...notifications, message]);
+  //     },
+  //     []
+  //   );
+  // }
 
   const navigate = useNavigate();
 
@@ -53,8 +72,8 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, mb: 2 }}>
-      <AppBar position="fixed" open={openSidebar}>
+    <Box sx={{ flexGrow: 1, mb: 2, border: "solid pink" }}>
+      <AppBar sx={{border: "solid green"}} position="fixed" open={openSidebar}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Stack direction="row" spacing={1}>
             <IconButton
@@ -88,19 +107,21 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
                 <Mail />
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge
-                badgeContent={badgeData.badgeContent}
-                color="error"
-                onClick={onBadgeClick}
-              >
-                <Notifications />
-              </Badge>
-            </IconButton>
+
+            <TenderNotificationIcon />
+            {/* <IconButton */}
+            {/*   size="large" */}
+            {/*   aria-label="show 17 new notifications" */}
+            {/*   color="inherit" */}
+            {/* > */}
+            {/*   <Badge */}
+            {/*     badgeContent={badgeData.badgeContent} */}
+            {/*     color="error" */}
+            {/*     onClick={onBadgeClick} */}
+            {/*   > */}
+            {/*     <Notifications /> */}
+            {/*   </Badge> */}
+            {/* </IconButton> */}
             <IconButton
               size="large"
               edge="end"
@@ -129,42 +150,43 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
         </Toolbar>
       </AppBar>
       {/* TODO */}
-      {showNotifications && (
-        <Container
-          maxWidth="md"
-          sx={{
-            position: "absolute",
-            right: 0,
-            top: 100,
-            //backgroundColor: 'black'
-          }}
-        >
-          {notifications?.map((notification) => (
-            <Container
-              key={notification.id}
-              onClick={() => navigate(`/licitaciones/${notification.tenderId}`)}
-              sx={{
-                zIndex: 99999,
-              }}
-            >
-              <Paper
-                elevation={3}
-                sx={{
-                  p: 2,
-                  "& > *": {
-                    mb: 0,
-                  },
-                }}
-              >
-                <Typography variant="body1">{notification.content}</Typography>
-                <Typography variant="body2">
-                  {notification.createdDate.toString()}
-                </Typography>
-              </Paper>
-            </Container>
-          ))}
-        </Container>
-      )}
+      {/* {showNotifications && ( */}
+      {/*   <Container */}
+      {/*     maxWidth="md" */}
+      {/*     sx={{ */}
+      {/*       position: "absolute", */}
+      {/*       border: "solid red", */}
+      {/*       right: 0, */}
+      {/*       top: 100, */}
+      {/*       //backgroundColor: 'black' */}
+      {/*     }} */}
+      {/*   > */}
+      {/*     {notifications?.map((notification) => ( */}
+      {/*       <Container */}
+      {/*         key={notification.id} */}
+      {/*         onClick={() => navigate(`/licitaciones/${notification.tenderId}`)} */}
+      {/*         sx={{ */}
+      {/*           zIndex: 99999, */}
+      {/*         }} */}
+      {/*       > */}
+      {/*         <Paper */}
+      {/*           elevation={3} */}
+      {/*           sx={{ */}
+      {/*             p: 2, */}
+      {/*             "& > *": { */}
+      {/*               mb: 0, */}
+      {/*             }, */}
+      {/*           }} */}
+      {/*         > */}
+      {/*           <Typography variant="body1">{notification.content}</Typography> */}
+      {/*           {/* <Typography variant="body2"> */}
+      {/*           {/*   {notification.createdDate.toString()} */}
+      {/*           {/* </Typography> */}
+      {/*         </Paper> */}
+      {/*       </Container> */}
+      {/*     ))} */}
+      {/*   </Container> */}
+      {/* )} */}
     </Box>
   );
 }
