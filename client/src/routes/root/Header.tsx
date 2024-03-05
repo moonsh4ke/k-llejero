@@ -72,8 +72,8 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, mb: 2, border: "solid pink" }}>
-      <AppBar sx={{border: "solid green"}} position="fixed" open={openSidebar}>
+    <Box sx={{ flexGrow: 1, mb: 2 }}>
+      <AppBar position="fixed" open={openSidebar}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Stack direction="row" spacing={1}>
             <IconButton
