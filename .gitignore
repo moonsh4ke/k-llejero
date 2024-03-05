@@ -409,3 +409,4 @@ node_modules/
 backups/
 notes.txt
 .bootstrap_cluster_resources.sh
+infra/inactive
