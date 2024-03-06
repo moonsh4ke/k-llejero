@@ -34,6 +34,8 @@ public class TrackingService : ITrackingService
                 response.IsSuccessful = false;
                 response.StatusCode = 404;
                 response.Message = "No hay seguimientos activos para las licitaciones";
+
+                return response;
             }
 
             response.Data = data;

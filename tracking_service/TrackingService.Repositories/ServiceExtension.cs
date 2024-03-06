@@ -20,9 +20,9 @@ public static class ServiceExtension
 
 
         // TODO: FIX IT
-        var test = services.BuildServiceProvider().GetRequiredService<ApplicationDbContext>();
+        //var test = services.BuildServiceProvider().GetRequiredService<ApplicationDbContext>();
 
-        test.Database.Migrate();
+        //test.Database.Migrate();
 
         //var fakeTrackings = CreateFakeTrackings();
 

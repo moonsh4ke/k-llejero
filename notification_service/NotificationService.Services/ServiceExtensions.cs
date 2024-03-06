@@ -10,9 +10,11 @@ public static class ServiceExtensions
 {
     public static void AddNotificationServiceServices(this IServiceCollection services, IConfiguration configuration)
     {
+        var natsUrl = Environment.GetEnvironmentVariable("NATS_URL") ?? configuration.GetConnectionString("DefaultUrl");
+
         NatsOpts opts = new()
         {
-            Url = "nats://nats:4222"
+            Url = natsUrl
         };
 
         // Add nats

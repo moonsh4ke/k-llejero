@@ -12,9 +12,11 @@ public static class ServiceExtensions
     // Extension method https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/extension-methods
     public static void AddTrackingServiceServices(this IServiceCollection services, IConfiguration configuration)
     {
+        var natsUrl = Environment.GetEnvironmentVariable("NATS_URL") ?? configuration.GetConnectionString("DefaultUrl");
+
         NatsOpts opts = new()
         {
-            Url = "nats://nats:4222"
+            Url = natsUrl
         };
 
         // Add nats
