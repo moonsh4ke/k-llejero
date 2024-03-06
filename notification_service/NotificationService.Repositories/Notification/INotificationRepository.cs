@@ -1,6 +1,9 @@
-﻿namespace NotificationService.Repositories.Notification;
+﻿using System.Linq;
+
+namespace NotificationService.Repositories.Notification;
 
 public interface INotificationRepository
 {
-    //Task<Domain.Entities.Notification> SaveNotification(Domain.Entities.Notification notification);
+    IQueryable<Domain.Entities.Notification> GetNotifications(string UserId);
+    Task<List<Domain.Entities.Notification>> SaveNotifications(List<Domain.Entities.Notification> notification);
 }

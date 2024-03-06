@@ -1,5 +1,6 @@
 ﻿using NotificationService.Services;
 using NotificationService.Services.Notification;
+using NotificationService.Repositories;
 
 namespace NotificationService;
 
@@ -19,6 +20,7 @@ public class Startup
 
         // add more services here
         services.AddNotificationServiceServices(Configuration);
+        services.AddNotificationServiceRepository(Configuration);
 
         services.AddSwaggerGen();
     }
