@@ -6,10 +6,10 @@ export default [
     {
       path: "/tenders",
       element: <List />,
-      loader: async () => {
-        const tenderRes = await axiosClient.get("/api/tender");
-        return tenderRes.data;
-      },
+      // loader: async () => {
+      //   const tenderRes = await axiosClient.get("/api/tender");
+      //   return tenderRes.data;
+      // },
     },
     {
       path: "/tenders/:code",

@@ -83,12 +83,14 @@ export default function FilterForm({
             name="name"
             label="Nombre *"
             defaultValue={filter ? filter.name : ""}
+            fullWidth
           />
           <CustomTextField
             control={control}
             errors={formErrors}
             name="description"
             label="Descripción *"
+            fullWidth
             multiline
             rows={5}
             defaultValue={filter ? filter.description : ""}

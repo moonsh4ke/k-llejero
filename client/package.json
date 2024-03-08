@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
+    "@mui/x-data-grid": "^6.19.6",
     "@sn1006/common": "^1.0.23",
     "@sn1006/schemas": "^1.0.1",
     "@types/uuid": "^9.0.8",

@@ -1,5 +1,7 @@
 import { Dispatch, MouseEventHandler, SetStateAction } from "react"
 
+export type TenderState = 5 | 6 | 7 | 8 | 18 | 19;
+
 export interface SnackbarData {
   message?: string;
   type?: SnackbarType;
