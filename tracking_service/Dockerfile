@@ -4,6 +4,7 @@ WORKDIR /app
 
 # Instalar herramienta de línea de comandos de EF Core
 RUN dotnet tool install --global dotnet-ef --version 6.*
+ENV PATH="$PATH:/root/.dotnet/tools"
 
 # Copiar proyectos
 COPY TrackingService/ ./TrackingService/
@@ -15,11 +16,12 @@ COPY TrackingService.Services/ ./TrackingService.Services/
 WORKDIR /app/TrackingService
 RUN dotnet restore ./TrackingService.sln
 
+# Entity framework
+RUN dotnet ef migrations add Initial2 --project /app/TrackingService.Repositories --startup-project /app/TrackingService
+RUN dotnet ef database update
+
 # Publicar la API
 RUN dotnet publish ./TrackingService.sln -c Release -o out
-
-# Ejecutar migraciones de Entity Framework
-#RUN /root/.dotnet/tools/dotnet-ef database update --project ../TrackingService.Repositories/TrackingService.Repositories.csproj
 
 # Imagen de base para ejecutar la aplicación
 FROM mcr.microsoft.com/dotnet/aspnet:6.0

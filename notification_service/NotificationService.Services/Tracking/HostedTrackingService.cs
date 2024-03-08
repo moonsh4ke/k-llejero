@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using NATS.Client.Core;
-using NotificationService.Domain;
+using NotificationService.Domain.DTOs;
 using NotificationService.Services.Notification;
 using System.Text.Json;
 
@@ -11,13 +11,14 @@ public class HostedTrackingService : IHostedTrackingService
 {
     private readonly IServiceProvider _services;
     private readonly INatsConnection _connection;
-    private readonly IHubContext<NotificationHub> _notificationHubContext;
+    private readonly INotificationService _notificationService;
 
-    public HostedTrackingService(IServiceProvider services, INatsConnection connection, IHubContext<NotificationHub> notificationHubContext)
+    public HostedTrackingService(IServiceProvider services, INatsConnection connection, 
+        IHubContext<NotificationHub> notificationHubContext, INotificationService notificationService)
     {
         _services = services;
         _connection = connection;
-        _notificationHubContext = notificationHubContext;
+        _notificationService = notificationService;
     }
 
     public async Task DoWork(CancellationToken stoppingToken)
@@ -32,36 +33,9 @@ public class HostedTrackingService : IHostedTrackingService
 
                 await foreach (var msg in result.Msgs.ReadAllAsync())
                 {
-                    var dataResult = JsonSerializer.Deserialize<List<TestDto>>(msg.Data);
+                    var dataResult = JsonSerializer.Deserialize<List<TrackingDto>>(msg.Data);
 
-                    List<Task> tasks = new();
-
-                    Console.WriteLine("Enviando notificaciones...!");
-
-                    foreach (var data in dataResult)
-                    {
-                        string userId = data?.UserId ?? "";
-                        string tenderId = data?.TenderId ?? "";
-                        string tenderNewState = data?.TenderNewState ?? "";
-
-                        Domain.Entities.Notification notification = new()
-                        {
-                            Id = Guid.NewGuid().ToString(),
-                            TenderId = tenderId,
-                            UserId = userId,
-                            Content = $"La licitación {tenderId} cambió de estado a {tenderNewState}",
-                            CreatedDate = DateTime.UtcNow,
-                            Readed = false,
-                        };
-
-                        string notificationClient = $"notificationSendToUser-{userId}";
-                        var publishTask = Task.Run(() => _notificationHubContext.Clients.All.SendAsync(notificationClient, notification));
-                        tasks.Add(publishTask);
-                    }
-
-                    await Task.WhenAll(tasks);
-
-                    Console.WriteLine("Notificaciones enviadas...!");
+                    await _notificationService.SaveAndSendNotifications(dataResult);
                 }
             }
         }
