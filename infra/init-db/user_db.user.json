@@ -1,0 +1,24 @@
+[
+  {
+    "_id": {
+      "$oid": "65a6fbdf9733983c4840efa2"
+    },
+    "name": "Nicolas",
+    "lastname": "Fernandez",
+    "phone": "+5691234",
+    "rut": "21238423-3",
+    "email": "nicolas.fernandez.r@usach.cl",
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "65a6fc089733983c4840efa3"
+    },
+    "name": "Martin",
+    "lastname": "Cespedes",
+    "phone": "+56974572566",
+    "rut": "19083622-3",
+    "email": "martin.cespedes@usach.cl",
+    "__v": 0
+  }
+]
