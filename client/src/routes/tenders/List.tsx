@@ -32,7 +32,7 @@ import { useForm } from "react-hook-form";
 import CustomTextField from "../../shared/components/inputs/CustomTextField";
 
 function CustomToolbar() {
-  return(
+  return (
     <GridToolbarContainer>
       <GridToolbarExport />
       <GridToolbarColumnsButton />
@@ -81,88 +81,28 @@ export default function List() {
       field: "actions",
       type: "actions",
       getActions: (params: GridRowParams) => [
+        <MuiLink underline="none" variant="button">
+          <Link
+            style={{
+              display: "flex",
+              alignItems: "center",
+              textDecoration: "none",
+              color: "inherit",
+            }}
+            to={params.row.id}
+          >
+            Ver
+          </Link>
+        </MuiLink>,
         <GridActionsCellItem
           // TODO: agregar handler de tracking (Nico)
-          onClick={() => createTracking(params.row.code)}
+          // onClick={}
           icon={<Bookmark color="secondary" />}
           label="Seguir"
         />,
       ],
     },
   ];
-const columns: GridColDef[] = [
-  {
-    field: "code",
-    headerName: "Código",
-    width: 200,
-  },
-  { field: "name", headerName: "Nombre", width: 400 },
-  {
-    field: "stateCode",
-    headerName: "Estado",
-    type: "string",
-    width: 120,
-    valueGetter: (params) => tenderStates[params.value as TenderState],
-    renderCell: (params) => (
-      <Chip size="small" color="primary" label={params.value} />
-    ),
-  },
-  {
-    field: "endDate",
-    headerName: "Fecha de cierre",
-    type: "dateTime",
-    width: 140,
-    valueGetter: (params) => new Date(params.value),
-    valueFormatter: (params) =>
-      params.value.toLocaleString("es-ES", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "2-digit",
-        hour: "numeric",
-        minute: "numeric",
-      }),
-  },
-  {
-    field: "actions",
-    type: "actions",
-    getActions: (params: GridRowParams) => [
-      <MuiLink underline="none" variant="button">
-        <Link
-          style={{
-            display: "flex",
-            alignItems: "center",
-            textDecoration: "none",
-            color: "inherit",
-          }}
-          to={params.row.id}
-        >
-          Ver
-        </Link>
-      </MuiLink>,
-      <GridActionsCellItem
-        // TODO: agregar handler de tracking (Nico)
-        // onClick={}
-        icon={<Bookmark color="secondary" />}
-        label="Seguir"
-      />,
-    ],
-  },
-];
-
-function CustomToolbar() {
-  return (
-    <GridToolbarContainer>
-      <GridToolbarExport />
-      <GridToolbarColumnsButton />
-    </GridToolbarContainer>
-  );
-}
-
-export default function List() {
-  const navigate = useNavigate();
-  // const tenders = useLoaderData();
-  const [tenders, setTenders] = useState<any[]>([]);
-
   const {
     control,
     handleSubmit,
