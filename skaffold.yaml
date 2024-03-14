@@ -64,14 +64,6 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: moonsh4ke/kllejero-populator
-      context: populator_service
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.py'
-            dest: .
     - image: hoffens/kllejero-tracking
       context: tracking_service
       docker:
