@@ -80,3 +80,11 @@ build:
       context: notification_service
       docker:
         dockerfile: Dockerfile
+    - image: moonsh4ke/kllejero-user
+      context: user_service
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
