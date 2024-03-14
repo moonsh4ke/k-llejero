@@ -12,6 +12,7 @@ import ErrorHandler from "./shared/error/ErrorHandler";
 import authRoutes from "./routes/auth/Routes";
 import filterRoutes from "./routes/filters/Routes";
 import tenderRoutes from "./routes/tenders/Routes";
+import userRoutes from "./routes/users/Routes";
 
 import { ErrorBoundary } from "react-error-boundary";
 import AuthProvider from "./AuthProvider";
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
     children: [
       ...tenderRoutes,
       ...filterRoutes,
+      ...userRoutes,
       {
         path: "/trackings",
         element: <TrackingsView />,

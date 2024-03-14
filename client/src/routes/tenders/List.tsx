@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { Bookmark, FilterAlt } from "@mui/icons-material";
+import { Bookmark, FilterAlt, Visibility } from "@mui/icons-material";
 import {
   Alert,
   Box,
@@ -9,16 +9,20 @@ import {
   Snackbar,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
+
+import MuiLink from "@mui/material/Link";
+
 import {
   DataGrid,
+  GridActionsCell,
   GridActionsCellItem,
   GridColDef,
   GridRowParams,
   GridToolbarColumnsButton,
   GridToolbarContainer,
-  GridToolbarExport
+  GridToolbarExport,
 } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import axiosClient from "../../utils/axiosClient";
@@ -63,6 +67,19 @@ const columns: GridColDef[] = [
     field: "actions",
     type: "actions",
     getActions: (params: GridRowParams) => [
+      <MuiLink underline="none" variant="button">
+        <Link
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            color: "inherit",
+          }}
+          to={params.row.id}
+        >
+          Ver
+        </Link>
+      </MuiLink>,
       <GridActionsCellItem
         // TODO: agregar handler de tracking (Nico)
         // onClick={}
@@ -74,7 +91,7 @@ const columns: GridColDef[] = [
 ];
 
 function CustomToolbar() {
-  return(
+  return (
     <GridToolbarContainer>
       <GridToolbarExport />
       <GridToolbarColumnsButton />
@@ -194,8 +211,8 @@ export default function List() {
           >
             <DataGrid
               getRowHeight={() => "auto"}
-              getRowId={(row) => row._id}
               rows={tenders}
+              onRowClick={(params) => navigate(params.row.code)}
               columns={columns}
               sx={{
                 "& .MuiDataGrid-cell": {
@@ -203,7 +220,7 @@ export default function List() {
                 },
               }}
               slots={{
-                  toolbar: CustomToolbar
+                toolbar: CustomToolbar,
               }}
               initialState={{
                 pagination: {
