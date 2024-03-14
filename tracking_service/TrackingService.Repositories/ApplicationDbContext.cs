@@ -9,7 +9,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Domain.Entities.Tracking> Trackings { get; set; }
     public DbSet<CategoryTracking> TrackingCategories { get; set; }
-    public DbSet<Notes> Notes { get; set; }
+    public DbSet<Domain.Entities.Notes> Notes { get; set; }
     public DbSet<TrackingStatus> TrackingStatus { get; set; }
     //public DbSet<TenderStatus> TenderStatus { get; set; }
 }

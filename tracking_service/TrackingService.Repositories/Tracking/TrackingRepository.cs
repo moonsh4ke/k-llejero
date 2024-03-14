@@ -20,10 +20,12 @@ public class TrackingRepository : ITrackingRepository
 
     public async Task<Domain.Entities.Tracking> GetTrackingById(string trackingId)
     {
+        /*
         var query = (from tracking in _dbContext.Trackings
                      join notes in _dbContext.Notes
                      where tracking.Id == trackingId &&
                      notes.);
+        */
         return await _dbContext.Trackings.Where(tracking => tracking.Id == trackingId).FirstOrDefaultAsync();
     }
 
