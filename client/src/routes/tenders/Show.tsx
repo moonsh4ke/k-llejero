@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
+import LinkIcon from "@mui/icons-material/Link";
+
 import {
   Chip,
   Container,
@@ -9,20 +12,32 @@ import {
   Box,
   Paper,
   Snackbar,
+  Tab,
+  Stack,
+  Link,
 } from "@mui/material";
 
 import Seller from "./components/Seller";
 import Items from "./components/Items";
-import tenderExample from "./utils/tenderExample"
+import tenderExample from "./utils/tenderExample";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import TenderDates from "./components/TenderDates";
 
 const tender = tenderExample["Listado"][0];
 
-export default function LicitacionesView() {
+export default function Show() {
   // const [tender, setTender] = useState();
   const [waiting, setWaiting] = useState(true);
 
+  const [value, setValue] = useState("1");
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
+
   let { code } = useParams();
 
+  // TODO: dont use this effect, instead use the useRequest hook
   // useEffect(() => {
   //   const fetchTender = async () => {
   //     const res = await axios.get(
@@ -34,34 +49,63 @@ export default function LicitacionesView() {
   //   fetchTender();
   // }, []);
 
-
   return (
     <>
-      {waiting && (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
-      )}
       {tender && (
         <>
           <Container>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 6,
-                "& > *": {
-                  mb: 3,
-                },
-              }}
-            >
-              <Typography variant="h5">{tender["Nombre"]}</Typography>
-              <Typography variant="body1">{tender["CodigoExterno"]}</Typography>
+            <Stack spacing={2}>
+              <Typography variant="h6">{tender["Nombre"]}</Typography>
+              <Stack
+                direction="row"
+                spacing={2}
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                <Typography variant="body1">
+                  {tender["CodigoExterno"]}
+                </Typography>
+                <Chip label={tender["Estado"]} color="success" />
+              </Stack>
               <Typography variant="body1">{tender["Descripcion"]}</Typography>
-              <Chip label={tender["Estado"]} color="success" />
-              <Seller tender={tender}/>
-              <Items items={tender["Items"]["Listado"]}/>
-              <Typography variant="body1">Tipo: {tender["Tipo"]}</Typography>
-            </Paper>
+              <Link
+                sx={{ display: "flex", alignItems: "center" }}
+                underline="none"
+                target="_blank"
+                href={`http://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=${tender["CodigoExterno"]}`}
+              >
+                <LinkIcon sx={{ mr: 1 }} />
+                Ver en MercadoPublico
+              </Link>
+              <TabContext value={value}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <TabList
+                    onChange={handleChange}
+                    aria-label="lab API tabs example"
+                  >
+                    <Tab label="Comprador" value="1" />
+                    <Tab label="Items" value="2" />
+                    <Tab label="Fechas" value="3" />
+                  </TabList>
+                </Box>
+                <TabPanel value="1">
+                  <Seller tender={tender} />
+                </TabPanel>
+                <TabPanel value="2">
+                  <Items items={tender["Items"]["Listado"]} />
+                </TabPanel>
+                <TabPanel value="3">
+                  <TenderDates tender={tender} />
+                </TabPanel>
+              </TabContext>
+            </Stack>
+
+            {/* <Typography variant="h5">{tender["Nombre"]}</Typography> */}
+            {/* <Typography variant="body1">{tender["CodigoExterno"]}</Typography> */}
+            {/* <Typography variant="body1">{tender["Descripcion"]}</Typography> */}
+            {/* <Chip label={tender["Estado"]} color="success" /> */}
+            {/* <Seller tender={tender}/> */}
+            {/* <Items items={tender["Items"]["Listado"]}/> */}
+            {/* <Typography variant="body1">Tipo: {tender["Tipo"]}</Typography> */}
           </Container>
         </>
       )}

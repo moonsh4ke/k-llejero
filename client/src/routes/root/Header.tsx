@@ -95,7 +95,12 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
               </Button>
             </Typography>
           </Stack>
-          <img style={{ height: "45px" }} src={logoBanner} alt="logo banner" />
+            <Link
+              style={{textDecoration: "none", color: "inherit" }}
+              to="/"
+            >
+            <img style={{ height: "45px" }} src={logoBanner} alt="logo banner" />
+            </Link>
           <Stack direction="row" spacing={1}>
             <IconButton
               size="large"

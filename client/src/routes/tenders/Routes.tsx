@@ -1,5 +1,5 @@
 import axiosClient from "../../utils/axiosClient";
-import Show from "../filters/Show";
+import Show from "./Show";
 import List from "./List";
 
 export default [

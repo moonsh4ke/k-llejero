@@ -13,6 +13,7 @@ import authRoutes from "./routes/auth/Routes";
 import filterRoutes from "./routes/filters/Routes";
 import tenderRoutes from "./routes/tenders/Routes";
 import trackingsRoutes from "./routes/trackings/Routes";
+import userRoutes from "./routes/users/Routes";
 
 import { ErrorBoundary } from "react-error-boundary";
 import AuthProvider from "./AuthProvider";

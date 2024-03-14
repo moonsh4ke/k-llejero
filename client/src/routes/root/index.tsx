@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import Header from "./Header";
 import { Box, Container } from "@mui/material";
 import { useState } from "react";
@@ -33,6 +33,7 @@ export default function RootIndex() {
         </Main>
         {Snackbar}
       </Container>
+      <ScrollRestoration />
     </Box>
   );
 }

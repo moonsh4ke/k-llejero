@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { Bookmark, FilterAlt } from "@mui/icons-material";
+import { Bookmark, FilterAlt, Visibility } from "@mui/icons-material";
 import {
   Alert,
   Box,
@@ -9,16 +9,20 @@ import {
   Snackbar,
   Stack,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
+
+import MuiLink from "@mui/material/Link";
+
 import {
   DataGrid,
+  GridActionsCell,
   GridActionsCellItem,
   GridColDef,
   GridRowParams,
   GridToolbarColumnsButton,
   GridToolbarContainer,
-  GridToolbarExport
+  GridToolbarExport,
 } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import axiosClient from "../../utils/axiosClient";
@@ -86,6 +90,78 @@ export default function List() {
       ],
     },
   ];
+const columns: GridColDef[] = [
+  {
+    field: "code",
+    headerName: "Código",
+    width: 200,
+  },
+  { field: "name", headerName: "Nombre", width: 400 },
+  {
+    field: "stateCode",
+    headerName: "Estado",
+    type: "string",
+    width: 120,
+    valueGetter: (params) => tenderStates[params.value as TenderState],
+    renderCell: (params) => (
+      <Chip size="small" color="primary" label={params.value} />
+    ),
+  },
+  {
+    field: "endDate",
+    headerName: "Fecha de cierre",
+    type: "dateTime",
+    width: 140,
+    valueGetter: (params) => new Date(params.value),
+    valueFormatter: (params) =>
+      params.value.toLocaleString("es-ES", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
+      }),
+  },
+  {
+    field: "actions",
+    type: "actions",
+    getActions: (params: GridRowParams) => [
+      <MuiLink underline="none" variant="button">
+        <Link
+          style={{
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+            color: "inherit",
+          }}
+          to={params.row.id}
+        >
+          Ver
+        </Link>
+      </MuiLink>,
+      <GridActionsCellItem
+        // TODO: agregar handler de tracking (Nico)
+        // onClick={}
+        icon={<Bookmark color="secondary" />}
+        label="Seguir"
+      />,
+    ],
+  },
+];
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarExport />
+      <GridToolbarColumnsButton />
+    </GridToolbarContainer>
+  );
+}
+
+export default function List() {
+  const navigate = useNavigate();
+  // const tenders = useLoaderData();
+  const [tenders, setTenders] = useState<any[]>([]);
 
   const {
     control,
@@ -195,8 +271,8 @@ export default function List() {
           >
             <DataGrid
               getRowHeight={() => "auto"}
-              getRowId={(row) => row._id}
               rows={tenders}
+              onRowClick={(params) => navigate(params.row.code)}
               columns={columns}
               sx={{
                 "& .MuiDataGrid-cell": {
@@ -204,7 +280,7 @@ export default function List() {
                 },
               }}
               slots={{
-                  toolbar: CustomToolbar
+                toolbar: CustomToolbar,
               }}
               initialState={{
                 pagination: {
