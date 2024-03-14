@@ -25,11 +25,8 @@ app.put(
 )
 
 app.get('/:id', async (req, res) => {
-  console.log("running this");
   const { id } = req.params;
   const user = await User.findById(id);
-  console.log("user");
-  console.log(user);
   if (!user)
     return res.status(404);
   return res.status(200).send(user);
