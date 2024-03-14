@@ -1,9 +1,15 @@
 import express from 'express'
 import { json } from 'body-parser'
-import { Tender } from './models/tender'
+import { Tender, TenderRawDocType, TenderDoc } from './models/tender'
+import { Document, FilterQuery, Query, QueryWithHelpers } from 'mongoose';
+import { z } from "zod";
+import CustomValidationError from '@sn1006/common/build/errors/validation-error';
+import { errorHandler } from '@sn1006/common';
+import morgan from 'morgan';
 
 const app = express();
 app.use(json());
+app.use(morgan('tiny'));
 app.set('trust proxy', true);
 
 app.get('/:id', async (req, res) => {
@@ -16,9 +22,28 @@ app.get('/:id', async (req, res) => {
 })
 
 app.get('/', async (req, res) => {
-  const tenders = await Tender.find({});
+  const { filter: filterJson } = req.query;
+
+  let tenders: Document<TenderDoc>[];
+
+  if (filterJson) {
+    const filters = JSON.parse(filterJson as string);
+
+    const filtersParsed = Object.keys(filters).map(key => {
+      let parsedFilter: Record<string, any> = {}
+      const regex = new RegExp(filters[key], 'i');
+      parsedFilter[key] = regex;
+      return parsedFilter;
+    });
+    tenders = await Tender.find({$and: filtersParsed});
+  }
+  else
+    tenders = await Tender.find({});
+
   return res.status(200).send(tenders);
 })
+
+app.use(errorHandler);
 
 
 export { app }
