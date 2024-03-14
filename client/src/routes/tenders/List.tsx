@@ -27,52 +27,6 @@ import { SnackbarData, TenderState } from "../../utils/types/types";
 import { useForm } from "react-hook-form";
 import CustomTextField from "../../shared/components/inputs/CustomTextField";
 
-const columns: GridColDef[] = [
-  {
-    field: "code",
-    headerName: "Código",
-    width: 200,
-  },
-  { field: "name", headerName: "Nombre", width: 400 },
-  {
-    field: "stateCode",
-    headerName: "Estado",
-    type: "string",
-    width: 120,
-    valueGetter: (params) => tenderStates[params.value as TenderState],
-    renderCell: (params) => (
-      <Chip size="small" color="primary" label={params.value} />
-    ),
-  },
-  {
-    field: "endDate",
-    headerName: "Fecha de cierre",
-    type: "dateTime",
-    width: 140,
-    valueGetter: (params) => new Date(params.value),
-    valueFormatter: (params) =>
-      params.value.toLocaleString("es-ES", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "2-digit",
-        hour: "numeric",
-        minute: "numeric",
-      }),
-  },
-  {
-    field: "actions",
-    type: "actions",
-    getActions: (params: GridRowParams) => [
-      <GridActionsCellItem
-        // TODO: agregar handler de tracking (Nico)
-        // onClick={}
-        icon={<Bookmark color="secondary" />}
-        label="Seguir"
-      />,
-    ],
-  },
-];
-
 function CustomToolbar() {
   return(
     <GridToolbarContainer>
@@ -87,6 +41,52 @@ export default function List() {
   // const tenders = useLoaderData();
   const [tenders, setTenders] = useState<any[]>([]);
 
+  const columns: GridColDef[] = [
+    {
+      field: "code",
+      headerName: "Código",
+      width: 200,
+    },
+    { field: "name", headerName: "Nombre", width: 400 },
+    {
+      field: "stateCode",
+      headerName: "Estado",
+      type: "string",
+      width: 120,
+      valueGetter: (params) => tenderStates[params.value as TenderState],
+      renderCell: (params) => (
+        <Chip size="small" color="primary" label={params.value} />
+      ),
+    },
+    {
+      field: "endDate",
+      headerName: "Fecha de cierre",
+      type: "dateTime",
+      width: 140,
+      valueGetter: (params) => new Date(params.value),
+      valueFormatter: (params) =>
+        params.value.toLocaleString("es-ES", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "2-digit",
+          hour: "numeric",
+          minute: "numeric",
+        }),
+    },
+    {
+      field: "actions",
+      type: "actions",
+      getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          // TODO: agregar handler de tracking (Nico)
+          onClick={() => createTracking(params.row.code)}
+          icon={<Bookmark color="secondary" />}
+          label="Seguir"
+        />,
+      ],
+    },
+  ];
+
   const {
     control,
     handleSubmit,
@@ -96,6 +96,7 @@ export default function List() {
   useEffect(() => {
     const getTenders = async () => {
       const tenderRes = await axiosClient.get("/api/tender");
+      console.log(tenderRes.data);
       setTenders(tenderRes.data);
     };
     getTenders();

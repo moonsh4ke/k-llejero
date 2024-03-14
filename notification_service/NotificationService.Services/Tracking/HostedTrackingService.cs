@@ -29,6 +29,11 @@ public class HostedTrackingService : IHostedTrackingService
             {
                 var result = await _connection.SubscribeCoreAsync<string>("notification:tracking_update");
 
+                if (result is null)
+                {
+                    return;
+                }
+
                 Console.WriteLine("Mensaje recibido...!");
 
                 await foreach (var msg in result.Msgs.ReadAllAsync())

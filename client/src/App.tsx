@@ -12,12 +12,13 @@ import ErrorHandler from "./shared/error/ErrorHandler";
 import authRoutes from "./routes/auth/Routes";
 import filterRoutes from "./routes/filters/Routes";
 import tenderRoutes from "./routes/tenders/Routes";
+import trackingsRoutes from "./routes/trackings/Routes";
 
 import { ErrorBoundary } from "react-error-boundary";
 import AuthProvider from "./AuthProvider";
 import RequireAuth from "./components/RequireAuth";
 import ErrorFallback from "./shared/error/ErrorFallback";
-import axiosClient from "./utils/axiosClient";
+import SignalRProvider from "./routes/root/SignalRProvider";
 
 const router = createBrowserRouter([
   {
@@ -33,10 +34,7 @@ const router = createBrowserRouter([
     children: [
       ...tenderRoutes,
       ...filterRoutes,
-      {
-        path: "/trackings",
-        element: <TrackingsView />,
-      },
+      ...trackingsRoutes,
       {
         path: "/test",
         element: <div>test element</div>,
@@ -54,19 +52,12 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <SignalRContext.Provider
-        connectEnabled={true}
-        accessTokenFactory={() =>
-          "https://kllejero.dev/api/notification/notificationHub"
-        }
-        dependencies={["https://kllejero.dev/api/notification/notificationHub"]} //remove previous connection and create a new connection if changed
-        url={"https://kllejero.dev/api/notification/notificationHub"}
-      >
+      <SignalRProvider>
         <RouterProvider
           // key={currentUser ? currentUser.email : "router-provider"}
           router={router}
         />
-      </SignalRContext.Provider>
+      </SignalRProvider>
     </AuthProvider>
   );
 

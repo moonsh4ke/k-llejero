@@ -36,7 +36,7 @@ namespace NotificationService.Services.Notification
             catch (Exception ex)
             {
                 // TODO: Add logs
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine($"GetNotifications - {ex.Message}");
                 response.StatusCode = 500;
                 response.IsSuccessful = false;
                 response.Message = "Error al obtener las notificaciones";
@@ -48,10 +48,12 @@ namespace NotificationService.Services.Notification
         {
             try
             {
+                Console.WriteLine($"SaveAndSendNotifications - trackings.COUNT => {trackings.Count}");
                 var response = await SaveNotifications(trackings);
 
                 if (!response.IsSuccessful)
                 {
+                    Console.WriteLine($"SaveAndSendNotifications - {response.Message}");
                     return;
                 }
 
@@ -60,7 +62,7 @@ namespace NotificationService.Services.Notification
             catch (Exception ex)
             {
                 // TODO: Add logs
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine($"SaveAndSendNotifications - {ex.Message}");
             }
         }
 
@@ -80,6 +82,7 @@ namespace NotificationService.Services.Notification
                 
                 if (IsListValid(trackings))
                 {
+                    Console.WriteLine($"SaveNotifications - LIST NOT VALID");
                     response.IsSuccessful = false;
                     response.StatusCode = 404;
                     response.Message = "No hay seguimientos activos para las licitaciones";
@@ -94,16 +97,19 @@ namespace NotificationService.Services.Notification
                         Id = Guid.NewGuid().ToString(),
                         TenderId = tracking.TenderId,
                         UserId = tracking.UserId,
-                        Content = $"La licitación {tracking.TenderId} cambió de estado a {tracking.TenderNewState}",
+                        Content = $"Cambió de estado a {tracking.TenderNewState}",
+                        TenderStatus = tracking.TenderNewStateId,
                         CreatedDate = DateTime.UtcNow,
                         Readed = false,
                     };
+                    notifications.Add(notification);
                 }
               
                 var data = await _notificationRepository.SaveNotifications(notifications);
 
                 if (IsListValid(data))
                 {
+                    Console.WriteLine($"SaveNotifications - DATA LIST NOT VALID");
                     response.IsSuccessful = false;
                     response.StatusCode = 404;
                     response.Message = "No hay seguimientos activos para las licitaciones";
@@ -118,7 +124,7 @@ namespace NotificationService.Services.Notification
             catch (Exception ex)
             {
                 // TODO: Add logs
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine($"SaveNotifications - {ex.Message}");
 
                 response.StatusCode = 500;
                 response.Message = "Error al guardar la notificación";
@@ -144,7 +150,43 @@ namespace NotificationService.Services.Notification
             catch (Exception ex)
             {
                 // TODO: Add logs
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine($"SendNotifications - {ex.Message}");
+            }
+        }
+
+        public async Task<ResponseDto<Domain.Entities.Notification>> UpdateNotifications(List<Domain.Entities.Notification> notifications)
+        {
+            ResponseDto<Domain.Entities.Notification> response = new()
+            {
+                IsSuccessful = true,
+                StatusCode = 200,
+                Message = "Notificaciones actualizadas exitosamente",
+                Data = new List<Domain.Entities.Notification>()
+            };
+
+            try
+            {
+                response.Data = await _notificationRepository.SaveNotifications(notifications);
+
+                if (response.Data is not null && response.Data.Any())
+                {
+                    return response;
+                }
+
+                response.StatusCode = 404;
+                response.IsSuccessful = false;
+                response.Message = "No se actualizaron las notificaciones";
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                // TODO: Add logs
+                Console.WriteLine($"UpdateNotifications - {ex.Message}");
+                response.IsSuccessful = false;
+                response.StatusCode = 500;
+                response.Message = "Error al actualizar las notificaciones";
+                return response;
             }
         }
 

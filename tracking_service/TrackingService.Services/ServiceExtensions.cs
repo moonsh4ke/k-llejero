@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NATS.Client.Core;
 using NATS.Client.Hosting;
+using TrackingService.Repositories.Notes;
 using TrackingService.Services.Tender;
 using TrackingService.Services.Tracking;
 
@@ -28,5 +29,6 @@ public static class ServiceExtensions
         services.AddScoped<ITrackingService, Tracking.TrackingService>();
         services.AddScoped<IHostedTenderService, HostedTenderService>();
         services.AddHostedService<ConsumeHostedTenderService>();
+        services.AddScoped<INotesRepository, NotesRepository>();
     }
 }

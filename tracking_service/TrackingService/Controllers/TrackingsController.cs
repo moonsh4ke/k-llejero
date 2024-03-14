@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MySqlX.XDevAPI.Common;
 using TrackingService.Domain.DTOs;
+using TrackingService.Domain.DTOs.Tracking;
 using TrackingService.Services.Tracking;
 
 namespace TrackingServiceAPI.Controllers;
@@ -10,16 +10,21 @@ namespace TrackingServiceAPI.Controllers;
 public class TrackingsController : ControllerBase
 {
     private ITrackingService _trackingService;
-    public TrackingsController(ITrackingService trackingService) 
+    public TrackingsController(ITrackingService trackingService)
     {
         _trackingService = trackingService;
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<ResponseDto<TrackingByUserDto>> GetTrackings([FromQuery] PaginationDto paginationDto)
     {
-        var result = await _trackingService.GetTrackingsByUser("nicolas.fernandez.r@usach.cl");
-        return StatusCode(result.StatusCode, result);
+        return await _trackingService.GetTrackingsByUser(paginationDto);
+    }
+
+    [HttpGet("{trackingId}")]
+    public async Task<ResponseDto<TrackingByUserDto>> GetTracking(string trackingId)
+    {
+        return null;
     }
 
     /*

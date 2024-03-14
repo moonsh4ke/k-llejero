@@ -9,74 +9,68 @@ import {
   PopperPlacementType,
   Typography,
 } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { grey, yellow, green, red, blue, blueGrey, lime } from "@mui/material/colors";
 import { tenderStates } from "../../utils/tenderStates";
+import axiosClient from "../../utils/axiosClient";
+import { SignalRContext } from "../../contexts/SignalRContext";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-interface NotificationTest {
+interface Notification {
   id: string;
-  name: string;
-  code: string;
-  state: 6 | 7 | 8 | 18 | 19;
+  tenderId: string;
+  userId: string;
+  content: string;
+  tenderStatus: 6 | 7 | 8 | 18 | 19;
   createdDate: Date;
   readed: boolean;
 }
 
 const formatDate = (date: Date) => {
-  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' } as Intl.DateTimeFormatOptions;
+  const options = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric', 
+    hour: 'numeric', 
+    minute: 'numeric',
+    timeZone: 'local'
+  } as Intl.DateTimeFormatOptions;
+
   return date.toLocaleString('es-ES', options);
 }
 
-const notifications: NotificationTest[] = [
-  {
-    id: "idk1",
-    name: "Insumos Medicos y Medicamentos",
-    code: "1509-5-L114",
-    state: 6,
-    createdDate: new Date(2024, 3, 3, 14, 30, 0),
-    readed: false,
-  },
-  {
-    id: "idk2",
-    name: "Insumos Medicos y Medicamentos",
-    code: "1509-5-L114",
-    state: 7,
-    createdDate: new Date(2024, 2, 3, 14, 30, 0),
-    readed: false,
-  },
-  {
-    id: "idk3",
-    name: "Insumos Medicos y Medicamentos",
-    code: "1509-5-L114",
-    state: 8,
-    createdDate: new Date(2024, 1, 3, 14, 30, 0),
-    readed: false,
-  },
-  {
-    id: "idk4",
-    name: "Insumos Medicos y Medicamentos",
-    code: "1509-5-L114",
-    state: 18,
-    createdDate: new Date(2023, 3, 3, 14, 30, 0),
-    readed: false,
-  },
-  {
-    id: "idk5",
-    name: "Insumos Medicos y Medicamentos",
-    code: "1509-5-L114",
-    state: 19,
-    createdDate: new Date(2023, 2, 2, 14, 30, 0),
-    readed: false,
-  },
-];
-
 export default function TenderNotificationIcon() {
+  const navigate = useNavigate();
+  const { currentUser, logout } = useContext(AuthContext)!;
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<PopperPlacementType>();
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+
+  if (currentUser) {
+    SignalRContext.useSignalREffect(
+      `notificationSendToUser-${currentUser.email}`,
+      (message) => {
+        setBadgeData({
+          ...badgeData,
+          badgeContent: (badgeData.badgeContent += 1),
+        });
+        
+        console.log(`HUB: ${JSON.stringify(message)}`);
+
+        if (notifications.length > 0) {
+          setNotifications([message, ...notifications.slice(0, notifications.length - 1)]);
+        } else {
+          setNotifications([message]);
+        }
+      },
+      []
+    );
+  }
 
   const [badgeData, setBadgeData] = useState<BadgeProps>({
-    badgeContent: 3,
+    badgeContent: 0,
     color: "error",
   });
 
@@ -91,6 +85,10 @@ export default function TenderNotificationIcon() {
       setOpen((prev) => placement !== newPlacement || !prev);
       setPlacement(newPlacement);
     };
+
+  const handleReadedClick = () => {
+    console.log('marcar como leidas');
+  }
 
   const StateIcon = ({state}: any) => {
     switch(state) {
@@ -157,7 +155,9 @@ export default function TenderNotificationIcon() {
             {/* <Stack spacing={1.5}> */}
               <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <Typography variant="h6">Notificaciones</Typography>
-                <Button  variant="text" startIcon={<Check />}>Marcar como leidas</Button>
+                <Button variant="text" startIcon={<Check />} onClick={handleReadedClick}>
+                  Marcar como leidas
+                </Button>
               </Box>
               <List sx={{
                 maxHeight: "350px",
@@ -188,16 +188,17 @@ export default function TenderNotificationIcon() {
                   <ListItem>
                     <ListItemButton>
                       <ListItemIcon>
-                        <Circle color="primary" sx={{fontSize:"0.7em"}}/>
+                        {!not.readed &&
+                          <Circle color="primary" sx={{fontSize:"0.7em"}}/>
+                        }
                       </ListItemIcon>
                       <ListItemText>
-                        <Typography variant="body1">{not.name}</Typography>
-                        <Typography variant="body2">{not.code}</Typography>
-                        <Typography variant="body2">{tenderStates[not.state]}</Typography>
+                        <Typography variant="body1">{not.tenderId}</Typography>
+                        <Typography variant="body2">{not.content}</Typography>
                         <Typography variant="caption">{formatDate(not.createdDate)}</Typography>
                       </ListItemText>
                       <ListItemIcon>
-                        <StateIcon state={not.state} />
+                        <StateIcon state={not.tenderStatus} />
                       </ListItemIcon>
                     </ListItemButton>
                   </ListItem>
@@ -214,6 +215,31 @@ export default function TenderNotificationIcon() {
       )}
     </Popper>
   );
+
+  useEffect(() => {
+    const fetchNotifications = async() => {
+      try {
+        const endpoint = '/api/notification/api/notification';
+        const queryParams = {
+          UserId: currentUser?.email,
+          Page: 1,
+          RecordsPerPage: 5
+        }
+        const res = await axiosClient.get(endpoint, {
+          params: queryParams
+        });
+
+        if (res.status === 200) {
+          console.log(`DATA => ${JSON.stringify(res.data)}`)
+          setNotifications(res.data.data);
+        }
+        
+      } catch(error) {
+        console.error(`Error fetchNotifications => ${error}`)
+      }
+    }
+    fetchNotifications();
+  }, []);
 
   return (
     <IconButton

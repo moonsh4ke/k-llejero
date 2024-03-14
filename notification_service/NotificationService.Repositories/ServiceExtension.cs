@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NotificationService.Repositories.Notification;
 
 namespace NotificationService.Repositories
 {
@@ -14,6 +15,8 @@ namespace NotificationService.Repositories
             {
                 options.UseMySQL(connectionString);
             });
+
+            services.AddScoped<INotificationRepository, NotificationRepository>();
         }
     }
 }

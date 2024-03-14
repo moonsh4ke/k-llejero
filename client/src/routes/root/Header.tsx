@@ -14,7 +14,6 @@ import { Badge, Container, Paper, Stack } from "@mui/material";
 import Mail from "@mui/icons-material/Mail";
 import { Notifications } from "@mui/icons-material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { SignalRContext } from "../../contexts/SignalRContext";
 
 import Box from "@mui/material/Box";
 import TenderNotificationIcon from "./TenderNotificationIcon";

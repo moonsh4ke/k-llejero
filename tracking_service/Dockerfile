@@ -17,8 +17,8 @@ WORKDIR /app/TrackingService
 RUN dotnet restore ./TrackingService.sln
 
 # Entity framework
-RUN dotnet ef migrations add Initial2 --project /app/TrackingService.Repositories --startup-project /app/TrackingService
-RUN dotnet ef database update
+#RUN dotnet ef migrations add Initial2 --project /app/TrackingService.Repositories --startup-project /app/TrackingService
+#RUN dotnet ef database update
 
 # Publicar la API
 RUN dotnet publish ./TrackingService.sln -c Release -o out

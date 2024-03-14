@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TrackingService.Domain.Entities;
 using TrackingService.Domain.Enums;
+using TrackingService.Repositories.Notes;
 using TrackingService.Repositories.Tracking;
 
 namespace TrackingService.Repositories;
@@ -18,70 +19,8 @@ public static class ServiceExtension
             options.UseMySQL(connectionString);
         });
 
-
-        // TODO: FIX IT
-        //var test = services.BuildServiceProvider().GetRequiredService<ApplicationDbContext>();
-
-        //test.Database.Migrate();
-
-        //var fakeTrackings = CreateFakeTrackings();
-
-        //foreach (var fakeTracking in fakeTrackings)
-        //{
-        //    test.Add(fakeTracking);
-        //}
-
-        List<TenderStatus> tenderStatuses = new()
-        {
-            new TenderStatus
-            {
-                Id = 5,
-                Name = "Publicada",
-                CreatedDate = DateTime.Now,
-                IsActive = true,
-            },
-            new TenderStatus
-            {
-                Id = 6,
-                Name = "Cerrada",
-                CreatedDate = DateTime.Now,
-                IsActive = true,
-            },
-            new TenderStatus
-            {
-                Id = 7,
-                Name = "Desierta",
-                CreatedDate = DateTime.Now,
-                IsActive = true,
-            },
-            new TenderStatus
-            {
-                Id = 8,
-                Name = "Adjudicada",
-                CreatedDate = DateTime.Now,
-                IsActive = true,
-            },
-            new TenderStatus
-            {
-                Id = 18,
-                Name = "Revocada",
-                CreatedDate = DateTime.Now,
-                IsActive = true,
-            },
-            new TenderStatus
-            {
-                Id = 19,
-                Name = "Suspendida",
-                CreatedDate = DateTime.Now,
-                IsActive = true,
-            }
-        };
-
-        //test.Add(tenderStatuses);
-
-        //test.SaveChanges();
-
         services.AddScoped<ITrackingRepository, TrackingRepository>();
+        services.AddScoped<INotesRepository, NotesRepository>();
     }
 
     public static List<Domain.Entities.Tracking> CreateFakeTrackings()

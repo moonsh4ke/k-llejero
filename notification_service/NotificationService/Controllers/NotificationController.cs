@@ -15,6 +15,12 @@ namespace NotificationService.Controllers
             this.notificationService = notificationService;
         }
 
+        [HttpPut]
+        public async Task<ResponseDto<Domain.Entities.Notification>> Put(List<Domain.Entities.Notification> notifications)
+        {
+            return await notificationService.UpdateNotifications(notifications);
+        }
+
         [HttpGet]
         public async Task<ResponseDto<Domain.Entities.Notification>> Get([FromQuery] PaginationDto paginationDto)
         {

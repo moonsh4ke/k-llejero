@@ -16,7 +16,7 @@
 
         public async Task<List<Domain.Entities.Notification>> SaveNotifications(List<Domain.Entities.Notification> notifications)
         {
-            await _dbContext.AddAsync(notifications);
+            await _dbContext.AddRangeAsync(notifications);
             await _dbContext.SaveChangesAsync();
 
             return notifications;

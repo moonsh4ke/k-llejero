@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using NATS.Client.Core;
 using System.Text.Json;
+using TrackingService.Domain.Dictionaries;
 using TrackingService.Domain.DTOs;
 using TrackingService.Repositories;
 using TrackingService.Services.Tracking;
@@ -39,7 +39,6 @@ public class HostedTenderService : IHostedTenderService
                 {
                     // todo: change it
                     var updatedTenders = JsonSerializer.Deserialize<List<TendersDto>>(msg.Data);
-                    var serialize = JsonSerializer.Serialize(updatedTenders);
 
                     if (updatedTenders is null || !updatedTenders.Any())
                     {
@@ -60,20 +59,28 @@ public class HostedTenderService : IHostedTenderService
                         continue;
                     }
 
-                    var payload = new List<TestDto>();
+                    var payload = new List<NotificationDto>();
 
                     foreach (var tracking in trackings.Data)
                     {
+                        int statusId = updatedTenders.Where(data => data.id == tracking.TenderId).Select(data => data.updatedState).FirstOrDefault();
+                        string tenderStatus = TenderStatusOptions.Options.GetValueOrDefault(statusId) ?? "";
                         payload.Add(new()
                         {
-                            TrackingId = tracking.TrackingId,
+                            TrackingId = tracking.Id,
                             TenderId = tracking.TenderId,
-                            UserId = tracking.UserEmail,
-                            TenderNewState = "Adjudicada",
+                            UserId = tracking.UserId,
+                            TenderNewState = tenderStatus,
+                            TenderNewStateId = statusId
                         });
+
+                        tracking.TrackingStatusId = statusId;
+                        await _trackingService.UpdateTracking(tracking);
+                        // actualizar tracking con nuevo estado...
                     }
 
                     Console.WriteLine("Enviando notificación...!");
+                    Console.WriteLine(JsonSerializer.Serialize(payload));
 
                     // Notify notification service
                     await _connection.PublishAsync("notification:tracking_update", JsonSerializer.Serialize(payload));

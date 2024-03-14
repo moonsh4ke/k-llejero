@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NATS.Client.Core;
 using NATS.Client.Hosting;
+using NotificationService.Services.Notification;
 using NotificationService.Services.Tracking;
 
 namespace NotificationService.Services;
@@ -25,5 +26,6 @@ public static class ServiceExtensions
 
         services.AddScoped<IHostedTrackingService, HostedTrackingService>();
         services.AddHostedService<ConsumeHostedTrackingService>();
+        services.AddScoped<INotificationService, NotificationService.Services.Notification.NotificationService>();
     }
 }
