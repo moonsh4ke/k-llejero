@@ -36,6 +36,7 @@ const router = createBrowserRouter([
       ...tenderRoutes,
       ...filterRoutes,
       ...trackingsRoutes,
+      ...userRoutes,
       {
         path: "/test",
         element: <div>test element</div>,
