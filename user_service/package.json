@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sn1006/common": "^1.0.23",
+    "@sn1006/common": "^1.0.24",
     "@sn1006/schemas": "^1.0.5",
     "@types/express": "^4.17.21",
     "@types/morgan": "^1.9.9",
