@@ -16,14 +16,14 @@ public class TrackingService : ITrackingService
         _trackingRepository = trackingRepository;
     }
 
-    public async Task<ResponseDto<Domain.Entities.Tracking>> GetTrackingById(string id)
+    public async Task<ResponseDto<TrackingWithNotesDto>> GetTrackingById(string id)
     {
-        ResponseDto<Domain.Entities.Tracking> response = new()
+        ResponseDto<TrackingWithNotesDto> response = new()
         {
             IsSuccessful = true,
             StatusCode = 200,
             Message = "Seguimiento obtenido exitosamente",
-            Data = new List<Domain.Entities.Tracking>()
+            Data = new List<TrackingWithNotesDto>()
         };
 
         try
@@ -38,7 +38,7 @@ public class TrackingService : ITrackingService
                 return response;
             }
 
-            response.Data = new List<Domain.Entities.Tracking>()
+            response.Data = new List<TrackingWithNotesDto>()
             {
                 tracking
             };

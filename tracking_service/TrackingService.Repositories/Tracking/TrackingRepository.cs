@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TrackingService.Domain.Dictionaries;
+using TrackingService.Domain.DTOs.Tracking;
 
 namespace TrackingService.Repositories.Tracking;
 public class TrackingRepository : ITrackingRepository
@@ -18,15 +20,26 @@ public class TrackingRepository : ITrackingRepository
         return tracking;
     }
 
-    public async Task<Domain.Entities.Tracking> GetTrackingById(string trackingId)
+    public async Task<TrackingWithNotesDto> GetTrackingById(string trackingId)
     {
-        /*
+
+        var trackingStatusOptions = TrackingStatusOptions.Options;
+        var tenderStatusOptions = TenderStatusOptions.Options;
+
         var query = (from tracking in _dbContext.Trackings
-                     join notes in _dbContext.Notes
-                     where tracking.Id == trackingId &&
-                     notes.);
-        */
-        return await _dbContext.Trackings.Where(tracking => tracking.Id == trackingId).FirstOrDefaultAsync();
+                     where tracking.Id == trackingId
+                     select new TrackingWithNotesDto
+                     {
+                         Id = trackingId,
+                         TenderId = tracking.TenderId,
+                         TenderStatus = tenderStatusOptions.GetValueOrDefault(tracking.TenderStatusId) ?? "",
+                         TrackingStatus = trackingStatusOptions.GetValueOrDefault(tracking.TrackingStatusId) ?? "",
+                         Notes = _dbContext.Notes.Where(note => note.TrackingId == trackingId).ToList(),
+                         CreatedDate = tracking.CreatedDate,
+                         UpdatedDate = tracking.UpdatedDate,
+                     });
+
+        return await query?.FirstOrDefaultAsync();
     }
 
     public async Task<ICollection<Domain.Entities.Tracking>> GetTrackingsByTenders(string[] tendersIds)

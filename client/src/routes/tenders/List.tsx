@@ -95,8 +95,7 @@ export default function List() {
           </Link>
         </MuiLink>,
         <GridActionsCellItem
-          // TODO: agregar handler de tracking (Nico)
-          // onClick={}
+          onClick={() => { createTracking(params.row.code) }}
           icon={<Bookmark color="secondary" />}
           label="Seguir"
         />,

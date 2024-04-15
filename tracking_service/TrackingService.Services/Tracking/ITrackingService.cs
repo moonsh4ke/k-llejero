@@ -5,7 +5,7 @@ namespace TrackingService.Services.Tracking;
 
 public interface ITrackingService
 {
-    public Task<ResponseDto<Domain.Entities.Tracking>> GetTrackingById(string id);
+    public Task<ResponseDto<TrackingWithNotesDto>> GetTrackingById(string id);
     public Task<ResponseDto<Domain.Entities.Tracking>> GetTrackingsByTenders(string[] tendersIds);
     public Task<ResponseDto<TrackingByUserDto>> GetTrackingsByUser(PaginationDto pagination);
     public Task<ResponseDto<Domain.Entities.Tracking>> CreateTracking(string tenderId, string userId);

@@ -22,9 +22,9 @@ public class TrackingsController : ControllerBase
     }
 
     [HttpGet("{trackingId}")]
-    public async Task<ResponseDto<TrackingByUserDto>> GetTracking(string trackingId)
+    public async Task<ResponseDto<TrackingWithNotesDto>> GetTracking(string trackingId)
     {
-        return null;
+        return await _trackingService.GetTrackingById(trackingId);
     }
 
     /*
