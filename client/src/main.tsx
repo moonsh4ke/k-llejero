@@ -8,6 +8,11 @@ import App from "./App";
 import i18next from "i18next";
 import translation from "zod-i18n-map/locales/es/zod.json";
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 i18next.init({
   lng: "es",
   resources: {

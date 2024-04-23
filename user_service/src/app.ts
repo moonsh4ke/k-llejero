@@ -51,7 +51,7 @@ app.post(
   zodValidateRequest(userSchema),
   asyncWrapper(async (req, res) => {
     const payloadUser: UserRawDoc = req.body;
-    const newUser = new User(payloadUser);
+    const newUser = new User({...payloadUser, email: payloadUser.email.toLowerCase()});
     await newUser.save();
     let rut = payloadUser.rut;
     const password = payloadUser.name + rut.slice(rut.length - 4, rut.length);
