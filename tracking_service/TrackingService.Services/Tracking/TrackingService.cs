@@ -16,16 +16,16 @@ public class TrackingService : ITrackingService
         _trackingRepository = trackingRepository;
     }
 
-    public async Task<ResponseDto<Domain.Entities.Tracking>> GetTrackingById(string id)
+    public async Task<ResponseDto<List<TrackingWithNotesDto>>> GetTrackingById(string id)
     {
-        ResponseDto<Domain.Entities.Tracking> response = new()
+        ResponseDto<List<TrackingWithNotesDto>> response = new()
         {
             IsSuccessful = true,
             StatusCode = 200,
             Message = "Seguimiento obtenido exitosamente",
-            Data = new List<Domain.Entities.Tracking>()
+            Data = new List<TrackingWithNotesDto>()
         };
-
+        
         try
         {
             var tracking = await _trackingRepository.GetTrackingById(id);
@@ -38,7 +38,7 @@ public class TrackingService : ITrackingService
                 return response;
             }
 
-            response.Data = new List<Domain.Entities.Tracking>()
+            response.Data = new List<TrackingWithNotesDto>()
             {
                 tracking
             };
@@ -58,9 +58,9 @@ public class TrackingService : ITrackingService
         }
     }
 
-    public async Task<ResponseDto<Domain.Entities.Tracking>> GetTrackingsByTenders(string[] tendersIds)
+    public async Task<ResponseDto<List<Domain.Entities.Tracking>>> GetTrackingsByTenders(string[] tendersIds)
     {
-        ResponseDto<Domain.Entities.Tracking> response = new()
+        ResponseDto<List<Domain.Entities.Tracking>> response = new()
         {
             IsSuccessful = true,
             StatusCode = 200,
@@ -81,7 +81,7 @@ public class TrackingService : ITrackingService
                 return response;
             }
 
-            response.Data = data;
+            response.Data = data.ToList();
 
             return response;
         }
@@ -105,7 +105,7 @@ public class TrackingService : ITrackingService
             IsSuccessful = true,
             StatusCode = 200,
             Message = "Seguimientos obtenidos exitosamente",
-            Data = new List<TrackingByUserDto>()
+            Data = new TrackingByUserDto()
         };
 
         try
@@ -121,11 +121,15 @@ public class TrackingService : ITrackingService
             }
 
             var tenderStatusOptions = TenderStatusOptions.Options;
-            var trackingStatusOptions = Domain.Dictionaries.TrackingStatusOptions.Options;
+            var trackingStatusOptions = TrackingStatusOptions.Options;
 
-            response.Data = await trackings.OrderBy(tracking => tracking.UpdatedDate)
+            
+            int trackingsCount = trackings.Count();
+
+            response.Data.TotalTrackings = trackingsCount;
+            response.Data.OutputTrackings = await trackings.OrderBy(tracking => tracking.UpdatedDate)
                 .Pagination(pagination)
-                .Select(tracking => new TrackingByUserDto
+                .Select(tracking => new OutputTracking
                 {
                     Id = tracking.Id,
                     TenderId = tracking.TenderId,
@@ -190,9 +194,9 @@ public class TrackingService : ITrackingService
         }
     }
 
-    public async Task<ResponseDto<Domain.Entities.Tracking>> CreateTracking(string tenderId, string userId)
+    public async Task<ResponseDto<List<Domain.Entities.Tracking>>> CreateTracking(string tenderId, string userId)
     {
-        ResponseDto<Domain.Entities.Tracking> response = new()
+        ResponseDto<List<Domain.Entities.Tracking>> response = new()
         {
             IsSuccessful = true,
             StatusCode = 200,
@@ -261,9 +265,9 @@ public class TrackingService : ITrackingService
         throw new NotImplementedException();
     }
 
-    public async Task<ResponseDto<Domain.Entities.Tracking>> UpdateTracking(Domain.Entities.Tracking tracking)
+    public async Task<ResponseDto<List<Domain.Entities.Tracking>>> UpdateTracking(Domain.Entities.Tracking tracking)
     {
-        ResponseDto<Domain.Entities.Tracking> response = new()
+        ResponseDto<List<Domain.Entities.Tracking>> response = new()
         {
             IsSuccessful = true,
             StatusCode = 200,

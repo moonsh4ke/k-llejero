@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Bcpg;
 using TrackingService.Domain.DTOs;
 using TrackingService.Domain.DTOs.Tracking;
 using TrackingService.Services.Tracking;
@@ -22,9 +23,9 @@ public class TrackingsController : ControllerBase
     }
 
     [HttpGet("{trackingId}")]
-    public async Task<ResponseDto<TrackingByUserDto>> GetTracking(string trackingId)
+    public async Task<ResponseDto<List<TrackingWithNotesDto>>> GetTracking(string trackingId)
     {
-        return null;
+        return await _trackingService.GetTrackingById(trackingId);
     }
 
     /*
@@ -35,9 +36,20 @@ public class TrackingsController : ControllerBase
      * 
     */
     [HttpPost("{tenderId}")]
-    public async Task<IActionResult> Create(string tenderId)
+    public async Task<IActionResult> Create([FromHeader] string userId, string tenderId)
     {
-        var result = await _trackingService.CreateTracking(tenderId, "nicolas.fernandez.r@usach.cl");
+        if (string.IsNullOrEmpty(userId))
+        {
+            return BadRequest("User id not provided");
+        }
+
+        if (string.IsNullOrEmpty(tenderId))
+        {
+            return BadRequest("Tender id not provided");
+
+        }
+
+        var result = await _trackingService.CreateTracking(tenderId, userId);
         return StatusCode(result.StatusCode, result);
     }
 }

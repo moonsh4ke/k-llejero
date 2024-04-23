@@ -9,9 +9,10 @@ D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingS
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.AssemblyInfoInputs.cache
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.AssemblyInfo.cs
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.csproj.CoreCompileInputs.cache
-D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.csproj.CopyComplete
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.dll
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\refint\TrackingService.Repositories.dll
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.pdb
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.genruntimeconfig.cache
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\ref\TrackingService.Repositories.dll
+D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\TrackingService.Repositories.sourcelink.json
+D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Repositories\obj\Debug\net6.0\Tracking.11727D70.Up2Date

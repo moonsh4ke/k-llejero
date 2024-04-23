@@ -5,7 +5,7 @@ namespace TrackingService.Services.Notes
 {
     public interface INotesService
     {
-        public Task<ResponseDto<Domain.Entities.Notes>> CreateNotes(NoteDto notes);
-        public Task<ResponseDto<Domain.Entities.Notes>> UpdateNotes(List<Domain.Entities.Notes> notes);
+        public Task<ResponseDto<List<Domain.Entities.Notes>>> CreateNotes(NoteDto notes);
+        public Task<ResponseDto<List<Domain.Entities.Notes>>> UpdateNotes(List<Domain.Entities.Notes> notes);
     }
 }

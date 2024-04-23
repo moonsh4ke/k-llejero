@@ -2,6 +2,12 @@
 {
     public class TrackingByUserDto
     {
+        public int TotalTrackings { get; set; }
+        public IEnumerable<OutputTracking> OutputTrackings { get; set; }
+    }
+
+    public class OutputTracking
+    {
         public string Id { get; set; }
         public string TenderId { get; set; }
         public int TenderStatusId { get; set; }

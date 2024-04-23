@@ -20,7 +20,6 @@ public static class ServiceExtensions
             Url = natsUrl
         };
 
-        // Add nats
         services.AddNats(poolSize: 1, configureOpts =>
         {
             return opts;

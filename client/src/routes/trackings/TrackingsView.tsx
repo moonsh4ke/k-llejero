@@ -11,6 +11,7 @@ import axios from "axios";
 import axiosClient from "../../utils/axiosClient";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Tracking } from "./types/tracking.type";
+import { Button } from '@mui/material';
 
 export default function TrackingsView() {
     const { currentUser, logout } = useContext(AuthContext)!;
@@ -58,7 +59,7 @@ export default function TrackingsView() {
                     </Box>
                 :
                     <Fragment>
-                        {existsError 
+                        {existsError || trackings?.length === 0
                             ?
                                 <Typography variant="h4">Usuario no tiene seguimientos creados</Typography>
                             :
@@ -85,8 +86,7 @@ export default function TrackingsView() {
                                         )
                                     })}
                                 </>
-                        } 
-
+                        }
                     </Fragment>
             }
         </>

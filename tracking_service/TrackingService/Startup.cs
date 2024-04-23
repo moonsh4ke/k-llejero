@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using TrackingService.Repositories;
 using TrackingService.Services;
 
@@ -22,7 +24,16 @@ namespace TrackingServiceAPI
             services.AddTrackingServiceRepository(Configuration);
 
             // add more services 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
 
+                };
+            });
+            
             services.AddSwaggerGen();
         }
 

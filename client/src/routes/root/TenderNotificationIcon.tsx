@@ -185,7 +185,7 @@ export default function TenderNotificationIcon() {
               }}>
                 {notifications.map((not, i) => (
                 <>
-                  <ListItem>
+                  <ListItem onClick={() => navigate(`/trackings/${not.tenderId}`)}>
                     <ListItemButton>
                       <ListItemIcon>
                         {!not.readed &&

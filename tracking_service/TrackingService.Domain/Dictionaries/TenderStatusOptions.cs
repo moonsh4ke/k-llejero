@@ -11,7 +11,8 @@ public static class TenderStatusOptions
             7, "Desierta"
         },
         {
-            8, "Adjudicada"
+            //8, "Adjudicada"
+            0, "Adjudicada"
         },
         {
             18, "Revocada"
