@@ -53,14 +53,14 @@ const router = createBrowserRouter([
 export default function App() {
 
   return (
-    <AuthProvider>
+     <AuthProvider>
       <SignalRProvider>
         <RouterProvider
           // key={currentUser ? currentUser.email : "router-provider"}
           router={router}
         />
       </SignalRProvider>
-    </AuthProvider>
+     </AuthProvider>
   );
 
 }

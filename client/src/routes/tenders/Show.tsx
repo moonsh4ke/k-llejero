@@ -15,18 +15,30 @@ import {
   Tab,
   Stack,
   Link,
+  List,
+  ListItem,
+  Button,
 } from "@mui/material";
 
 import Seller from "./components/Seller";
 import Items from "./components/Items";
-import tenderExample from "./utils/tenderExample";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import TenderDates from "./components/TenderDates";
+import axiosClient from "../../utils/axiosClient";
+import { Tender } from "./utils/types";
+import { tenderStates } from "../../utils/tenderStates";
+import { Category } from "@mui/icons-material";
 
-const tender = tenderExample["Listado"][0];
+const formatDate = (strDate: string) => {
+  const parsedDate = new Date(strDate);
+  const formattedDate = `${parsedDate.getDate().toString().padStart(2, '0')}/${(parsedDate.getMonth() + 1).toString().padStart(2, '0')}/${parsedDate.getFullYear()} ${parsedDate.getHours().toString().padStart(2, '0')}:${parsedDate.getMinutes().toString().padStart(2, '0')}:${parsedDate.getSeconds().toString().padStart(2, '0')}`;
+  return formattedDate
+}
 
 export default function Show() {
-  // const [tender, setTender] = useState();
+  const [tender, setTender] = useState<Tender>();
+  const [filterDetail, setFilterDetail] = useState<boolean>();
+
   const [waiting, setWaiting] = useState(true);
 
   const [value, setValue] = useState("1");
@@ -37,75 +49,74 @@ export default function Show() {
 
   let { code } = useParams();
 
-  // TODO: dont use this effect, instead use the useRequest hook
-  // useEffect(() => {
-  //   const fetchTender = async () => {
-  //     const res = await axios.get(
-  //       `https://api.mercadopublico.cl/servicios/v1/publico/licitaciones.json?codigo=${code}&ticket=F8537A18-6766-4DEF-9E59-426B4FEE2844`
-  //     );
-  //     setTender(res.data.Listado[0]);
-  //     setWaiting(false);
-  //   };
-  //   fetchTender();
-  // }, []);
+  useEffect(() => {
+    const fetchTender = async () => {
+      const res = await axiosClient.get(`api/tender/${code}`)
+      setTender(res.data);
+    };
+    fetchTender();
+  }, []);
+
+  const bull = (
+    <Box
+      component="span"
+      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+    >
+      •
+    </Box>
+  );
 
   return (
     <>
       {tender && (
         <>
-          <Container>
-            <Stack spacing={2}>
-              <Typography variant="h6">{tender["Nombre"]}</Typography>
-              <Stack
-                direction="row"
-                spacing={2}
-                sx={{ display: "flex", alignItems: "center" }}
-              >
-                <Typography variant="body1">
-                  {tender["CodigoExterno"]}
+          <Container maxWidth="md">
+            <Paper sx={{padding: 3}}>
+              <Stack spacing={2}>
+                <Typography variant="h6">{tender.name}</Typography>
+                  <Typography variant="subtitle1">
+                    Código {tender.code}
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    Publicada el {tender.publicationDate}
+                  </Typography>
+                  <Typography variant="body1">
+                    Filtrada el {formatDate(tender.filter.date)}
+                  </Typography>
+                <Typography variant="subtitle1">
+                  Estado {tenderStates[tender.stateCode]}
                 </Typography>
-                <Chip label={tender["Estado"]} color="success" />
-              </Stack>
-              <Typography variant="body1">{tender["Descripcion"]}</Typography>
-              <Link
-                sx={{ display: "flex", alignItems: "center" }}
-                underline="none"
-                target="_blank"
-                href={`http://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=${tender["CodigoExterno"]}`}
-              >
-                <LinkIcon sx={{ mr: 1 }} />
-                Ver en MercadoPublico
-              </Link>
-              <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                  <TabList
-                    onChange={handleChange}
-                    aria-label="lab API tabs example"
-                  >
-                    <Tab label="Comprador" value="1" />
-                    <Tab label="Items" value="2" />
-                    <Tab label="Fechas" value="3" />
-                  </TabList>
-                </Box>
-                <TabPanel value="1">
-                  <Seller tender={tender} />
-                </TabPanel>
-                <TabPanel value="2">
-                  <Items items={tender["Items"]["Listado"]} />
-                </TabPanel>
-                <TabPanel value="3">
-                  <TenderDates tender={tender} />
-                </TabPanel>
-              </TabContext>
-            </Stack>
+                {tender.categories &&
+                  <div>
+                    <Typography sx={{mb: 1}} variant="body1">
+                      Categorias
+                    </Typography>
+                    <Stack direction="row" spacing={1} useFlexGap sx={{display: "flex", flexWrap: "wrap", ml: 2}}>
+                      {tender.categories.map(cat => <Chip label={cat} />)}
+                    </Stack>
+                  </div>
+                }
+                <Typography textAlign="justify" variant="body1">{tender.description}</Typography>
+                <Link
+                  sx={{ display: "flex", alignItems: "center" }}
+                  underline="none"
+                  target="_blank"
+                  href={`http://www.mercadopublico.cl/Procurement/Modules/RFB/DetailsAcquisition.aspx?idlicitacion=${tender.code}`}
+                >
+                  <LinkIcon sx={{ mr: 1 }} />
+                  Ver en MercadoPublico
+                </Link>
 
-            {/* <Typography variant="h5">{tender["Nombre"]}</Typography> */}
-            {/* <Typography variant="body1">{tender["CodigoExterno"]}</Typography> */}
-            {/* <Typography variant="body1">{tender["Descripcion"]}</Typography> */}
-            {/* <Chip label={tender["Estado"]} color="success" /> */}
-            {/* <Seller tender={tender}/> */}
-            {/* <Items items={tender["Items"]["Listado"]}/> */}
-            {/* <Typography variant="body1">Tipo: {tender["Tipo"]}</Typography> */}
+                <div>
+                <Button onClick={e => setFilterDetail(!filterDetail)}variant="text">Ver detalle de filtro</Button>
+                </div>
+                {filterDetail &&
+                  <List>
+                    {tender.filter.matchs.map(match => <ListItem>{match.keyword} coincide con {match.on}</ListItem>)}
+                  </List>
+                }
+              </Stack>
+            </Paper>
           </Container>
         </>
       )}
