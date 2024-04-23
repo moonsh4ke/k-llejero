@@ -3,7 +3,7 @@
     "_id": {
       "$oid": "65c6b2e5370f1b8a10f90062"
     },
-    "name": "moviliario urbano",
+    "name": "Plazas",
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro, accusantium temporibus perspiciatis ipsa",
     "keywords": [
       {
@@ -11,12 +11,72 @@
         "value": "embellecimiento de plazas"
       },
       {
-        "id": "dsfads23fasd124r",
-        "value": "sombreadero"
+        "id": "fd239ufdadsfkljh5",
+        "value": "Plazas"
       },
       {
-        "id": "9dsf723ojsla",
-        "value": "colchoneta de caucho"
+        "id": "fd239ufdadsfkljh6",
+        "value": "Remodelación Plazas"
+      },
+      {
+        "id": "fd239ufdadsfkljh11",
+        "value": "Mejoramiento Plaza"
+      },
+      {
+        "id": "fd239ufdadsfkljh12",
+        "value": "Mobiliario Plaza"
+      },
+      {
+        "id": "fd239ufdadsfkljh13",
+        "value": "Plaza Activa"
+      },
+      {
+        "id": "fd239ufdadsfkljh14",
+        "value": "Plazas Activas"
+      },
+      {
+        "id": "fd239ufdadsfkljh15",
+        "value": "Hermoseamiento plaza"
+      },
+      {
+        "id": "fd239ufdadsfkljh26",
+        "value": "Reposicion Plaza"
+      },
+      {
+        "id": "fd239ufdadsfkljh27",
+        "value": "Mejoramiento Plazas"
+      },
+      {
+        "id": "fd239ufdadsfkljh28",
+        "value": "Remodelación Plazas"
+      },
+      {
+        "id": "fd239ufdadsfkljh29",
+        "value": "Restauración Plazas"
+      },
+      {
+        "id": "fd239ufdadsfkljh30",
+        "value": "Reconstrucción plaza"
+      },
+      {
+        "id": "fd239ufdadsfkljh31",
+        "value": "Reconstrucción plazas"
+      },
+      {
+        "id": "fd239ufdadsfkljh34",
+        "value": "Reposicion Plazas "
+      },
+      {
+        "id": "fd239ufdadsfkljh43",
+        "value": "Habilitación de Plazas "
+      },
+      {
+        "id": "fd239ufdadsfkljh46",
+        "value": "Habilitación de Plaza "
+      },
+      {
+        "id": "fd239ufdadsfkljh46",
+        "value": "Habilitación de Plaza "
       }
     ],
     "active": true
@@ -25,16 +85,172 @@
     "_id": {
       "$oid": "4ac99bee370f1b8a10f90063"
     },
-    "name": "obras civiles",
+    "name": "mobiliario urbano",
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro, accusantium temporibus perspiciatis ipsa",
     "keywords": [
       {
-        "id": "fosdiu893l000",
-        "value": "obras municipio"
+        "id": "fd239ufdadsfkljh3",
+        "value": "Juegos Infantiles"
       },
       {
-        "id": "fosd03lkjfs91",
-        "value": "construcción civil"
+        "id": "fd239ufdadsfkljh4",
+        "value": "Plazoletas"
+      },
+      {
+        "id": "fd239ufdadsfkljh7",
+        "value": "Maquina de Ejercicio"
+      },
+      {
+        "id": "fd239ufdadsfkljh8",
+        "value": "Maquinas de Ejercicios"
+      },
+      {
+        "id": "fd239ufdadsfkljh9",
+        "value": "Recreación Infantil"
+      },
+      {
+        "id": "fd239ufdadsfkljh10",
+        "value": "Inclusión "
+      },
+      {
+        "id": "fd239ufdadsfkljh16",
+        "value": "Reconstrucción "
+      },
+      {
+        "id": "fd239ufdadsfkljh17",
+        "value": "Juegos inclusivos"
+      },
+      {
+        "id": "fd239ufdadsfkljh18",
+        "value": "Conservación "
+      },
+      {
+        "id": "fd239ufdadsfkljh19",
+        "value": "Gimnasios Al Aire Libre"
+      },
+      {
+        "id": "fd239ufdadsfkljh20",
+        "value": "Inclusivos"
+      },
+      {
+        "id": "fd239ufdadsfkljh21",
+        "value": "Mobiliario Inclusivo"
+      },
+      {
+        "id": "fd239ufdadsfkljh22",
+        "value": "Implementación juegos"
+      },
+      {
+        "id": "fd239ufdadsfkljh23",
+        "value": "Ejercicio"
+      },
+      {
+        "id": "fd239ufdadsfkljh24",
+        "value": "Ejercicios"
+      },
+      {
+        "id": "fd239ufdadsfkljh25",
+        "value": "Juegos Infantiles "
+      },
+      {
+        "id": "fd239ufdadsfkljh32",
+        "value": "Areas Verdes"
+      },
+      {
+        "id": "fd239ufdadsfkljh33",
+        "value": "Recuperación areas verdes"
+      },
+      {
+        "id": "fd239ufdadsfkljh35",
+        "value": "Aire Libre"
+      },
+      {
+        "id": "fd239ufdadsfkljh36",
+        "value": "Adulto Mayor"
+      },
+      {
+        "id": "fd239ufdadsfkljh37",
+        "value": "Calistenia"
+      },
+      {
+        "id": "fd239ufdadsfkljh38",
+        "value": "Construcción Areas Verdes"
+      },
+      {
+        "id": "fd239ufdadsfkljh39",
+        "value": "Juegos Tradicionales"
+      },
+      {
+        "id": "fd239ufdadsfkljh40",
+        "value": "Mejoramiento Urbano "
+      },
+      {
+        "id": "fd239ufdadsfkljh41",
+        "value": "Espacios Publicos "
+      },
+      {
+        "id": "fd239ufdadsfkljh42",
+        "value": "Mejoramiento Parques"
+      },
+      {
+        "id": "fd239ufdadsfkljh44",
+        "value": "Espacio Cultural "
+      },
+      {
+        "id": "fd239ufdadsfkljh45",
+        "value": "Equipamiento Urbano "
+      },
+      {
+        "id": "fd239ufdadsfkljh47",
+        "value": "Juegos de cuerdas"
+      },
+      {
+        "id": "fd239ufdadsfkljh48",
+        "value": "Juego de cuerda"
+      },
+      {
+        "id": "fd239ufdadsfkljh49",
+        "value": "Bancas Metalicas "
+      },
+      {
+        "id": "fd239ufdadsfkljh50",
+        "value": "Trepadores"
+      },
+      {
+        "id": "fd239ufdadsfkljh51",
+        "value": "Escaños Metalicos"
+      },
+      {
+        "id": "fd239ufdadsfkljh52",
+        "value": "Barras Paralelas "
+      },
+      {
+        "id": "fd239ufdadsfkljh53",
+        "value": "Columpio"
+      },
+      {
+        "id": "fd239ufdadsfkljh54",
+        "value": "Caminador Aereo "
+      },
+      {
+        "id": "fd239ufdadsfkljh55",
+        "value": "Eliptica "
+      },
+      {
+        "id": "fd239ufdadsfkljh56",
+        "value": "juegos modulares"
+      },
+      {
+        "id": "fd239ufdadsfkljh57",
+        "value": "modulares"
+      },
+      {
+        "id": "fd239ufdadsfkljh58",
+        "value": "resbalínes"
+      },
+      {
+        "id": "fd239ufdadsfkljh60",
+        "value": "mejoramiento área verde"
       }
     ],
     "active": true
