@@ -2,13 +2,16 @@ import mongoose from 'mongoose'
 
 const filterSchema = new mongoose.Schema(
   {
-    name: String,
-    description: String,
-    active: Boolean,
-    keywords: [{
-      id: String,
-      value: String
-    }]
+    name: {type: String, required: true},
+    description: {type: String, required: true},
+    active: {type: Boolean, required: true},
+    keywords: {
+      type: [{
+        id: {type: String, required: true},
+        value: {type: String, required: true},
+      }],
+      required: true
+    }
   },
   {
     toJSON: {
