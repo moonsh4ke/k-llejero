@@ -16,9 +16,9 @@ namespace TrackingService.Services.Notes
             this._notesRepository = _notesRepository;
         }
 
-        public async Task<ResponseDto<Domain.Entities.Notes>> CreateNotes(NoteDto notes)
+        public async Task<ResponseDto<List<Domain.Entities.Notes>>> CreateNotes(NoteDto notes)
         {
-            ResponseDto<Domain.Entities.Notes> response = new()
+            ResponseDto<List<Domain.Entities.Notes>> response = new()
             {
                 IsSuccessful = true,
                 StatusCode = 200,
@@ -67,7 +67,7 @@ namespace TrackingService.Services.Notes
             }
         }
 
-        public Task<ResponseDto<Domain.Entities.Notes>> UpdateNotes(List<Domain.Entities.Notes> notes)
+        public async Task<ResponseDto<List<Domain.Entities.Notes>>> UpdateNotes(List<Domain.Entities.Notes> notes)
         {
             throw new NotImplementedException();
         }

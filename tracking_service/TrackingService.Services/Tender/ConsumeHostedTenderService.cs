@@ -19,6 +19,7 @@ public class ConsumeHostedTenderService : BackgroundService
 
     private async Task DoWork(CancellationToken stoppingToken)
     {
+        /*
         using (var scope = _services.CreateScope())
         {
             var scopedTenderService =
@@ -27,6 +28,7 @@ public class ConsumeHostedTenderService : BackgroundService
 
             await scopedTenderService.DoWork(stoppingToken);
         }
+        */
     }
 
     public override async Task StopAsync(CancellationToken stoppingToken)

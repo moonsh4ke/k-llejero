@@ -59,7 +59,7 @@ export default function TrackingsView() {
                     </Box>
                 :
                     <Fragment>
-                        {existsError 
+                        {existsError || trackings?.length === 0
                             ?
                                 <Typography variant="h4">Usuario no tiene seguimientos creados</Typography>
                             :

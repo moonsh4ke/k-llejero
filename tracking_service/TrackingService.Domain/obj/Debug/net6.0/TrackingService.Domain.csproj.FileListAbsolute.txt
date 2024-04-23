@@ -9,3 +9,4 @@ D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingS
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Domain\obj\Debug\net6.0\refint\TrackingService.Domain.dll
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Domain\obj\Debug\net6.0\TrackingService.Domain.pdb
 D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Domain\obj\Debug\net6.0\ref\TrackingService.Domain.dll
+D:\USACH\2023-02\Seminario 2\Implementacion\k-llejero\tracking_service\TrackingService.Domain\obj\Debug\net6.0\TrackingService.Domain.sourcelink.json

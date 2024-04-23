@@ -66,17 +66,17 @@ public class TrackingRepository : ITrackingRepository
     public IQueryable<Domain.Entities.Tracking> GetTrackingsByUser(string userId)
     {
         var query = (from tracking in _dbContext.Trackings
-                           where tracking.UserId == userId
-                           select new Domain.Entities.Tracking
-                           {
-                              Id = tracking.Id,
-                              UserId = userId,
-                              TenderId = tracking.TenderId,
-                              TenderStatusId = tracking.TenderStatusId,
-                              TrackingStatusId = tracking.TrackingStatusId,
-                              CreatedDate = tracking.CreatedDate,
-                              UpdatedDate = tracking.UpdatedDate
-                           }).AsQueryable();
+                     where tracking.UserId == userId
+                     select new Domain.Entities.Tracking
+                     {
+                        Id = tracking.Id,
+                        UserId = userId,
+                        TenderId = tracking.TenderId,
+                        TenderStatusId = tracking.TenderStatusId,
+                        TrackingStatusId = tracking.TrackingStatusId,
+                        CreatedDate = tracking.CreatedDate,
+                        UpdatedDate = tracking.UpdatedDate
+                     }).AsQueryable();
         return query;
     }
 

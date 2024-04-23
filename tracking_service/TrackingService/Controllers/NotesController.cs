@@ -18,13 +18,13 @@ namespace TrackingServiceAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ResponseDto<Notes>> Create(NoteDto notes)
+        public async Task<ResponseDto<List<Notes>>> Create(NoteDto notes)
         {
             return await _notesService.CreateNotes(notes);
         }
 
         [HttpPut]
-        public async Task<ResponseDto<Notes>> Update(List<Notes> notes)
+        public async Task<ResponseDto<List<Notes>>> Update(List<Notes> notes)
         {
             return await _notesService.UpdateNotes(notes);
         }

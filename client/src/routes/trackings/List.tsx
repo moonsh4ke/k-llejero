@@ -27,9 +27,22 @@ function CustomToolbar() {
 export default function List() {
     const navigate = useNavigate();
     const { currentUser, logout } = useContext(AuthContext)!;
-    const [trackings, setTrackings] = useState<Tracking[]>();
+    const [trackings, setTrackings] = useState<Tracking>();
+    const [initLoading, setInitLoading] = useState(true); 
     const [isLoading, setIsLoading] = useState(true);
     const [existsError, setExistsError] = useState(false);
+    const [page, setPage] = useState(0);
+    const [paginationModel, setPaginationModel] = useState({
+        page: 0,
+        pageSize: 5
+    });
+
+    const onPageModelChange = (newPaginationModel: any) => {
+        setPaginationModel({
+            page: newPaginationModel.page,
+            pageSize: 5
+        });
+    }
 
     const columns: GridColDef[] = [
         {
@@ -40,11 +53,6 @@ export default function List() {
         {
             field: "tenderStatus",
             headerName: "Estado licitación",
-            width: 200,
-        },
-        {
-            field: "trackingStatus",
-            headerName: "Estado seguimiento",
             width: 200,
         },
         {
@@ -72,36 +80,37 @@ export default function List() {
           },
     ];
 
-    useEffect(() => {
-        // TODO: CATCH 404
-        const fetchTrackings = async() => {
-            try {
-                const endpoint = '/api/tracking/api/trackings';
-                const queryParams = {
-                    UserId: currentUser?.email,
-                    Page: 1,
-                    RecordsPerPage: 5
-                }
-
-                const res = await axiosClient.get(endpoint, {
-                    params: queryParams
-                });
-
-                if (res.status === 200) {
-                    console.log(res.data.data);
-                    setTrackings(res.data.data);
-                }
-    
-                setIsLoading(false);
-    
-            } catch (error) {
-                console.error(`Error fetchTrackings => ${error}`)
-                setExistsError(true);
-                setIsLoading(false);
+    const fetchTrackings = async () => {
+        setIsLoading(true);
+        try {
+            const endpoint = '/api/tracking/api/trackings';
+            const queryParams = {
+                UserId: currentUser?.email,
+                Page: paginationModel.page + 1,
+                RecordsPerPage: 5
             }
+
+            const res = await axiosClient.get(endpoint, {
+                params: queryParams
+            });
+
+            if (res.status === 200) {
+                console.log(res.data.data);
+                setTrackings(res.data.data);
+            }
+
+        } catch (error) {
+            // todo: catch 404
+            setExistsError(true);
+            console.error('Failed to fetch data:', error);
         }
+        setIsLoading(false);
+        setInitLoading(false);
+      };
+
+    useEffect(() => {
         fetchTrackings();
-    }, []);
+    }, [paginationModel]);
 
     // https://mui.com/x/react-data-grid/pagination/
     // Server-side pagination
@@ -109,32 +118,33 @@ export default function List() {
     return (
         <>  
             <h2>Seguimientos activos</h2>
-            {isLoading ?
+            {initLoading ?
                 <CircularProgress />
                 :
                 <div>
-                    {trackings ? (
+                    {trackings && trackings.outputTrackings ? (
                         <div>
-                        <DataGrid
-                            getRowHeight={() => "auto"}
-                            getRowId={(row) => row.id}
-                            rows={trackings}
-                            columns={columns}
-                            sx={{
-                            "& .MuiDataGrid-cell": {
-                                py: 1,
-                            },
-                            }}
-                            slots={{
-                                toolbar: CustomToolbar
-                            }}
-                            initialState={{
-                            pagination: {
-                                paginationModel: { page: 0, pageSize: 5 },
-                                onclick: () => { console.log('CLICK') }
-                            },
-                            }}
-                        />  
+                            <DataGrid
+                                getRowHeight={() => "auto"}
+                                getRowId={(row) => row.id}
+                                loading={isLoading}
+                                pagination
+                                rows={trackings.outputTrackings}
+                                rowCount={trackings.totalTrackings}
+                                paginationModel={paginationModel}
+                                pageSizeOptions={[5]}
+                                columns={columns}
+                                sx={{
+                                "& .MuiDataGrid-cell": {
+                                    py: 1,
+                                },
+                                }}
+                                slots={{
+                                    toolbar: CustomToolbar
+                                }}
+                                onPaginationModelChange={(newPaginationModel: any) => onPageModelChange(newPaginationModel) }
+                                paginationMode="server"
+                            />  
                         </div>   
                         )
                     :   

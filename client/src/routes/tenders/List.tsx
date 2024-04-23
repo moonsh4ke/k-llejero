@@ -24,12 +24,13 @@ import {
   GridToolbarContainer,
   GridToolbarExport,
 } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axiosClient from "../../utils/axiosClient";
 import { tenderStates } from "../../utils/tenderStates";
 import { SnackbarData, TenderState } from "../../utils/types/types";
 import { useForm } from "react-hook-form";
 import CustomTextField from "../../shared/components/inputs/CustomTextField";
+import { AuthContext } from "../../contexts/AuthContext";
 
 function CustomToolbar() {
   return (
@@ -44,6 +45,7 @@ export default function List() {
   const navigate = useNavigate();
   // const tenders = useLoaderData();
   const [tenders, setTenders] = useState<any[]>([]);
+  const { currentUser, logout } = useContext(AuthContext)!;
 
   const columns: GridColDef[] = [
     {
@@ -126,7 +128,11 @@ export default function List() {
   const createTracking = async (tenderId: string) => {
     try {
       const endpoint = `/api/tracking/api/trackings/${tenderId}`;
-      const resp = await axiosClient.post(endpoint);
+      const resp = await axiosClient.post(endpoint, null, {
+        headers: {
+          'userId': currentUser?.email
+        }
+      });
 
       setSnackbarData({
         show: true,
