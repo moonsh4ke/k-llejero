@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: populator-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: populator
+  template:
+    metadata:
+      labels:
+        app: populator
+    spec:
+      containers:
+        - name: populator
+          image: moonsh4ke/kllejero-populator
+          env:
+            - name: TENDER_MONGODB_URI
+              value: 'mongodb://tender-mongodb-srv:27017/tender'
+            - name: MP_TOKEN
+              value: 'F8537A18-6766-4DEF-9E59-426B4FEE2844'
+            - name: NATS_URI
+              value: 'nats://nats:4222'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: populator-srv
+spec:
+  selector:
+    app: populator
+  ports:
+    - name: populator
+      protocol: TCP
+      port: 3001
+      targetPort: 3001
