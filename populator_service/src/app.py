@@ -2,7 +2,6 @@ import asyncio
 import time
 import os
 import schedule
-
 from operation import update_tenders, insert_new_tenders
 
 MP_TOKEN = os.environ.get("MP_TOKEN")

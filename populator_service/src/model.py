@@ -10,6 +10,7 @@ class FilterModel(BaseModel):
     date: datetime
     matchs: List
 
+
 class ItemModel(BaseModel):
     serviceDescription: Optional[str] = None
     onuCode: Optional[int] = None
@@ -19,6 +20,7 @@ class ItemModel(BaseModel):
     level1: Optional[str] = None
     level2: Optional[str] = None
     level3: Optional[str] = None
+
 
 class TenderDoc(Document):
     code: Indexed(str, unique=True)
@@ -37,6 +39,7 @@ class TenderDoc(Document):
     class Settings:
         name = "tenders"
 
+
 RawTender = namedtuple(
     "RawTender",
     [
@@ -51,7 +54,7 @@ RawTender = namedtuple(
         "amountType",
         "amount",
         "organism",
-    ]
+    ],
 )
 
 
@@ -73,7 +76,6 @@ class Item:
 
 class Tender:
     def __init__(
-
         self,
         code=None,
         type=None,
@@ -130,5 +132,5 @@ RawItemTender = namedtuple(
         "level1",
         "level2",
         "level3",
-    ]
+    ],
 )

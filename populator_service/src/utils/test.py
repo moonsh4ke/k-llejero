@@ -19,11 +19,12 @@ RawTender = namedtuple(
         "amountType",
         "amount",
         "organism",
-    ]
+    ],
 )
 
+
 def get_csv_by_state():
-    payload="""{
+    payload = """{
        "textoBusqueda":"",
        "idEstado":"6",
        "codigoRegion":"-1",
@@ -48,18 +49,19 @@ def get_csv_by_state():
     res = requests.post(
         "https://www.mercadopublico.cl/BuscarLicitacion/Home/GenerarArchivo",
         data=payload,
-        headers=utils.headers.gen_file_id
+        headers=utils.headers.gen_file_id,
     )
     data = res.json()
     fileGuid = data["FileGuid"]
 
     res = requests.get(
         f"https://www.mercadopublico.cl/BuscarLicitacion//Home/Descargar?fileGuid={fileGuid}&nombreArchivo=ListaLicitaciones.csv",
-        headers=utils.headers.download_tenders_file
+        headers=utils.headers.download_tenders_file,
     )
     data = res._content.decode("utf-8")
 
     return data
+
 
 csv_data = get_csv_by_state()
 csv_reader = csv.reader(StringIO(csv_data), delimiter=";")
