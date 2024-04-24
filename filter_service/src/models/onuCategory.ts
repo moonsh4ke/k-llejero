@@ -1,12 +1,12 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const onuCategorySchema = new mongoose.Schema(
   {
-    code: {type: Number, required: true},
-    name: {type: String, required: true},
-    cat1: {type: String, required: true},
-    cat2: {type: String, required: true},
-    cat3: {type: String, required: true},
+    code: { type: Number, required: true },
+    name: { type: String, required: true },
+    cat1: { type: String, required: true },
+    cat2: { type: String, required: true },
+    cat3: { type: String, required: true },
   },
   {
     toJSON: {
@@ -17,7 +17,7 @@ const onuCategorySchema = new mongoose.Schema(
     },
     versionKey: false,
   }
-)
+);
 
 const OnuCategory = mongoose.model("OnuCategory", onuCategorySchema);
 

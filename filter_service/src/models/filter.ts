@@ -1,17 +1,19 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const filterSchema = new mongoose.Schema(
   {
-    name: {type: String, required: true},
-    description: {type: String, required: true},
-    active: {type: Boolean, required: true},
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    active: { type: Boolean, required: true },
     keywords: {
-      type: [{
-        id: {type: String, required: true},
-        value: {type: String, required: true},
-      }],
-      required: true
-    }
+      type: [
+        {
+          id: { type: String, required: true },
+          value: { type: String, required: true },
+        },
+      ],
+      required: true,
+    },
   },
   {
     toJSON: {
@@ -21,7 +23,7 @@ const filterSchema = new mongoose.Schema(
     },
     versionKey: false,
   }
-)
+);
 
 const Filter = mongoose.model("Filter", filterSchema);
 
