@@ -1,4 +1,5 @@
-﻿namespace NotificationService.Repositories.Notification
+﻿
+namespace NotificationService.Repositories.Notification
 {
     public class NotificationRepository : INotificationRepository
     {
@@ -20,6 +21,14 @@
             await _dbContext.SaveChangesAsync();
 
             return notifications;
+        }
+
+        public async Task<List<Domain.Entities.Notification>> UpdateNotifications(List<Domain.Entities.Notification> notification)
+        {
+            _dbContext.UpdateRange(notification);
+            await _dbContext.SaveChangesAsync();
+
+            return notification;
         }
     }
 }

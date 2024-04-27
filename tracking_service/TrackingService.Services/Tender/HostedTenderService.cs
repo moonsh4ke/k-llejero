@@ -33,22 +33,27 @@ public class HostedTenderService : IHostedTenderService
 
                 var result = await _connection.SubscribeCoreAsync<string>("tracking:tender_update");
 
-                Console.WriteLine("Mensaje recibido!!");
+                Console.WriteLine($"Mensaje recibido: {result.Subject}");
 
                 await foreach (var msg in result.Msgs.ReadAllAsync())
                 {
+                    Console.WriteLine($"Mensaje recibido, data: {msg.Data}");
                     // todo: change it
                     var updatedTenders = JsonSerializer.Deserialize<List<TendersDto>>(msg.Data);
 
+                    Console.WriteLine($"UpdatedTenders: {updatedTenders}");
+
                     if (updatedTenders is null || !updatedTenders.Any())
                     {
+                        Console.WriteLine($"UpdatedTenders: null");
                         continue;
                     }
 
-                    var tenderIds = updatedTenders?.Select(data => data.id).ToArray();
+                    var tenderIds = updatedTenders?.Select(data => data.code).ToArray();
 
                     if (tenderIds is null || !tenderIds.Any())
                     {
+                        Console.WriteLine($"tenderIds: null");
                         continue;
                     }
 
@@ -56,6 +61,7 @@ public class HostedTenderService : IHostedTenderService
 
                     if (trackings is null || !trackings.Data.Any())
                     {
+                        Console.WriteLine($"trackings: null");
                         continue;
                     }
 
@@ -63,8 +69,13 @@ public class HostedTenderService : IHostedTenderService
 
                     foreach (var tracking in trackings.Data)
                     {
-                        int statusId = updatedTenders.Where(data => data.id == tracking.TenderId).Select(data => data.updatedState).FirstOrDefault();
+                        Console.WriteLine($"trackings: {JsonSerializer.Serialize(tracking)}");
+                        int statusId = updatedTenders.Where(data => data.code == tracking.TenderId).Select(data => data.updatedState).FirstOrDefault();
+
+                        Console.WriteLine($"trackings - statusId: {statusId}");
+
                         string tenderStatus = TenderStatusOptions.Options.GetValueOrDefault(statusId) ?? "";
+
                         payload.Add(new()
                         {
                             TrackingId = tracking.Id,
@@ -74,16 +85,17 @@ public class HostedTenderService : IHostedTenderService
                             TenderNewStateId = statusId
                         });
 
-                        tracking.TrackingStatusId = statusId;
+                        tracking.UpdatedDate = DateTime.UtcNow;
+                        tracking.TenderStatusId = statusId;
                         await _trackingService.UpdateTracking(tracking);
-                        // actualizar tracking con nuevo estado...
                     }
 
-                    Console.WriteLine("Enviando notificación...!");
-                    Console.WriteLine(JsonSerializer.Serialize(payload));
+                    var parsedPayload = JsonSerializer.Serialize(payload);
+
+                    Console.WriteLine($"Enviando notificacion: {parsedPayload}");
 
                     // Notify notification service
-                    await _connection.PublishAsync("notification:tracking_update", JsonSerializer.Serialize(payload));
+                    await _connection.PublishAsync("notification:tracking_update", parsedPayload);
                 }
             }
         }

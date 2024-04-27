@@ -56,7 +56,7 @@ async def update_tenders():
         else:
             untracked.append(tender)
 
-    end_time = time.time()
+    end_time = time.time() 
     elapsed_time = int(end_time - start_time)
 
     print("[info]: Update tenders operation completed succesfully")

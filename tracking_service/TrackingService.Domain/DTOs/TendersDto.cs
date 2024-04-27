@@ -2,6 +2,6 @@
 
 public class TendersDto
 {
-    public string id { get; set; }
+    public string code { get; set; }
     public int updatedState { get; set; }
 }

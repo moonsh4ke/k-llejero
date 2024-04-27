@@ -4,8 +4,8 @@ async function natsMain() {
   const sc = StringCodec();
   try {
     const nc = await connect({servers: "nats://nats:4222"})
-    const sub = nc.subscribe("dummy", {callback: (err, msg) => {
-        console.log(`received message [${sub.getProcessed()}]: ${sc.decode(msg.data)}`)
+    const sub = nc.subscribe("tracking:tender_update", {callback: (err, msg) => {
+      console.log(`received message [${sub.getProcessed()}]: ${JSON.stringify(JSON.parse(sc.decode(msg.data)), null, 2)}`)
     }})
   //   console.log(`connected to ${nc.getServer()}`);
   //   const sub = nc.subscribe("tracking:tender_update", {callback: (err, msg) => {

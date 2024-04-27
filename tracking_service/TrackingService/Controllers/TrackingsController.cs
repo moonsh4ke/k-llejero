@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Org.BouncyCastle.Bcpg;
 using TrackingService.Domain.DTOs;
 using TrackingService.Domain.DTOs.Tracking;
 using TrackingService.Services.Tracking;
@@ -23,10 +22,12 @@ public class TrackingsController : ControllerBase
     }
 
     [HttpGet("{trackingId}")]
-    public async Task<ResponseDto<List<TrackingWithNotesDto>>> GetTracking(string trackingId)
+    public async Task<ResponseDto<List<TrackingDto>>> GetTracking(string trackingId)
     {
         return await _trackingService.GetTrackingById(trackingId);
     }
+
+    //public async Task<ResponseDto<>>
 
     /*
      * 
@@ -36,20 +37,39 @@ public class TrackingsController : ControllerBase
      * 
     */
     [HttpPost("{tenderId}")]
-    public async Task<IActionResult> Create([FromHeader] string userId, string tenderId)
+    public async Task<IActionResult> Create([FromHeader] string userId, [FromHeader] string tenderState, string tenderId)
     {
         if (string.IsNullOrEmpty(userId))
         {
             return BadRequest("User id not provided");
         }
 
+        if (string.IsNullOrEmpty(tenderState))
+        {
+            return BadRequest("tenderState not provided");
+        }
+
         if (string.IsNullOrEmpty(tenderId))
         {
             return BadRequest("Tender id not provided");
-
         }
 
-        var result = await _trackingService.CreateTracking(tenderId, userId);
+        var result = await _trackingService.CreateTracking(tenderId, userId, tenderState);
         return StatusCode(result.StatusCode, result);
+    }
+
+    [HttpPut("{trackingId}")]
+    [DisableRequestSizeLimit]
+    public async Task<IActionResult> Update([FromBody] TrackingDto trackingData)
+    {
+        var result = await _trackingService.UpdateTrackingByDto(trackingData);
+        return StatusCode(result.StatusCode, result.Data);
+    }
+
+    [HttpDelete("{trackingId}")]
+    public async Task<IActionResult> Delete(string trackingId)
+    {
+        var result = await _trackingService.DeleteTracking(trackingId);
+        return StatusCode(result.StatusCode, result.Data);
     }
 }

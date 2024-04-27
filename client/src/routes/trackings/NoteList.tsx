@@ -1,5 +1,5 @@
 import { Cancel, Clear, Edit, Save } from '@mui/icons-material';
-import { Button, Container, Link, Stack, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Container, Link, Stack, Typography } from '@mui/material';
 import {
     DataGrid,
     GridActionsCellItem,
@@ -9,49 +9,19 @@ import {
     GridToolbarContainer,
     GridToolbarExport
 } from "@mui/x-data-grid";
-import { useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import CustomTextField from '../../shared/components/inputs/CustomTextField';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSchema } from "@sn1006/schemas";
 import { zodI18nMap } from "zod-i18n-map";
 import { useErrorBoundary } from 'react-error-boundary';
-
-const columns: GridColDef[] = [
-    {
-        field: "description",
-        headerName: "Descripción",
-        width: 200,
-    },
-    {
-        field: "createdDate",
-        headerName: "Fecha de creación",
-        width: 200,
-    },
-    {
-        field: "updatedDate",
-        headerName: "Fecha de actualización",
-        width: 200,
-    },
-    {
-        field: "actions",
-        headerName: "Acciones",
-        type: "actions",
-        width: 200,
-        getActions: (params: GridRowParams) => [
-          <GridActionsCellItem
-            onClick={() => { console.log(params.row.id) }}
-            icon={<Edit color="primary" />}
-            label="Visualizar"
-          />,
-          <GridActionsCellItem
-            // onClick={}
-            icon={<Clear color="primary" />}
-            label="Cerrar licitación"
-          />
-        ],
-      },
-];
+import { AuthContext } from '../../contexts/AuthContext';
+import { NotesListProps } from './types/notes.props.type';
+import axiosClient from '../../utils/axiosClient';
+import { Note, Notes } from './types/trackingWithNotes.type';
+import NoteForm from './components/NoteForm';
+import { useNavigate } from 'react-router-dom';
 
 function CustomToolbar() {
     return(
@@ -62,28 +32,91 @@ function CustomToolbar() {
     );
 }
 
-export default function NoteList() {
-    const [showEdit, setShowEdit] = useState(false);
-    const notes = [
-        {
-            id: '1',
-            description: 'Nota de prueba 1',
-            createdDate: '15-03-2024 12:15',
-            updatedDate: 'sin actualizaciones'
+export default function NoteList({ ...props }: NotesListProps) {
+    const navigate = useNavigate();
+    const [notes, setNotes] = useState<Notes>();
+    const [note, setNote] = useState<Note>();
+    const [isLoading, setIsLoading] = useState(true);
+    const { currentUser, logout } = useContext(AuthContext)!;
+    const [showForm, setShowForm] = useState(false);
+    const [existsError, setExistsError] = useState(false);
+    const [paginationModel, setPaginationModel] = useState({
+      page: 0,
+      pageSize: 5
+    });
+
+    const columns: GridColDef[] = [
+      {
+          field: "description",
+          headerName: "Descripción",
+          width: 200,
+      },
+      {
+          field: "createdDate",
+          headerName: "Fecha de creación",
+          width: 200,
+      },
+      {
+          field: "updatedDate",
+          headerName: "Fecha de actualización",
+          width: 200,
+      },
+      {
+          field: "actions",
+          headerName: "Acciones",
+          type: "actions",
+          width: 200,
+          getActions: (params: GridRowParams) => [
+            <GridActionsCellItem
+              onClick={() => { navigate(`/trackings/${params.row.trackingId}/editNote/${params.row.id}`) }}
+              icon={<Edit color="primary" />}
+              label="Visualizar"
+            />,
+            <GridActionsCellItem
+            onClick={async () => { await onDeleteNote(params.row.trackingId, params.row.id) }}
+              icon={<Clear color="primary" />}
+              label="Cerrar licitación"
+            />
+          ],
         },
-        {
-            id: '2',
-            description: 'Nota de prueba 2',
-            createdDate: '14-03-2024 17:18',
-            updatedDate: 'sin actualizaciones'
-        },
-        {
-            id: '3',
-            description: 'Nota de prueba 3',
-            createdDate: '12-03-2024 10:25',
-            updatedDate: 'sin actualizaciones'
-        },
-    ];
+  ];
+
+    const onPageModelChange = (newPaginationModel: any) => {
+      setPaginationModel({
+          page: newPaginationModel.page,
+          pageSize: 5
+      });
+    }
+
+    const fetchNotes = async () => {
+      try {
+        const endpoint = '/api/tracking/api/notes';
+        const queryParams = {
+            TrackingId: props.trackingId,
+            Page: paginationModel.page + 1,
+            RecordsPerPage: 5
+        }
+
+        const res = await axiosClient.get(endpoint, {
+            params: queryParams
+        });
+
+        if (res.status === 200) {
+            console.log(res.data.data);
+            setNotes(res.data.data);
+        }
+
+      } catch (error) {
+          // todo: catch 404
+          //setExistsError(true);
+          console.error('Failed to fetch data:', error);
+      }
+      setIsLoading(false);
+    }
+
+    useEffect(() => {
+      fetchNotes();
+    }, [paginationModel]);
 
     const {
       control,
@@ -94,83 +127,72 @@ export default function NoteList() {
     });
     const { showBoundary } = useErrorBoundary();
 
-    const changeNote = () => {
-      setShowEdit(!showEdit);
+    const onDeleteNote = async (trackingId: string, noteId: string) => {
+      try {
+        setIsLoading(true);
+        const endpoint = `/api/tracking/api/notes`;
+        const resp = await axiosClient.delete(endpoint, {
+            headers: {
+                trackingId: trackingId,
+                noteId: noteId,
+            }
+        });
+
+        if (resp.status === 200) {
+          await fetchNotes();
+        }
+
+      } catch (error) {
+          console.error(`Error onDeleteNote => ${error}`)
+          //setExistsError(true);
+      }
+      setIsLoading(false);
     }
 
     return (
-        <>  
-            {!showEdit &&
-            <>
-              <div>
-              <DataGrid
-                  getRowHeight={() => "auto"}
-                  getRowId={(row) => row.id}
-                  rows={notes}
-                  columns={columns}
-                  sx={{
-                    "& .MuiDataGrid-cell": {
-                      py: 1,
-                    },
-                  }}
-                  slots={{
-                      toolbar: CustomToolbar
-                  }}
-                  initialState={{
-                    pagination: {
-                      paginationModel: { page: 0, pageSize: 5 },
-                    },
-                  }}
-              />  
-          </div>  
-          <Button variant="contained" type="submit" onClick={changeNote}>
-             Crear nota
-          </Button>
-          </>
-            }
-            {showEdit &&
-                  <Container>
-                  <Typography variant="h6" gutterBottom>
-                    Editar nota
-                  </Typography>
-                  <form
-                  >
-                    <Stack
-                      spacing={3}
-                      sx={{
-                        width: { sm: "100%", md: "75%", lg: "50%" },
-                      }}
-                    >
-                      <CustomTextField
-                        control={control}
-                        errors={formErrors}
-                        name="name"
-                        label="Descripción *"
-                        defaultValue="Nota de prueba 1"
-                        fullWidth
+      <>
+        {isLoading 
+            ?
+              <CircularProgress />
+            :
+              <>
+                <div>
+                  {notes && notes.outputNotes ? 
+                    <Fragment>
+                      <Typography variant="h6" sx={{padding:'20px 20px 20px 0px'}}>Notas</Typography>
+                        <DataGrid
+                          getRowHeight={() => "auto"}
+                          getRowId={(row: Note) => row.id}
+                          loading={isLoading}
+                          pagination
+                          rows={notes.outputNotes}
+                          rowCount={notes.totalNotes}
+                          paginationModel={paginationModel}
+                          pageSizeOptions={[5]}
+                          columns={columns}
+                          sx={{
+                          "& .MuiDataGrid-cell": {
+                              py: 1,
+                          },
+                          }}
+                          slots={{
+                              toolbar: CustomToolbar
+                          }}
+                          onPaginationModelChange={(newPaginationModel: any) => onPageModelChange(newPaginationModel) }
+                          paginationMode="server"
                       />
-                    </Stack>
-                  </form>
-                  <Stack direction="row" spacing={1}>
-              <Button
-                variant="contained"
-                size="small"
-                type="submit"
-                startIcon={<Save />}
-              >
-                Guardar
-              </Button>
-              <Button variant="text" size="small" startIcon={<Cancel />}>
-                <Link
-                  to={`/users/asdasd`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Cancelar
-                </Link>
-              </Button>
-            </Stack>
-                </Container>
-            }
-        </>
+                    </Fragment>
+                    : 
+                      <Typography variant="h6">No hay notas creadas</Typography>
+                  }  
+                </div>
+                <Box sx={{padding:'20px 20px 20px 0px'}}>
+                  <Button variant="contained" type="submit" onClick={() => navigate(`/trackings/${props.trackingId}/newNote`)}>
+                    Crear nota
+                  </Button>
+                </Box>
+              </>
+        }
+      </> 
     )
 }

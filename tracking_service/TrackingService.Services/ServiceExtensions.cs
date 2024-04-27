@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NATS.Client.Core;
 using NATS.Client.Hosting;
 using TrackingService.Repositories.Notes;
+using TrackingService.Services.Notes;
 using TrackingService.Services.Tender;
 using TrackingService.Services.Tracking;
 
@@ -15,6 +16,8 @@ public static class ServiceExtensions
     {
         var natsUrl = Environment.GetEnvironmentVariable("NATS_URL") ?? configuration.GetConnectionString("DefaultUrl");
 
+        Console.WriteLine($"NATS connected to {natsUrl}");
+
         NatsOpts opts = new()
         {
             Url = natsUrl
@@ -26,6 +29,7 @@ public static class ServiceExtensions
         });
 
         services.AddScoped<ITrackingService, Tracking.TrackingService>();
+        services.AddScoped<INotesService, NotesService>();
         services.AddScoped<IHostedTenderService, HostedTenderService>();
         services.AddHostedService<ConsumeHostedTenderService>();
         services.AddScoped<INotesRepository, NotesRepository>();
