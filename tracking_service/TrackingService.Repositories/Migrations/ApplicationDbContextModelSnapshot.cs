@@ -71,9 +71,15 @@ namespace TrackingService.Repositories.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("QuoteFile")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("TenderId")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("TenderStatusId")
+                        .HasColumnType("int");
 
                     b.Property<int>("TrackingStatusId")
                         .HasColumnType("int");

@@ -166,7 +166,13 @@ namespace NotificationService.Services.Notification
 
             try
             {
-                response.Data = await _notificationRepository.SaveNotifications(notifications);
+                foreach (var notification in notifications)
+                {
+                    notification.Readed = true;
+                    notification.CreatedDate = DateTime.UtcNow;
+                }
+
+                response.Data = await _notificationRepository.UpdateNotifications(notifications);
 
                 if (response.Data is not null && response.Data.Any())
                 {

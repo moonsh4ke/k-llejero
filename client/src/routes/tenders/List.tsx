@@ -97,7 +97,7 @@ export default function List() {
           </Link>
         </MuiLink>,
         <GridActionsCellItem
-          onClick={() => { createTracking(params.row.code) }}
+          onClick={() => { createTracking(params.row.code, params.row.stateCode) }}
           icon={<Bookmark color="secondary" />}
           label="Seguir"
         />,
@@ -125,12 +125,13 @@ export default function List() {
     message: "",
   });
 
-  const createTracking = async (tenderId: string) => {
+  const createTracking = async (tenderId: string, tenderState: number) => {
     try {
       const endpoint = `/api/tracking/api/trackings/${tenderId}`;
       const resp = await axiosClient.post(endpoint, null, {
         headers: {
-          'userId': currentUser?.email
+          'userId': currentUser?.email,
+          'tenderState': `${tenderState}`
         }
       });
 

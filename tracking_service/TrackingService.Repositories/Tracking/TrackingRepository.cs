@@ -20,7 +20,19 @@ public class TrackingRepository : ITrackingRepository
         return tracking;
     }
 
-    public async Task<TrackingWithNotesDto> GetTrackingById(string trackingId)
+    public async Task<Domain.Entities.Tracking> DeleteTracking(Domain.Entities.Tracking tracking)
+    {
+        _dbContext.Trackings.Remove(tracking);
+        await _dbContext.SaveChangesAsync();
+        return tracking;
+    }
+
+    public async Task<Domain.Entities.Tracking> GetTracking(string id)
+    {
+        return await _dbContext.Trackings.Where(t => t.Id == id).FirstOrDefaultAsync();
+    }
+
+    public async Task<TrackingDto> GetTrackingById(string trackingId)
     {
 
         var trackingStatusOptions = TrackingStatusOptions.Options;
@@ -28,13 +40,13 @@ public class TrackingRepository : ITrackingRepository
 
         var query = (from tracking in _dbContext.Trackings
                      where tracking.Id == trackingId
-                     select new TrackingWithNotesDto
+                     select new TrackingDto
                      {
                          Id = trackingId,
                          TenderId = tracking.TenderId,
                          TenderStatus = tenderStatusOptions.GetValueOrDefault(tracking.TenderStatusId) ?? "",
                          TrackingStatus = trackingStatusOptions.GetValueOrDefault(tracking.TrackingStatusId) ?? "",
-                         Notes = _dbContext.Notes.Where(note => note.TrackingId == trackingId).ToList(),
+                         Base64File = tracking.QuoteFile ?? "",
                          CreatedDate = tracking.CreatedDate,
                          UpdatedDate = tracking.UpdatedDate,
                      });
@@ -44,7 +56,10 @@ public class TrackingRepository : ITrackingRepository
 
     public async Task<ICollection<Domain.Entities.Tracking>> GetTrackingsByTenders(string[] tendersIds)
     {
-        var query = await _dbContext.Trackings.Where(tracking => tendersIds.Contains(tracking.Id)).ToListAsync();
+        var query = await _dbContext.Trackings
+            .Where(tracking => tendersIds.Contains(tracking.TenderId) 
+                   && tracking.TrackingStatusId != (int)Domain.Enums.TrackingStatusOptions.Deleted)
+            .ToListAsync();
         /*
         var query = await (from tracking in _dbContext.Trackings
                            join tenderStatus in _dbContext.TenderStatus join tracking.TenderStatusId equals tenderStatus.Id
@@ -82,7 +97,7 @@ public class TrackingRepository : ITrackingRepository
 
     public async Task<Domain.Entities.Tracking> UpdateTracking(Domain.Entities.Tracking tracking)
     {
-        await _dbContext.AddAsync(tracking);
+        _dbContext.Update(tracking);
         await _dbContext.SaveChangesAsync();
 
         return tracking;

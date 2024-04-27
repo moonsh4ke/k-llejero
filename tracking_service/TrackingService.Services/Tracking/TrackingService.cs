@@ -2,6 +2,7 @@
 using TrackingService.Domain.Dictionaries;
 using TrackingService.Domain.DTOs;
 using TrackingService.Domain.DTOs.Tracking;
+using TrackingService.Domain.Entities;
 using TrackingService.Repositories.Tracking;
 using TrackingService.Repositories.Utils;
 
@@ -16,14 +17,14 @@ public class TrackingService : ITrackingService
         _trackingRepository = trackingRepository;
     }
 
-    public async Task<ResponseDto<List<TrackingWithNotesDto>>> GetTrackingById(string id)
+    public async Task<ResponseDto<List<TrackingDto>>> GetTrackingById(string id)
     {
-        ResponseDto<List<TrackingWithNotesDto>> response = new()
+        ResponseDto<List<TrackingDto>> response = new()
         {
             IsSuccessful = true,
             StatusCode = 200,
             Message = "Seguimiento obtenido exitosamente",
-            Data = new List<TrackingWithNotesDto>()
+            Data = new List<TrackingDto>()
         };
         
         try
@@ -38,7 +39,7 @@ public class TrackingService : ITrackingService
                 return response;
             }
 
-            response.Data = new List<TrackingWithNotesDto>()
+            response.Data = new List<TrackingDto>()
             {
                 tracking
             };
@@ -165,7 +166,7 @@ public class TrackingService : ITrackingService
                 return;
             }
 
-            var tenderIds = tenders.Select(data => data.id).ToArray();
+            var tenderIds = tenders.Select(data => data.code).ToArray();
 
             if (tenderIds is null || !tenderIds.Any())
             {
@@ -181,7 +182,8 @@ public class TrackingService : ITrackingService
 
             foreach (var tracking in trackings.Data)
             {
-                await CreateTracking(tracking.TenderId, tracking.UserId);
+                int newTenderStatus = tenders.Where(tender => tender.code == tracking.TenderId)?.FirstOrDefault()?.updatedState ?? 0;
+                await CreateTracking(tracking.TenderId, tracking.UserId, newTenderStatus.ToString());
             }
 
             var payload = new List<NotificationDto>();
@@ -194,7 +196,7 @@ public class TrackingService : ITrackingService
         }
     }
 
-    public async Task<ResponseDto<List<Domain.Entities.Tracking>>> CreateTracking(string tenderId, string userId)
+    public async Task<ResponseDto<List<Domain.Entities.Tracking>>> CreateTracking(string tenderId, string userId, string tenderState)
     {
         ResponseDto<List<Domain.Entities.Tracking>> response = new()
         {
@@ -223,7 +225,8 @@ public class TrackingService : ITrackingService
                 Id = Guid.NewGuid().ToString(),
                 TenderId = tenderId,
                 UserId = userId,
-                TrackingStatusId = (int)Domain.Enums.TrackingStatusOptions.Created
+                TrackingStatusId = (int)Domain.Enums.TrackingStatusOptions.Created,
+                TenderStatusId = int.Parse(tenderState)
             };
         
             await _trackingRepository.CreateTracking(tracking: newTracking);
@@ -291,10 +294,85 @@ public class TrackingService : ITrackingService
         catch (Exception ex)
         {
             // TODO: Add logs
-            Console.WriteLine(ex.ToString());
+            Console.WriteLine($"Error UpdateTracking => {ex.Message}");
 
             response.StatusCode = 500;
             response.Message = $"Error al actualizar el seguimiento";
+            response.IsSuccessful = false;
+
+            return response;
+        }
+    }
+
+    public async Task<ResponseDto<TrackingDto>> UpdateTrackingByDto(TrackingDto trackingDto)
+    {
+        ResponseDto<TrackingDto> response = new()
+        {
+            IsSuccessful = true,
+            StatusCode = 200,
+            Message = "Seguimiento actualizado exitosamente",
+            Data = new TrackingDto()
+        };
+
+        try
+        {
+            // TODO: validate tenderId
+
+            var currentTracking = await _trackingRepository.GetTracking(trackingDto.Id);
+            int status = trackingDto.TenderStatus == "Creada" ? 1 : 2;
+
+            currentTracking.TrackingStatusId = status;
+            currentTracking.QuoteFile = trackingDto.Base64File;
+            currentTracking.UpdatedDate = DateTime.UtcNow;
+            trackingDto.UpdatedDate = currentTracking.UpdatedDate;
+
+            var trackingResult = await _trackingRepository.UpdateTracking(currentTracking);
+
+            response.Data = trackingDto;
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            // TODO: Add logs
+            Console.WriteLine($"Error UpdateTrackingByDto => {ex.Message}");
+
+            response.StatusCode = 500;
+            response.Message = $"Error al actualizar el seguimiento";
+            response.IsSuccessful = false;
+
+            return response;
+        }
+    }
+
+    public async Task<ResponseDto<Domain.Entities.Tracking>> DeleteTracking(string trackingId)
+    {
+        ResponseDto<Domain.Entities.Tracking> response = new()
+        {
+            IsSuccessful = true,
+            StatusCode = 200,
+            Message = "Seguimiento borrado exitosamente",
+            Data = new Domain.Entities.Tracking()
+        };
+
+        try
+        {
+            // TODO: validate tenderId
+
+            var currentTracking = await _trackingRepository.GetTracking(trackingId);
+            var trackingResult = await _trackingRepository.DeleteTracking(currentTracking);
+
+            response.Data = trackingResult;
+
+            return response;
+        }
+        catch (Exception ex)
+        {
+            // TODO: Add logs
+            Console.WriteLine($"Error DeleteTracking => {ex.Message}");
+
+            response.StatusCode = 500;
+            response.Message = $"Error al borrar el seguimiento";
             response.IsSuccessful = false;
 
             return response;

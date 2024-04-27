@@ -7,13 +7,14 @@ import {
     GridToolbarContainer,
     GridToolbarExport
 } from "@mui/x-data-grid";
-import { Tracking } from "./types/tracking.type";
-import { Clear, Visibility } from "@mui/icons-material";
+import { Tracking, TrackingData } from "./types/tracking.type";
+import { Clear, RestartAlt, Visibility } from "@mui/icons-material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import axiosClient from "../../utils/axiosClient";
 import { useNavigate } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Alert, Snackbar } from '@mui/material';
+import { SnackbarData } from "../../utils/types/types";
 
 function CustomToolbar() {
     return(
@@ -35,6 +36,11 @@ export default function List() {
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
         pageSize: 5
+    });
+    const [snackbarData, setSnackbarData] = useState<SnackbarData>({
+        show: false,
+        severity: "",
+        message: "",
     });
 
     const onPageModelChange = (newPaginationModel: any) => {
@@ -72,13 +78,41 @@ export default function List() {
                 label="Visualizar"
               />,
               <GridActionsCellItem
-                // onClick={}
+                onClick={async () => { await deleteTracking(params.row.id) }}
                 icon={<Clear color="primary" />}
                 label="Cerrar licitación"
               />
             ],
           },
     ];
+
+    const deleteTracking = async (id: string) => {
+        try {
+            setIsLoading(true);
+            const endpoint = `/api/tracking/api/trackings/${id}`;
+            const resp = await axiosClient.delete(endpoint);
+    
+            if (resp.status === 200) {
+                await fetchTrackings();
+                setSnackbarData({
+                    show: true,
+                    severity: "success",
+                    message: "Seguimiento borrado correctamente",
+                });
+            }
+    
+          } catch (error) {
+              console.error(`Error onDeleteNote => ${error}`)
+              setSnackbarData({
+                show: true,
+                severity: "error",
+                message: "Ha ocurrido un error inesperado",
+              });
+              //setExistsError(true);
+          } finally {
+            setIsLoading(false);
+          }
+    }
 
     const fetchTrackings = async () => {
         setIsLoading(true);
@@ -96,7 +130,14 @@ export default function List() {
 
             if (res.status === 200) {
                 console.log(res.data.data);
-                setTrackings(res.data.data);
+                const newOutputTrackings = res.data.data.outputTrackings?.map((tracking: TrackingData) => {
+                    if (tracking.tenderStatus === null || tracking.tenderStatus.length === 0) {
+                        return {...tracking, tenderStatus: 'Publicada'};
+                    }
+                    return tracking;
+                });
+                const trackingData = { ...res.data.data, outputTrackings: newOutputTrackings };
+                setTrackings(trackingData);
             }
 
         } catch (error) {
@@ -106,18 +147,38 @@ export default function List() {
         }
         setIsLoading(false);
         setInitLoading(false);
-      };
+    };
 
     useEffect(() => {
         fetchTrackings();
     }, [paginationModel]);
 
-    // https://mui.com/x/react-data-grid/pagination/
-    // Server-side pagination
+    const handleSnackbarClose = () => {
+        setSnackbarData({
+          ...snackbarData,
+          show: !snackbarData.show,
+        });
+    };
 
     return (
         <>  
-            <h2>Seguimientos activos</h2>
+            <h2>Seguimientos</h2>
+            <>
+                <Snackbar
+                    open={snackbarData.show}
+                    autoHideDuration={3000}
+                    onClose={handleSnackbarClose}
+                >
+                    <Alert
+                        onClose={handleSnackbarClose}
+                        severity={snackbarData.severity}
+                        variant="filled"
+                        sx={{ width: "100%" }}
+                    >
+                        {snackbarData.message}
+                    </Alert>
+                </Snackbar>
+            </>
             {initLoading ?
                 <CircularProgress />
                 :

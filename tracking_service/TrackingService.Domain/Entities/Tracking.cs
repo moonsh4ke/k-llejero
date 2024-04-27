@@ -7,6 +7,7 @@
         public string UserId { get; set; }
         public int TenderStatusId { get; set; }
         public int TrackingStatusId { get; set; }
+        public string? QuoteFile { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime? UpdatedDate { get; set; }
     }

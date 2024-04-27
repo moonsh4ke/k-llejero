@@ -9,7 +9,7 @@ import {
   PopperPlacementType,
   Typography,
 } from "@mui/material";
-import { ReactNode, useContext, useEffect, useState } from "react";
+import { Fragment, ReactNode, useContext, useEffect, useState } from "react";
 import { grey, yellow, green, red, blue, blueGrey, lime } from "@mui/material/colors";
 import { tenderStates } from "../../utils/tenderStates";
 import axiosClient from "../../utils/axiosClient";
@@ -54,16 +54,13 @@ export default function TenderNotificationIcon() {
       (message) => {
         setBadgeData({
           ...badgeData,
-          badgeContent: (badgeData.badgeContent += 1),
+          badgeContent: badgeData.badgeContent += 1,
         });
         
-        console.log(`HUB: ${JSON.stringify(message)}`);
-
-        if (notifications.length > 0) {
-          setNotifications([message, ...notifications.slice(0, notifications.length - 1)]);
-        } else {
-          setNotifications([message]);
-        }
+        console.log(`Received notification: ${JSON.stringify(message)}`);
+      
+        const notificationsArray = notifications.length === 5 ? [message, ...notifications.slice(0, 4)] : [message, ...notifications];
+        setNotifications(notificationsArray);
       },
       []
     );
@@ -85,9 +82,27 @@ export default function TenderNotificationIcon() {
       setOpen((prev) => placement !== newPlacement || !prev);
       setPlacement(newPlacement);
     };
+  
+  const handleReadedClick = async () => {
+    const notReadedNotifications = notifications.filter(notification => !notification.readed);
 
-  const handleReadedClick = () => {
-    console.log('marcar como leidas');
+    if (!notReadedNotifications.length) {
+      return;
+    }
+
+    try {
+      const endpoint = '/api/notification/api/notification';
+      const config = { headers: {'Content-Type': 'application/json'} };
+
+      const res = await axiosClient.put(endpoint, notReadedNotifications, config);
+
+      if (res.status === 200) {
+        console.log(`Updated notifications: ${res.data.data}`);
+        setNotifications(res.data.data);
+      }
+    } catch (error) {
+      console.error('Failed to update notifications data:', error);
+    }
   }
 
   const StateIcon = ({state}: any) => {
@@ -184,7 +199,7 @@ export default function TenderNotificationIcon() {
                 },
               }}>
                 {notifications.map((not, i) => (
-                <>
+                <Fragment key={not.id}>
                   <ListItem onClick={() => navigate(`/trackings/${not.tenderId}`)}>
                     <ListItemButton>
                       <ListItemIcon>
@@ -205,11 +220,11 @@ export default function TenderNotificationIcon() {
                   {i !== notifications.length - 1 &&
                     <Divider variant="inset" component="li"/>
                   }
-                </>
+                </Fragment>
                 ))}
               </List>
-              <Button variant="text">Ver todas las notificaciones</Button>
-            {/* </Stack> */}
+              {/*<Button variant="text">Ver todas las notificaciones</Button>
+             </Stack> */}
           </Paper>
         </Fade>
       )}
@@ -231,6 +246,11 @@ export default function TenderNotificationIcon() {
 
         if (res.status === 200) {
           console.log(`DATA => ${JSON.stringify(res.data)}`)
+          const notReadedNotifications = res.data.data.filter(notification => !notification.readed).length;
+          setBadgeData({
+            ...badgeData,
+            badgeContent: notReadedNotifications
+          });
           setNotifications(res.data.data);
         }
         

@@ -15,17 +15,17 @@ spec:
       containers:
         - name: tender-mongodb
           image: mongo
-          lifecycle:
-            postStart:
-              exec:
-                command: ["/bin/bash", "-c", "mongoimport --db=tender --collection=tenders --file=/mnt/tender_db.tender.json --jsonArray"]
-          volumeMounts:
-            - name: config-volume
-              mountPath: /mnt
-      volumes:
-        - name: config-volume
-          configMap:
-            name: tenderdb-init-data
+      #     lifecycle:
+      #       postStart:
+      #         exec:
+      #           command: ["/bin/bash", "-c", "mongoimport --db=tender --collection=tenders --file=/mnt/tender_db.tender.json --jsonArray"]
+      #     volumeMounts:
+      #       - name: config-volume
+      #         mountPath: /mnt
+      # volumes:
+      #   - name: config-volume
+      #     configMap:
+      #       name: tenderdb-init-data
 ---
 apiVersion: v1
 kind: Service

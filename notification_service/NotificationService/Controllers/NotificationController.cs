@@ -16,7 +16,7 @@ namespace NotificationService.Controllers
         }
 
         [HttpPut]
-        public async Task<ResponseDto<Domain.Entities.Notification>> Put(List<Domain.Entities.Notification> notifications)
+        public async Task<ResponseDto<Domain.Entities.Notification>> Put([FromBody] List<Domain.Entities.Notification> notifications)
         {
             return await notificationService.UpdateNotifications(notifications);
         }

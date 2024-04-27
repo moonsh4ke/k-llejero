@@ -15,3 +15,8 @@ export interface TrackingWithNotes {
     createdDate: Date;
     updatedDate: Date;
 }
+
+export interface Notes {
+    totalNotes: number;
+    outputNotes: Array<Note>;
+}
