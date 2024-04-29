@@ -84,16 +84,16 @@ export default function Header({ openSidebar, handleDrawerOpen }: HeaderProps) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <Button color="inherit">
-                <Link
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  to="licitaciones"
-                >
-                  Licitaciones
-                </Link>
-              </Button>
-            </Typography>
+            {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}> */}
+            {/*   <Button color="inherit"> */}
+            {/*     <Link */}
+            {/*       style={{ textDecoration: "none", color: "inherit" }} */}
+            {/*       to="licitaciones" */}
+            {/*     > */}
+            {/*       Licitaciones */}
+            {/*     </Link> */}
+            {/*   </Button> */}
+            {/* </Typography> */}
           </Stack>
             <Link
               style={{textDecoration: "none", color: "inherit" }}
