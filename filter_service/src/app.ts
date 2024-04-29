@@ -69,7 +69,7 @@ app.get(
             matchs.push({
               filter: filter.name,
               keyword: keyword.value,
-              on: "description",
+              on: "descripción",
             });
           }
           if (tender.name.match(kReg)) {
@@ -77,7 +77,7 @@ app.get(
             matchs.push({
               filter: filter.name,
               keyword: keyword.value,
-              on: "name",
+              on: "nombre",
             });
           }
           if (tender.categories) {
@@ -87,7 +87,7 @@ app.get(
                 matchs.push({
                   filter: filter.name,
                   keyword: keyword.value,
-                  on: "category",
+                  on: "categoria",
                 });
               }
             }
@@ -99,7 +99,7 @@ app.get(
                 matchs.push({
                   filter: filter.name,
                   keyword: keyword.value,
-                  on: "item serviceDescription",
+                  on: "datos de item",
                 });
               }
               if (item.generic.match(kReg)) {
@@ -107,7 +107,7 @@ app.get(
                 matchs.push({
                   filter: filter.name,
                   keyword: keyword.value,
-                  on: "item generic",
+                  on: "datos de item",
                 });
               }
             }
