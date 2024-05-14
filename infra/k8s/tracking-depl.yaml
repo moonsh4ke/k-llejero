@@ -21,7 +21,7 @@ spec:
             - name: ASPNETCORE_URLS
               value: "http://*:6969"
             - name: DB_CONNECTION_STRING
-              value: "server=kllejero.cwy4hbuwhvsr.us-east-1.rds.amazonaws.com;port=3306;database=tracking-db;user=admin;password=MU53F3fUAq"
+              value: "server=172.233.24.11;port=3306;database=trackingdb;user=admin;password=ODeoP4GGV4ee2Y9"
             - name: NATS_URL
               value: "nats://nats:4222"
             - name: JWT_KEY
