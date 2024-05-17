@@ -54,7 +54,9 @@ app.post(
     const newUser = new User({...payloadUser, email: payloadUser.email.toLowerCase()});
     await newUser.save();
     let rut = payloadUser.rut;
-    const password = payloadUser.name + rut.slice(rut.length - 4, rut.length);
+    let rawRut = rut.slice(0, rut.length - 2);
+
+    const password = payloadUser.name + rawRut.slice(rawRut.length - 4, rawRut.length);
 
     const authRes = await axios.post("http://auth-srv:3000/signup", {
       email: newUser.email,
